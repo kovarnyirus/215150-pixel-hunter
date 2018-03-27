@@ -1,7 +1,7 @@
 # Личный проект «Пиксель хантер» [![Build status][travis-image]][travis-url]
 
 * Студент: [Андрей Евстафьев](https://up.htmlacademy.ru/ecmascript/4/user/215150).
-* Наставник: `Неизвестно`.
+* Наставник: Андрей Карякин.
 
 ---
 
