@@ -1,46 +1,36 @@
-// const initialTemplate = document.querySelector(`.central`).innerHTML;
+const initialTemplate = document.querySelector(`.central`);
 const SCREEN_TEMPLATES = [
-  document.querySelector(`.central`),
-  document.querySelector(`#greeting`).innerHTML,
-  document.querySelector(`#rules`).innerHTML,
-  document.querySelector(`#game-1`).innerHTML,
-  document.querySelector(`#game-2`).innerHTML,
-  document.querySelector(`#game-3`).innerHTML,
-  document.querySelector(`#stats`).innerHTML
+  document.querySelector(`#greeting`),
+  document.querySelector(`#rules`),
+  document.querySelector(`#game-1`),
+  document.querySelector(`#game-2`),
+  document.querySelector(`#game-3`),
+  document.querySelector(`#stats`)
 ];
 const AltKeyCode = 18;
 const ArrowLeftKeyCode = 37;
 const ArrowRightKeyCode = 39;
-let numberTemplate = 0;
 let codes = null;
+let numberTemplate = 0;
 
-function showTemplate(numberTemplate) {
-  let initialTemplate = SCREEN_TEMPLATES [0].cloneNode(true);
-  while (initialTemplate.firstChild) {
-    initialTemplate.removeChild(initialTemplate.firstChild);
-  }
-  initialTemplate.appendChild(SCREEN_TEMPLATES[numberTemplate]);
-}
+const showTemplate = (numberTemplate) => {
+  initialTemplate.innerHTML = ``;
+  initialTemplate.appendChild(SCREEN_TEMPLATES[numberTemplate].content.cloneNode(true));
+};
 
 function onTemplateControl(event) {
-  let pressed = {};
-
   if (codes === AltKeyCode && event.keyCode === ArrowRightKeyCode) {
-    ++numberTemplate;
-    if (numberTemplate  >= 6) {
-      numberTemplate = 6;
+    if (numberTemplate <= 6) {
+      ++numberTemplate;
     }
     showTemplate(numberTemplate);
   } else if (codes === AltKeyCode && event.keyCode === ArrowLeftKeyCode) {
-    --numberTemplate;
-    if (numberTemplate < 0) {
-      numberTemplate = 0;
+    if (numberTemplate > 0) {
+      --numberTemplate;
     }
     showTemplate(numberTemplate);
   }
   codes = event.keyCode;
-  console.log(numberTemplate);
 }
-
 
 document.addEventListener(`keydown`, onTemplateControl);
