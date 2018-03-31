@@ -35,7 +35,7 @@ const renderTemplate = (number) => {
   CONTENT_CONTAINER.appendChild(TEMPLATE);
 };
 
-const onTemplateControl = (evt) => {
+const onTemplateKeyDown = (evt) => {
   if (evt.altKey && evt.keyCode === ARROW_RIGHT_KEYCODE && templateNumber < MAX_LENGTH_TEMPLATES) {
     ++templateNumber;
     renderTemplate(templateNumber);
@@ -45,4 +45,4 @@ const onTemplateControl = (evt) => {
   }
 };
 
-document.addEventListener(`keydown`, onTemplateControl);
+document.addEventListener(`keydown`, onTemplateKeyDown);
