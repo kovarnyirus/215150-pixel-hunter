@@ -10,16 +10,26 @@ const ORDER_TEMPLATES = {
 };
 const ARROW_LEFT_KEYCODE = 37;
 const ARROW_RIGHT_KEYCODE = 39;
+const SORT_ARR_TEMPLATE = sortTemplate(SCREEN_TEMPLATES, ORDER_TEMPLATES);
 let numberTemplate = 0;
 
-function sortTemplate(template1, template2) {
-console.log(template1)
-};
 
+function sortTemplate(sorrtArray, idArray) {
+  let arrays = [...sorrtArray];
+  let afterSort = [];
+  arrays.forEach(function (value) {
+    for (key in idArray) {
+      if (key === value.id) {
+        afterSort[idArray[key]] = value;
+      }
+    }
+  });
+  return afterSort;
+}
 
-const showTemplate = (numberTemplate) => {
+const showTemplate = (number) => {
   INITIAL_TEMPLATE.innerHTML = ``;
-  INITIAL_TEMPLATE.appendChild(SCREEN_TEMPLATES[numberTemplate].content.cloneNode(true));
+  INITIAL_TEMPLATE.appendChild(SORT_ARR_TEMPLATE[number].content.cloneNode(true));
 };
 
 function onTemplateControl(event) {
@@ -29,7 +39,7 @@ function onTemplateControl(event) {
     }
     showTemplate(numberTemplate);
   } else if (event.altKey && event.keyCode === ARROW_LEFT_KEYCODE) {
-    if (numberTemplate > 0) {
+    if (numberTemplate > 1) {
       --numberTemplate;
     }
     showTemplate(numberTemplate);
@@ -37,4 +47,3 @@ function onTemplateControl(event) {
 }
 
 document.addEventListener(`keydown`, onTemplateControl);
-console.log(SCREEN_TEMPLATES);
