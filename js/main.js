@@ -27,7 +27,7 @@ const sortTemplate = (templates, indexes) => {
 
 const TEMPLATES = sortTemplate(document.querySelectorAll(`template`), TEMPLATES_ORDERS);
 
-const showTemplate = (number) => {
+const renderTemplate = (number) => {
   CONTENT_CONTAINER.innerHTML = ``;
   const TEMPLATE = TEMPLATES[number].content.cloneNode(true);
   CONTENT_CONTAINER.appendChild(TEMPLATE);
@@ -37,13 +37,14 @@ const onTemplateControl = (evt) => {
   if (evt.altKey && evt.keyCode === ARROW_RIGHT_KEYCODE) {
     if (templateNumber < 5) {
       ++templateNumber;
+      renderTemplate(templateNumber);
     }
-    showTemplate(templateNumber);
+    renderTemplate(templateNumber);
   } else if (evt.altKey && evt.keyCode === ARROW_LEFT_KEYCODE) {
     if (templateNumber > 1) {
       --templateNumber;
+      renderTemplate(templateNumber);
     }
-    showTemplate(templateNumber);
   }
 };
 
