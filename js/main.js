@@ -1,6 +1,6 @@
 const INITIAL_TEMPLATE = document.querySelector(`.central`);
 const SCREEN_TEMPLATES = document.querySelectorAll(`template`);
-const TEMPLATES_ORDER = {
+const TEMPLATES_ORDERS = {
   'greeting': 1,
   'rules': 2,
   'game-1': 3,
@@ -25,7 +25,7 @@ const sortTemplate = (sortArray, idArray) => {
   return afterSort;
 };
 
-const SORT_ARR_TEMPLATE = sortTemplate(SCREEN_TEMPLATES, TEMPLATES_ORDER);
+const SORT_ARR_TEMPLATE = sortTemplate(SCREEN_TEMPLATES, TEMPLATES_ORDERS);
 
 const showTemplate = (number) => {
   INITIAL_TEMPLATE.innerHTML = ``;
