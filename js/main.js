@@ -12,12 +12,11 @@ const ARROW_LEFT_KEYCODE = 37;
 const ARROW_RIGHT_KEYCODE = 39;
 let templateNumber = 0;
 
-const sortTemplate = (sortArray, idArray) => {
+const sortTemplate = (templates, indexes) => {
   let afterSort = [];
-  let arrays = Array.from(sortArray);
-  arrays.forEach(function (value) {
-    if (idArray[value.id]) {
-      afterSort[idArray[value.id]] = value;
+  Array.from(templates).forEach(function (value) {
+    if (indexes[value.id]) {
+      afterSort[indexes[value.id]] = value;
     } else {
       throw new Error(`порядковый номер такого шаблона ` + value.id + ` не найден`);
     }
@@ -29,7 +28,8 @@ const SORT_ARR_TEMPLATE = sortTemplate(SCREEN_TEMPLATES, TEMPLATES_ORDERS);
 
 const showTemplate = (number) => {
   INITIAL_TEMPLATE.innerHTML = ``;
-  INITIAL_TEMPLATE.appendChild(SORT_ARR_TEMPLATE[number].content.cloneNode(true));
+  const TEMPLATE = SORT_ARR_TEMPLATE[number].content.cloneNode(true);
+  INITIAL_TEMPLATE.appendChild(TEMPLATE);
 };
 
 const onTemplateControl = (evt) => {
