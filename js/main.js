@@ -24,11 +24,11 @@ const sortTemplate = (templates, indexes) => {
   return afterSort;
 };
 
-const SORT_ARR_TEMPLATE = sortTemplate(SCREEN_TEMPLATES, TEMPLATES_ORDERS);
+const TEMPLATES = sortTemplate(SCREEN_TEMPLATES, TEMPLATES_ORDERS);
 
 const showTemplate = (number) => {
   INITIAL_TEMPLATE.innerHTML = ``;
-  const TEMPLATE = SORT_ARR_TEMPLATE[number].content.cloneNode(true);
+  const TEMPLATE = TEMPLATES[number].content.cloneNode(true);
   INITIAL_TEMPLATE.appendChild(TEMPLATE);
 };
 
