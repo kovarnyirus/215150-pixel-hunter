@@ -9,18 +9,20 @@ const TEMPLATES_ORDERS = {
 };
 const ARROW_LEFT_KEYCODE = 37;
 const ARROW_RIGHT_KEYCODE = 39;
+const MAX_LENGTH_TEMPLATES = 5;
+const MIN_LENGTH_TEMPLATES = 0;
 let templateNumber = 0;
 
 const sortTemplate = (templates, indexes) => {
   let afterSort = [];
   Array.from(templates).forEach(function (value) {
     if (!indexes[value.id]) {
-      if(!value.id){
+      if (!value.id) {
         throw new Error(`не задан id у шаблона ` + value);
       }
       throw new Error(`порядковый номер шаблона ` + value.id + ` не найден`);
     }
-    afterSort[indexes[value.id]] = value;
+    afterSort[indexes[value.id] - 1] = value;
   });
   return afterSort;
 };
@@ -34,16 +36,12 @@ const renderTemplate = (number) => {
 };
 
 const onTemplateControl = (evt) => {
-  if (evt.altKey && evt.keyCode === ARROW_RIGHT_KEYCODE) {
-    if (templateNumber < 5) {
-      ++templateNumber;
-      renderTemplate(templateNumber);
-    }
-  } else if (evt.altKey && evt.keyCode === ARROW_LEFT_KEYCODE) {
-    if (templateNumber > 1) {
-      --templateNumber;
-      renderTemplate(templateNumber);
-    }
+  if (evt.altKey && evt.keyCode === ARROW_RIGHT_KEYCODE && templateNumber < MAX_LENGTH_TEMPLATES) {
+    ++templateNumber;
+    renderTemplate(templateNumber);
+  } else if (evt.altKey && evt.keyCode === ARROW_LEFT_KEYCODE && templateNumber > MIN_LENGTH_TEMPLATES) {
+    --templateNumber;
+    renderTemplate(templateNumber);
   }
 };
 
