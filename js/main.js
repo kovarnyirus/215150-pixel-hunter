@@ -39,7 +39,6 @@ const onTemplateControl = (evt) => {
       ++templateNumber;
       renderTemplate(templateNumber);
     }
-    renderTemplate(templateNumber);
   } else if (evt.altKey && evt.keyCode === ARROW_LEFT_KEYCODE) {
     if (templateNumber > 1) {
       --templateNumber;
