@@ -9,9 +9,9 @@ const TEMPLATES_ORDERS = {
 };
 const ARROW_LEFT_KEYCODE = 37;
 const ARROW_RIGHT_KEYCODE = 39;
-const TEMPLATES_MAX_LENGTH = 5;
-const TEMPLATES_MIN_LENGTH = 0;
+const TEMPLATES_MIN_INDEX = 0;
 let templateNumber = 0;
+const TEMPLATES_MAX_INDEX = Object.keys(TEMPLATES_ORDERS).length - 1;
 
 const sortTemplate = (templates, indexes) => {
   let afterSort = [];
@@ -35,10 +35,10 @@ const renderTemplate = (number) => {
 };
 
 const onTemplateKeyDown = (evt) => {
-  if (evt.altKey && evt.keyCode === ARROW_RIGHT_KEYCODE && templateNumber < TEMPLATES_MAX_LENGTH) {
+  if (evt.altKey && evt.keyCode === ARROW_RIGHT_KEYCODE && templateNumber < TEMPLATES_MAX_INDEX) {
     ++templateNumber;
     renderTemplate(templateNumber);
-  } else if (evt.altKey && evt.keyCode === ARROW_LEFT_KEYCODE && templateNumber > TEMPLATES_MIN_LENGTH) {
+  } else if (evt.altKey && evt.keyCode === ARROW_LEFT_KEYCODE && templateNumber > TEMPLATES_MIN_INDEX) {
     --templateNumber;
     renderTemplate(templateNumber);
   }
