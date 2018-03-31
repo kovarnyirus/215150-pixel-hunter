@@ -18,7 +18,7 @@ const sortTemplate = (templates, indexes) => {
   Array.from(templates).forEach(function (value) {
     if (!value.id) {
       throw new Error(`не задан id у шаблона ` + value);
-    } else if(!indexes[value.id]){
+    } else if (!indexes[value.id]) {
       throw new Error(`порядковый номер шаблона ` + value.id + ` не найден`);
     }
     afterSort[indexes[value.id] - 1] = value;
