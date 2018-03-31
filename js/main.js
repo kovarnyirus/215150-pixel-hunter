@@ -1,6 +1,6 @@
 const INITIAL_TEMPLATE = document.querySelector(`.central`);
 const SCREEN_TEMPLATES = document.querySelectorAll(`template`);
-const ORDER_TEMPLATES = {
+const TEMPLATES_ORDER = {
   'greeting': 1,
   'rules': 2,
   'game-1': 3,
@@ -10,40 +10,40 @@ const ORDER_TEMPLATES = {
 };
 const ARROW_LEFT_KEYCODE = 37;
 const ARROW_RIGHT_KEYCODE = 39;
-const SORT_ARR_TEMPLATE = sortTemplate(SCREEN_TEMPLATES, ORDER_TEMPLATES);
-let numberTemplate = 0;
+let templateNumber = 0;
 
-
-function sortTemplate(sorrtArray, idArray) {
-  let arrays = [...sorrtArray];
+const sortTemplate = (sortArray, idArray) => {
   let afterSort = [];
+  let arrays = Array.from(sortArray);
   arrays.forEach(function (value) {
-    for (key in idArray) {
-      if (key === value.id) {
-        afterSort[idArray[key]] = value;
-      }
+    if (idArray[value.id]) {
+      afterSort[idArray[value.id]] = value;
+    } else {
+      throw new Error(`порядковый номер такого шаблона ` + value.id + ` не найден`);
     }
   });
   return afterSort;
-}
+};
+
+const SORT_ARR_TEMPLATE = sortTemplate(SCREEN_TEMPLATES, TEMPLATES_ORDER);
 
 const showTemplate = (number) => {
   INITIAL_TEMPLATE.innerHTML = ``;
   INITIAL_TEMPLATE.appendChild(SORT_ARR_TEMPLATE[number].content.cloneNode(true));
 };
 
-function onTemplateControl(event) {
-  if (event.altKey && event.keyCode === ARROW_RIGHT_KEYCODE) {
-    if (numberTemplate < 5) {
-      ++numberTemplate;
+const onTemplateControl = (evt) => {
+  if (evt.altKey && evt.keyCode === ARROW_RIGHT_KEYCODE) {
+    if (templateNumber < 5) {
+      ++templateNumber;
     }
-    showTemplate(numberTemplate);
-  } else if (event.altKey && event.keyCode === ARROW_LEFT_KEYCODE) {
-    if (numberTemplate > 1) {
-      --numberTemplate;
+    showTemplate(templateNumber);
+  } else if (evt.altKey && evt.keyCode === ARROW_LEFT_KEYCODE) {
+    if (templateNumber > 1) {
+      --templateNumber;
     }
-    showTemplate(numberTemplate);
+    showTemplate(templateNumber);
   }
-}
+};
 
 document.addEventListener(`keydown`, onTemplateControl);
