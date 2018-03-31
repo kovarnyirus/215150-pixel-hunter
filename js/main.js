@@ -1,5 +1,4 @@
-const INITIAL_TEMPLATE = document.querySelector(`.central`);
-const SCREEN_TEMPLATES = document.querySelectorAll(`template`);
+const CONTENT_CONTAINER = document.querySelector(`.central`);
 const TEMPLATES_ORDERS = {
   'greeting': 1,
   'rules': 2,
@@ -15,21 +14,23 @@ let templateNumber = 0;
 const sortTemplate = (templates, indexes) => {
   let afterSort = [];
   Array.from(templates).forEach(function (value) {
-    if (indexes[value.id]) {
-      afterSort[indexes[value.id]] = value;
-    } else {
-      throw new Error(`порядковый номер такого шаблона ` + value.id + ` не найден`);
+    if (!indexes[value.id]) {
+      if(!value.id){
+        throw new Error(`не задан id у шаблона ` + value);
+      }
+      throw new Error(`порядковый номер шаблона ` + value.id + ` не найден`);
     }
+    afterSort[indexes[value.id]] = value;
   });
   return afterSort;
 };
 
-const TEMPLATES = sortTemplate(SCREEN_TEMPLATES, TEMPLATES_ORDERS);
+const TEMPLATES = sortTemplate(document.querySelectorAll(`template`), TEMPLATES_ORDERS);
 
 const showTemplate = (number) => {
-  INITIAL_TEMPLATE.innerHTML = ``;
+  CONTENT_CONTAINER.innerHTML = ``;
   const TEMPLATE = TEMPLATES[number].content.cloneNode(true);
-  INITIAL_TEMPLATE.appendChild(TEMPLATE);
+  CONTENT_CONTAINER.appendChild(TEMPLATE);
 };
 
 const onTemplateControl = (evt) => {
