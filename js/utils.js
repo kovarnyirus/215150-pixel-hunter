@@ -1,6 +1,8 @@
 const CONTENT_CONTAINER = document.querySelector(`.central`);
 
-export const renderScreen = (element) => {
-  main.innerHTML = ``;
-  main.appendChild(element);
+const renderScreen = (element) => {
+  CONTENT_CONTAINER.innerHTML = ``;
+  CONTENT_CONTAINER.appendChild(element);
 };
+
+export default renderScreen;
