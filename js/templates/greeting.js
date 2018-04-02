@@ -1,3 +1,5 @@
+import createElement from '../createElement.js';
+
 const html = `<div class="greeting central--blur">
     <div class="greeting__logo"><img src="img/logo_big.png" width="201" height="89" alt="Pixel Hunter"></div>
     <h1 class="greeting__asterisk">*</h1>
@@ -21,3 +23,7 @@ const html = `<div class="greeting central--blur">
       <a href="https://vk.com/htmlacademy" class="social-link  social-link--vk">Вконтакте</a>
     </div>
   </footer>`;
+
+const greeting = createElement(html);
+
+export default greeting;

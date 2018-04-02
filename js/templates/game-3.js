@@ -1,3 +1,5 @@
+import createElement from '../createElement.js';
+
 const html = `  <header class="header">
     <div class="header__back">
       <button class="back">
@@ -50,3 +52,7 @@ const html = `  <header class="header">
       <a href="https://vk.com/htmlacademy" class="social-link  social-link--vk">Вконтакте</a>
     </div>
   </footer>`;
+
+const gameThree = createElement(html);
+
+export default gameThree;

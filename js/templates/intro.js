@@ -1,3 +1,5 @@
+import createElement from '../createElement.js';
+
 const html = `<div id="main" class="central__content">
     <div id="intro" class="intro">
       <h1 class="intro__asterisk">*</h1>
@@ -14,3 +16,7 @@ const html = `<div id="main" class="central__content">
       <a href="https://vk.com/htmlacademy" class="social-link  social-link--vk">Вконтакте</a>
     </div>
   </footer>`;
+
+const intro = createElement(html);
+
+export default intro;

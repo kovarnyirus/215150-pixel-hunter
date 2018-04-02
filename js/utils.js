@@ -1,11 +1,6 @@
-const createElement = (template) => {
-  const outer = document.createElement(`div`);
-  outer.innerHTML = template;
-  return outer;
+const CONTENT_CONTAINER = document.querySelector(`.central`);
+
+export const renderScreen = (element) => {
+  main.innerHTML = ``;
+  main.appendChild(element);
 };
-
-
-
-export const consoletest = '2221312322213123';
-
-export default createElement;

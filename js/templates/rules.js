@@ -1,4 +1,4 @@
-import createElement from `./utils`
+import createElement from '../createElement.js';
 
 const html = `  <header class="header">
     <div class="header__back">
@@ -36,6 +36,5 @@ const html = `  <header class="header">
   </footer>`;
 
 
-
-const moduleRules = tElementFromTemplate(`<div>Разметка исходного шаблона</div>`);
-export default moduleOneElement;
+const rules = createElement(html);
+export default rules;
