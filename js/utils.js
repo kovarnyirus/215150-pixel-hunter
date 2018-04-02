@@ -5,4 +5,7 @@ const createElement = (template) => {
 };
 
 
+
+export const consoletest = '2221312322213123';
+
 export default createElement;

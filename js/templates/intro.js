@@ -1,6 +1,3 @@
-// import createElement from '/js/utils';
-
-
 const html = `<div id="main" class="central__content">
     <div id="intro" class="intro">
       <h1 class="intro__asterisk">*</h1>
@@ -17,8 +14,3 @@ const html = `<div id="main" class="central__content">
       <a href="https://vk.com/htmlacademy" class="social-link  social-link--vk">Вконтакте</a>
     </div>
   </footer>`;
-
-
-export const perl(str = '151') => {
-  return console.log(`2221312322213123`);
-};

@@ -1,3 +1,5 @@
+import createElement from `./utils`
+
 const html = `  <header class="header">
     <div class="header__back">
       <button class="back">
@@ -32,3 +34,8 @@ const html = `  <header class="header">
       <a href="https://vk.com/htmlacademy" class="social-link  social-link--vk">Вконтакте</a>
     </div>
   </footer>`;
+
+
+
+const moduleRules = tElementFromTemplate(`<div>Разметка исходного шаблона</div>`);
+export default moduleOneElement;
