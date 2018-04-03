@@ -19,17 +19,20 @@ const html = `<div id="main" class="central__content">
     </div>
   </footer>`;
 
+const intro = createElement(html);
+const ASTERISK = intro.querySelector('.intro__asterisk').className;
+
 const onMousedownAsterisk = (evt) => {
-  const ASTERISK = document.querySelector('.intro__asterisk').className;
   if (evt.target.className === ASTERISK) {
-    renderScreen(greeting);
-    document.removeEventListener('mousedown', onMousedownAsterisk);
-    document.addEventListener('mousedown', onMousedownGreeting);
+    alert('intro')
+    // renderScreen(greeting);
+    // document.removeEventListener('mousedown', onMousedownAsterisk);
+    // document.addEventListener('mousedown', onMousedownGreeting);
   };
 };
 
 
 document.addEventListener('mousedown', onMousedownAsterisk);
-const intro = createElement(html);
+
 
 export default intro;
