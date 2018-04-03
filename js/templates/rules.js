@@ -42,29 +42,35 @@ const html = `  <header class="header">
 const rules = createElement(html);
 
 const onMousedownRules = (evt) => {
-  const inputName = document.querySelector(`.rules__input`);
   const buttonGo = document.querySelector(`.rules__button`);
-  inputName.addEventListener(`keyup`, (evt) => {
+  const inputName = document.querySelector(`.rules__input`);
+  const onKeyupInputNme = () => {
     if (inputName.value.length) {
       buttonGo.removeAttribute(`disabled`);
-      buttonGo.addEventListener('mousedown', (evt) =>{
-        evt.preventDefault();
-        renderScreen(gameOne);
-    buttonGo.removeEventListener()
-        // document.removeEventListener(`mousedown`, onMousedownRules);
-        // document.addEventListener(`mousedown`, onMousedownGreeting);
-    });
     } else {
       buttonGo.setAttribute(`disabled`, `disabled`);
     }
-  });
-  buttonGo
-  console.log(evt.target.className);
+  };
+  const onMouseDownNextScreen = () => {
+    evt.preventDefault();
+    renderScreen(gameOne);
+    document.addEventListener(`mousedown`, onMouseDownGame2);
+    buttonGo.removeEventListener(`mousedown`, onMouseDownNextScreen);
+    inputName.removeEventListener(`keyup`, onKeyupInputNme);
+    document.removeEventListener(`mousedown`, onMousedownRules);
+  };
+
+  inputName.addEventListener(`keyup`, onKeyupInputNme);
+  buttonGo.addEventListener(`mousedown`, onMouseDownNextScreen);
+
   if (evt.target.className === `back`) {
     renderScreen(greeting);
     document.removeEventListener(`mousedown`, onMousedownRules);
+    inputName.removeEventListener(`keyup`, onKeyupInputNme);
+    buttonGo.removeEventListener(`mousedown`, onMouseDownNextScreen);
     document.addEventListener(`mousedown`, onMousedownGreeting);
   }
 };
+
 
 export {rules, onMousedownRules};
