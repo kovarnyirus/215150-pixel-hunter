@@ -1,6 +1,7 @@
 import createElement from '../createElement.js';
 import renderScreen from '../utils.js';
-import gameTwo from './game-2.js';
+import getRules from './rules.js';
+import getGameTwo from './game-2.js';
 
 const html = `  <header class="header">
     <div class="header__back">
@@ -69,34 +70,49 @@ const html = `  <header class="header">
   </footer`;
 
 const gameOne = createElement(html);
-let inpitOne = false;
-let inputTwo = false;
+const buttonBack = gameOne.querySelector(`.header__back`);
+const inputOne = gameOne.querySelectorAll(`input[name="question1"]`);
+const inputTwo = gameOne.querySelectorAll(`input[name="question2"]`);
+let chekedOne = false;
+let chekedTwo = false;
 
-const checkInput = () => {
-  if (inpitOne && inputTwo) {
-    renderScreen(gameTwo);
-    document.removeEventListener(`mousedown`, onMouseDownGameOne);
+const onMouseDownButtonBack = () => {
+  renderScreen(getRules());
+  buttonBack.removeEventListener(`mousedown`, onMouseDownButtonBack);
+  inputOne[0].removeEventListener(`mousedown`, onChangeInputOne);
+  inputOne[1].removeEventListener(`mousedown`, onChangeInputOne);
+  inputTwo[0].removeEventListener(`mousedown`, onChangeInputTwo);
+  inputTwo[1].removeEventListener(`mousedown`, onChangeInputTwo);
+};
+
+const nextScreen = () => {
+  if (chekedOne && chekedTwo) {
+    renderScreen(getGameTwo());
+    buttonBack.removeEventListener(`mousedown`, onMouseDownButtonBack);
+    inputOne[0].removeEventListener(`mousedown`, onChangeInputOne);
+    inputOne[1].removeEventListener(`mousedown`, onChangeInputOne);
+    inputTwo[0].removeEventListener(`mousedown`, onChangeInputTwo);
+    inputTwo[1].removeEventListener(`mousedown`, onChangeInputTwo);
   }
 };
 
-const onMouseDownGameOne = (evt) => {
-  const radioBtn = document.querySelectorAll('input');
-  Array.from(radioBtn).forEach(function (value) {
-    if (value.name === 'question1' && value.checked) {
-      inpitOne = true;
-    } else if (value.name === 'question2' && value.checked) {
-      inputTwo = true;
-    }
-  });
-  console.log(inpitOne && inputTwo);
-  checkInput();
+const onChangeInputOne = () => {
+  chekedOne = true;
+  nextScreen();
+};
+
+const onChangeInputTwo = () => {
+  chekedTwo = true;
+  nextScreen();
 };
 
 const getGameOne = () => {
-
+  buttonBack.addEventListener(`mousedown`, onMouseDownButtonBack);
+  inputOne[0].addEventListener(`change`, onChangeInputOne);
+  inputOne[1].addEventListener(`change`, onChangeInputOne);
+  inputTwo[0].addEventListener(`change`, onChangeInputTwo);
+  inputTwo[1].addEventListener(`change`, onChangeInputTwo);
   return gameOne;
 };
-
-// export {gameOne, onMouseDownGameOne};
 
 export default getGameOne;

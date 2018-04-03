@@ -1,4 +1,7 @@
 import createElement from '../createElement.js';
+import renderScreen from '../utils.js';
+import getGameOne from './game-1.js';
+import getGameThree from './game-3.js';
 
 const html = ` <header class="header">
     <div class="header__back">
@@ -56,9 +59,28 @@ const html = ` <header class="header">
   </footer>`;
 
 const gameTwo = createElement(html);
-const getGameTwo = () => {
+const buttonBack = gameTwo.querySelector(`.header__back`);
+const inputQuestion = gameTwo.querySelectorAll(`input`);
 
-  retutn gameTwo
+const onMouseDownButtonBack = () => {
+  renderScreen(getGameOne());
+  buttonBack.removeEventListener(`mousedown`, onMouseDownButtonBack);
+  inputQuestion[0].removeEventListener(`change`, onChangeInput);
+  inputQuestion[1].removeEventListener(`change`, onChangeInput);
+};
+
+const onChangeInput = () => {
+  renderScreen(getGameThree());
+  buttonBack.removeEventListener(`mousedown`, onMouseDownButtonBack);
+  inputQuestion[0].removeEventListener(`change`, onChangeInput);
+  inputQuestion[1].removeEventListener(`change`, onChangeInput);
 }
 
-export default getGemeTwo;
+const getGameTwo = () => {
+  buttonBack.addEventListener(`mousedown`, onMouseDownButtonBack);
+  inputQuestion[0].addEventListener(`change`, onChangeInput);
+  inputQuestion[1].addEventListener(`change`, onChangeInput);
+  return gameTwo;
+};
+
+export default getGameTwo;

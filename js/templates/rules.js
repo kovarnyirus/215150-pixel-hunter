@@ -1,9 +1,9 @@
 import createElement from '../createElement.js';
-// import renderScreen from '../utils.js';
-// import {greeting, onMousedownGreeting} from './greeting.js';
-// import {gameOne, onMouseDownGameOne}  from './game-1.js';
+import renderScreen from '../utils.js';
+import getGreeting from './greeting.js';
+import getGameOne from './game-1.js';
 
-const html = `  <header class="header">
+const html = `<header class="header">
     <div class="header__back">
       <button class="back">
         <img src="img/arrow_left.svg" width="45" height="45" alt="Back">
@@ -38,43 +38,38 @@ const html = `  <header class="header">
     </div>
   </footer>`;
 
-
 const rules = createElement(html);
+const buttonGo = rules.querySelector(`.rules__button`);
+const buttonBack = rules.querySelector(`.header__back`);
+const inputName = rules.querySelector(`.rules__input`);
 
+const onKeyupInputNme = () => {
+  if (inputName.value.length) {
+    buttonGo.removeAttribute(`disabled`);
+  } else {
+    buttonGo.setAttribute(`disabled`, `disabled`);
+  }
+};
 
-// const onMouseDownRules = (evt) => {
-// const buttonGo = rules.querySelector(`.rules__button`);
-// const inputName = rules.querySelector(`.rules__input`);
-//   const onKeyupInputNme = () => {
-//     if (inputName.value.length) {
-//       buttonGo.removeAttribute(`disabled`);
-//     } else {
-//       buttonGo.setAttribute(`disabled`, `disabled`);
-//     }
-//   };
-//   const onMouseDownNextScreen = () => {
-//     evt.preventDefault();
-//     renderScreen(gameOne);
-//     document.addEventListener(`mousedown`, onMouseDownGameOne);
-//     buttonGo.removeEventListener(`mousedown`, onMouseDownNextScreen);
-//     inputName.removeEventListener(`keyup`, onKeyupInputNme);
-//     rules.removeEventListener(`mousedown`, onMousedownRules);
-//   };
-//
-//   inputName.addEventListener(`keyup`, onKeyupInputNme);
-//   buttonGo.addEventListener(`mousedown`, onMouseDownNextScreen);
-//
-//   if (evt.target.className === `back`) {
-//     renderScreen(greeting);
-//     rules.removeEventListener(`mousedown`, onMousedownRules);
-//     inputName.removeEventListener(`keyup`, onKeyupInputNme);
-//     buttonGo.removeEventListener(`mousedown`, onMouseDownNextScreen);
-//     rules.addEventListener(`mousedown`, onMousedownGreeting);
-//   }
-// };
+const onMouseDownButtonGo = (evt) => {
+  evt.preventDefault();
+  renderScreen(getGameOne());
+  buttonGo.removeEventListener(`mousedown`, onMouseDownButtonGo);
+  buttonBack.removeEventListener(`mousedown`, onMouseDownButtonBack);
+  inputName.removeEventListener(`keyup`, onKeyupInputNme);
+};
+
+const onMouseDownButtonBack = () => {
+  renderScreen(getGreeting());
+  buttonGo.removeEventListener(`mousedown`, onMouseDownButtonGo);
+  buttonBack.removeEventListener(`mousedown`, onMouseDownButtonBack);
+  inputName.removeEventListener(`keyup`, onKeyupInputNme);
+};
 
 const getRules = () => {
-
+  buttonGo.addEventListener(`mousedown`, onMouseDownButtonGo);
+  buttonBack.addEventListener(`mousedown`, onMouseDownButtonBack);
+  inputName.addEventListener(`keyup`, onKeyupInputNme);
   return rules;
 };
 
