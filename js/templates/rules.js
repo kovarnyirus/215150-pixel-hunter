@@ -1,7 +1,7 @@
 import createElement from '../createElement.js';
 import renderScreen from '../utils.js';
 import {greeting, onMousedownGreeting} from './greeting.js';
-import gameOne from './game-1.js';
+import {gameOne, onMouseDownGameOne}  from './game-1.js';
 
 const html = `  <header class="header">
     <div class="header__back">
@@ -54,7 +54,7 @@ const onMousedownRules = (evt) => {
   const onMouseDownNextScreen = () => {
     evt.preventDefault();
     renderScreen(gameOne);
-    document.addEventListener(`mousedown`, onMouseDownGame2);
+    document.addEventListener(`mousedown`, onMouseDownGameOne);
     buttonGo.removeEventListener(`mousedown`, onMouseDownNextScreen);
     inputName.removeEventListener(`keyup`, onKeyupInputNme);
     document.removeEventListener(`mousedown`, onMousedownRules);

@@ -1,4 +1,6 @@
 import createElement from '../createElement.js';
+import renderScreen from '../utils.js';
+import gameTwo from './game-2.js';
 
 const html = `  <header class="header">
     <div class="header__back">
@@ -67,5 +69,27 @@ const html = `  <header class="header">
   </footer`;
 
 const gameOne = createElement(html);
+let inpitOne = false;
+let inputTwo = false;
 
-export default gameOne;
+const checkInput = () => {
+  if (inpitOne && inputTwo) {
+    renderScreen(gameTwo);
+    document.removeEventListener(`mousedown`, onMouseDownGameOne);
+  }
+};
+
+const onMouseDownGameOne = (evt) => {
+  const radioBtn = document.querySelectorAll('input');
+  Array.from(radioBtn).forEach(function (value) {
+    if (value.name === 'question1' && value.checked) {
+      inpitOne = true;
+    } else if (value.name === 'question2' && value.checked) {
+      inputTwo = true;
+    }
+  });
+  console.log(inpitOne && inputTwo);
+  checkInput();
+};
+
+export {gameOne, onMouseDownGameOne};
