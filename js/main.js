@@ -1,7 +1,7 @@
-import intro from './templates/intro.js';
+import getIntro from './templates/intro.js';
 import renderScreen from './utils.js';
 
-renderScreen(intro);
+renderScreen(getIntro());
 
 // const TEMPLATES_ORDERS = {
 //   'greeting': 1,
