@@ -1,6 +1,6 @@
 import createElement from '../createElement.js';
 import renderScreen from '../utils.js';
-import {rules, onMousedownRules} from './rules.js';
+import getRules from './rules.js';
 
 const html = `<div class="greeting central--blur">
     <div class="greeting__logo"><img src="img/logo_big.png" width="201" height="89" alt="Pixel Hunter"></div>
@@ -26,15 +26,20 @@ const html = `<div class="greeting central--blur">
     </div>
   </footer>`;
 
-const onMousedownGreeting = (evt) => {
-  const next = document.querySelector('.greeting__continue img').alt;
-  if (evt.target.alt === next) {
-    renderScreen(rules);
-    document.removeEventListener('mousedown', onMousedownGreeting);
-    document.addEventListener('mousedown', onMousedownRules);
-  };
+const greeting = createElement(html);
+const nextBtn = greeting.querySelector('.greeting__continue');
+
+const onMouseDownGreeting = (evt) => {
+  renderScreen(getRules());
+  nextBtn.removeEventListener('mousedown', onMouseDownGreeting);
 };
 
-const greeting = createElement(html);
+const getGreeting = () => {
+  nextBtn.addEventListener('mousedown', onMouseDownGreeting);
+  return greeting;
+};
 
-export {onMousedownGreeting, greeting};
+
+export default getGreeting;
+
+

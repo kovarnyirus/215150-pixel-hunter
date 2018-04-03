@@ -55,4 +55,9 @@ const html = `  <header class="header">
 
 const gameThree = createElement(html);
 
-export default gameThree;
+const getGameThree = () => {
+
+  retutn gameThree;
+}
+
+export default getGameThree;

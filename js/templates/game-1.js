@@ -92,4 +92,11 @@ const onMouseDownGameOne = (evt) => {
   checkInput();
 };
 
-export {gameOne, onMouseDownGameOne};
+const getGameOne = () => {
+
+  return gameOne;
+};
+
+// export {gameOne, onMouseDownGameOne};
+
+export default getGameOne;

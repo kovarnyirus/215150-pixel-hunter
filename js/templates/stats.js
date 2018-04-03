@@ -121,4 +121,9 @@ const html = `<header class="header">
 
 
 const stats = createElement(html);
-export default stats;
+
+const getStatus = () => {
+  return stats;
+};
+
+export default getStatus;

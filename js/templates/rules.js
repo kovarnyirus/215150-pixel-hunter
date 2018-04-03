@@ -1,7 +1,7 @@
 import createElement from '../createElement.js';
-import renderScreen from '../utils.js';
-import {greeting, onMousedownGreeting} from './greeting.js';
-import {gameOne, onMouseDownGameOne}  from './game-1.js';
+// import renderScreen from '../utils.js';
+// import {greeting, onMousedownGreeting} from './greeting.js';
+// import {gameOne, onMouseDownGameOne}  from './game-1.js';
 
 const html = `  <header class="header">
     <div class="header__back">
@@ -41,36 +41,41 @@ const html = `  <header class="header">
 
 const rules = createElement(html);
 
-const onMousedownRules = (evt) => {
-  const buttonGo = document.querySelector(`.rules__button`);
-  const inputName = document.querySelector(`.rules__input`);
-  const onKeyupInputNme = () => {
-    if (inputName.value.length) {
-      buttonGo.removeAttribute(`disabled`);
-    } else {
-      buttonGo.setAttribute(`disabled`, `disabled`);
-    }
-  };
-  const onMouseDownNextScreen = () => {
-    evt.preventDefault();
-    renderScreen(gameOne);
-    document.addEventListener(`mousedown`, onMouseDownGameOne);
-    buttonGo.removeEventListener(`mousedown`, onMouseDownNextScreen);
-    inputName.removeEventListener(`keyup`, onKeyupInputNme);
-    document.removeEventListener(`mousedown`, onMousedownRules);
-  };
 
-  inputName.addEventListener(`keyup`, onKeyupInputNme);
-  buttonGo.addEventListener(`mousedown`, onMouseDownNextScreen);
+// const onMouseDownRules = (evt) => {
+// const buttonGo = rules.querySelector(`.rules__button`);
+// const inputName = rules.querySelector(`.rules__input`);
+//   const onKeyupInputNme = () => {
+//     if (inputName.value.length) {
+//       buttonGo.removeAttribute(`disabled`);
+//     } else {
+//       buttonGo.setAttribute(`disabled`, `disabled`);
+//     }
+//   };
+//   const onMouseDownNextScreen = () => {
+//     evt.preventDefault();
+//     renderScreen(gameOne);
+//     document.addEventListener(`mousedown`, onMouseDownGameOne);
+//     buttonGo.removeEventListener(`mousedown`, onMouseDownNextScreen);
+//     inputName.removeEventListener(`keyup`, onKeyupInputNme);
+//     rules.removeEventListener(`mousedown`, onMousedownRules);
+//   };
+//
+//   inputName.addEventListener(`keyup`, onKeyupInputNme);
+//   buttonGo.addEventListener(`mousedown`, onMouseDownNextScreen);
+//
+//   if (evt.target.className === `back`) {
+//     renderScreen(greeting);
+//     rules.removeEventListener(`mousedown`, onMousedownRules);
+//     inputName.removeEventListener(`keyup`, onKeyupInputNme);
+//     buttonGo.removeEventListener(`mousedown`, onMouseDownNextScreen);
+//     rules.addEventListener(`mousedown`, onMousedownGreeting);
+//   }
+// };
 
-  if (evt.target.className === `back`) {
-    renderScreen(greeting);
-    document.removeEventListener(`mousedown`, onMousedownRules);
-    inputName.removeEventListener(`keyup`, onKeyupInputNme);
-    buttonGo.removeEventListener(`mousedown`, onMouseDownNextScreen);
-    document.addEventListener(`mousedown`, onMousedownGreeting);
-  }
+const getRules = () => {
+
+  return rules;
 };
 
-
-export {rules, onMousedownRules};
+export default getRules;

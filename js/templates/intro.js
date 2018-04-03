@@ -1,6 +1,6 @@
 import createElement from '../createElement.js';
 import renderScreen from '../utils.js';
-import {greeting, onMousedownGreeting} from './greeting.js';
+import getGreeting from './greeting.js';
 
 const html = `<div id="main" class="central__content">
     <div id="intro" class="intro">
@@ -20,19 +20,14 @@ const html = `<div id="main" class="central__content">
   </footer>`;
 
 
-  // if (evt.target.className === ASTERISK) {
-    // renderScreen(greeting);
-    // document.removeEventListener('mousedown', onMousedownAsterisk);
-    // document.addEventListener('mousedown', onMousedownGreeting);
-  // };
 const intro = createElement(html);
 const ASTERISK = intro.querySelector('.intro__asterisk');
+const onMousedownAsterisk = (evt) => {
+  renderScreen(getGreeting());
+  ASTERISK.removeEventListener('mousedown', onMousedownAsterisk);
+};
 
 const getIntro = () => {
-  const onMousedownAsterisk = (evt) => {
-    alert('intro');
-    ASTERISK.removeEventListener('mousedown', onMousedownAsterisk);
-  };
   ASTERISK.addEventListener('mousedown', onMousedownAsterisk);
   return intro;
 };
