@@ -1,15 +1,7 @@
 import intro from './templates/intro.js';
-import greeting from './templates/greeting.js';
 import renderScreen from './utils.js';
 
 renderScreen(intro);
-
-const ASTERISK = document.querySelector(`.intro__asterisk`);
-ASTERISK.addEventListener(`mousedown`, renderNextPage);
-function renderNextPage() {
-  renderScreen(greeting);
-  ASTERISK.removeEventListener(`mousedown`, renderNextPage);
-}
 
 // const TEMPLATES_ORDERS = {
 //   'greeting': 1,

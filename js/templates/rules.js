@@ -1,4 +1,7 @@
 import createElement from '../createElement.js';
+import renderScreen from '../utils.js';
+import {greeting, onMousedownGreeting} from './greeting.js';
+import gameOne from './game-1.js';
 
 const html = `  <header class="header">
     <div class="header__back">
@@ -37,4 +40,31 @@ const html = `  <header class="header">
 
 
 const rules = createElement(html);
-export default rules;
+
+const onMousedownRules = (evt) => {
+  const inputName = document.querySelector(`.rules__input`);
+  const buttonGo = document.querySelector(`.rules__button`);
+  inputName.addEventListener(`keyup`, (evt) => {
+    if (inputName.value.length) {
+      buttonGo.removeAttribute(`disabled`);
+      buttonGo.addEventListener('mousedown', (evt) =>{
+        evt.preventDefault();
+        renderScreen(gameOne);
+    buttonGo.removeEventListener()
+        // document.removeEventListener(`mousedown`, onMousedownRules);
+        // document.addEventListener(`mousedown`, onMousedownGreeting);
+    });
+    } else {
+      buttonGo.setAttribute(`disabled`, `disabled`);
+    }
+  });
+  buttonGo
+  console.log(evt.target.className);
+  if (evt.target.className === `back`) {
+    renderScreen(greeting);
+    document.removeEventListener(`mousedown`, onMousedownRules);
+    document.addEventListener(`mousedown`, onMousedownGreeting);
+  }
+};
+
+export {rules, onMousedownRules};
