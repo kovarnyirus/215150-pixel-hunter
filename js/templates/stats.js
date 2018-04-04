@@ -1,6 +1,6 @@
 import createElement from '../createElement.js';
 import renderScreen from '../utils.js';
-import getGameThree from './game-3.js';
+import getIntro from './intro.js';
 
 const html = `<header class="header">
     <div class="header__back">
@@ -121,13 +121,12 @@ const html = `<header class="header">
     </div>
   </footer>`;
 
-
 const stats = createElement(html);
 const buttonBack = stats.querySelector(`.header__back`);
 
 const onMouseDownButtonBack = () => {
-  renderScreen(getGameThree());
   buttonBack.removeEventListener(`mousedown`, onMouseDownButtonBack);
+  renderScreen(getIntro());
 };
 
 const getStats = () => {

@@ -1,6 +1,6 @@
 import createElement from '../createElement.js';
 import renderScreen from '../utils.js';
-import getGreeting from './greeting.js';
+import getIntro from './intro.js';
 import getGameOne from './game-1.js';
 
 const html = `<header class="header">
@@ -60,7 +60,7 @@ const onMouseDownButtonGo = (evt) => {
 };
 
 const onMouseDownButtonBack = () => {
-  renderScreen(getGreeting());
+  renderScreen(getIntro());
   buttonGo.removeEventListener(`mousedown`, onMouseDownButtonGo);
   buttonBack.removeEventListener(`mousedown`, onMouseDownButtonBack);
   inputName.removeEventListener(`keyup`, onKeyupInputNme);

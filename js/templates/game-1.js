@@ -1,6 +1,6 @@
 import createElement from '../createElement.js';
 import renderScreen from '../utils.js';
-import getRules from './rules.js';
+import getIntro from './intro.js';
 import getGameTwo from './game-2.js';
 
 const html = `  <header class="header">
@@ -77,22 +77,22 @@ let chekedOne = false;
 let chekedTwo = false;
 
 const onMouseDownButtonBack = () => {
-  renderScreen(getRules());
   buttonBack.removeEventListener(`mousedown`, onMouseDownButtonBack);
   inputOne[0].removeEventListener(`mousedown`, onChangeInputOne);
   inputOne[1].removeEventListener(`mousedown`, onChangeInputOne);
   inputTwo[0].removeEventListener(`mousedown`, onChangeInputTwo);
   inputTwo[1].removeEventListener(`mousedown`, onChangeInputTwo);
+  renderScreen(getIntro());
 };
 
 const nextScreen = () => {
   if (chekedOne && chekedTwo) {
-    renderScreen(getGameTwo());
     buttonBack.removeEventListener(`mousedown`, onMouseDownButtonBack);
     inputOne[0].removeEventListener(`mousedown`, onChangeInputOne);
     inputOne[1].removeEventListener(`mousedown`, onChangeInputOne);
     inputTwo[0].removeEventListener(`mousedown`, onChangeInputTwo);
     inputTwo[1].removeEventListener(`mousedown`, onChangeInputTwo);
+    renderScreen(getGameTwo());
   }
 };
 

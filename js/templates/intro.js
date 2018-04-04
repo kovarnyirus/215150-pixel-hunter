@@ -21,14 +21,14 @@ const html = `<div id="main" class="central__content">
 
 
 const intro = createElement(html);
-const ASTERISK = intro.querySelector('.intro__asterisk');
-const onMousedownAsterisk = (evt) => {
+const ASTERISK = intro.querySelector(`.intro__asterisk`);
+const onMousedownAsterisk = () => {
+  ASTERISK.removeEventListener(`mousedown`, onMousedownAsterisk);
   renderScreen(getGreeting());
-  ASTERISK.removeEventListener('mousedown', onMousedownAsterisk);
 };
 
 const getIntro = () => {
-  ASTERISK.addEventListener('mousedown', onMousedownAsterisk);
+  ASTERISK.addEventListener(`mousedown`, onMousedownAsterisk);
   return intro;
 };
 

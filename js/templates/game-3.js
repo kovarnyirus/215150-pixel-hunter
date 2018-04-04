@@ -1,6 +1,6 @@
 import createElement from '../createElement.js';
 import renderScreen from '../utils.js';
-import getGameTwo from './game-2.js';
+import getIntro from './intro.js';
 import getStats from './stats.js';
 
 const html = `  <header class="header">
@@ -61,19 +61,20 @@ const buttonBack = gameThree.querySelector(`.header__back`);
 const gameCard = gameThree.querySelectorAll(`.game__option`);
 
 const onMouseDownButtonBack = () => {
-  renderScreen(getGameTwo());
+  gameCard[0].removeEventListener(`change`, onMouseDownGameCard);
+  gameCard[1].removeEventListener(`change`, onMouseDownGameCard);
+  gameCard[2].removeEventListener(`change`, onMouseDownGameCard);
   buttonBack.removeEventListener(`mousedown`, onMouseDownButtonBack);
-  gameCard[0].removeEventListener(`change`, onChangeInput);
-  gameCard[1].removeEventListener(`change`, onChangeInput);
-  gameCard[2].removeEventListener(`change`, onChangeInput);
+  renderScreen(getIntro());
 };
 
 const onMouseDownGameCard = () => {
+  gameCard[0].removeEventListener(`change`, onMouseDownGameCard);
+  gameCard[1].removeEventListener(`change`, onMouseDownGameCard);
+  gameCard[2].removeEventListener(`change`, onMouseDownGameCard);
+  buttonBack.removeEventListener(`mousedown`, onMouseDownButtonBack);
   renderScreen(getStats());
-  gameCard[0].removeEventListener(`change`, onChangeInput);
-  gameCard[1].removeEventListener(`change`, onChangeInput);
-  gameCard[2].removeEventListener(`change`, onChangeInput);
-}
+};
 
 const getGameThree = () => {
   buttonBack.addEventListener(`mousedown`, onMouseDownButtonBack);
@@ -81,6 +82,6 @@ const getGameThree = () => {
   gameCard[1].addEventListener(`mousedown`, onMouseDownGameCard);
   gameCard[2].addEventListener(`mousedown`, onMouseDownGameCard);
   return gameThree;
-}
+};
 
 export default getGameThree;
