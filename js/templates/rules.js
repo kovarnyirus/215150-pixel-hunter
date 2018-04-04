@@ -43,7 +43,7 @@ const buttonGo = rules.querySelector(`.rules__button`);
 const buttonBack = rules.querySelector(`.header__back`);
 const inputName = rules.querySelector(`.rules__input`);
 
-const onKeyupInputNme = () => {
+const onKeyupInputName = () => {
   if (inputName.value.length) {
     buttonGo.removeAttribute(`disabled`);
   } else {
@@ -56,20 +56,20 @@ const onMouseDownButtonGo = (evt) => {
   renderScreen(getGameOne());
   buttonGo.removeEventListener(`mousedown`, onMouseDownButtonGo);
   buttonBack.removeEventListener(`mousedown`, onMouseDownButtonBack);
-  inputName.removeEventListener(`keyup`, onKeyupInputNme);
+  inputName.removeEventListener(`keyup`, onKeyupInputName);
 };
 
 const onMouseDownButtonBack = () => {
   renderScreen(getIntro());
   buttonGo.removeEventListener(`mousedown`, onMouseDownButtonGo);
   buttonBack.removeEventListener(`mousedown`, onMouseDownButtonBack);
-  inputName.removeEventListener(`keyup`, onKeyupInputNme);
+  inputName.removeEventListener(`keyup`, onKeyupInputName);
 };
 
 const getRules = () => {
   buttonGo.addEventListener(`mousedown`, onMouseDownButtonGo);
   buttonBack.addEventListener(`mousedown`, onMouseDownButtonBack);
-  inputName.addEventListener(`keyup`, onKeyupInputNme);
+  inputName.addEventListener(`keyup`, onKeyupInputName);
   return rules;
 };
 
