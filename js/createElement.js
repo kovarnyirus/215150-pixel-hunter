@@ -1,6 +1,5 @@
 const createElement = (template) => {
-  const outer = document.createElement(`div`);
-  outer.innerHTML = template;
+  const outer = document.createRange().createContextualFragment(template);
   return outer;
 };
 

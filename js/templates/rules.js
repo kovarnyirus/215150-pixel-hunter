@@ -53,17 +53,17 @@ const onKeyupInputName = () => {
 
 const onMouseDownButtonGo = (evt) => {
   evt.preventDefault();
-  renderScreen(getGameOne());
   buttonGo.removeEventListener(`mousedown`, onMouseDownButtonGo);
   buttonBack.removeEventListener(`mousedown`, onMouseDownButtonBack);
   inputName.removeEventListener(`keyup`, onKeyupInputName);
+  renderScreen(getGameOne());
 };
 
 const onMouseDownButtonBack = () => {
-  renderScreen(getIntro());
   buttonGo.removeEventListener(`mousedown`, onMouseDownButtonGo);
   buttonBack.removeEventListener(`mousedown`, onMouseDownButtonBack);
   inputName.removeEventListener(`keyup`, onKeyupInputName);
+  renderScreen(getIntro());
 };
 
 const getRules = () => {
