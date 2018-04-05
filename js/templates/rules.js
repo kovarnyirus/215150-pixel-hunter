@@ -42,6 +42,9 @@ const rules = createElement(html);
 let buttonGo;
 let buttonBack;
 let inputName;
+let buttonGoListener;
+let buttonBackListener;
+let inputNameListener;
 
 const onKeyupInputName = () => {
   if (inputName.value.length) {
