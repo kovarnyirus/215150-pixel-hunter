@@ -21,15 +21,16 @@ const html = `<div id="main" class="central__content">
 
 
 const intro = createElement(html);
-const ASTERISK = intro.querySelector(`.intro__asterisk`);
-const onMousedownAsterisk = () => {
+
+const onMousedownAsterisk = (ASTERISK) => () => {
   ASTERISK.removeEventListener(`mousedown`, onMousedownAsterisk);
   renderScreen(getGreeting());
 };
-
 const getIntro = () => {
-  ASTERISK.addEventListener(`mousedown`, onMousedownAsterisk);
-  return intro;
+  const node = intro.cloneNode(true);
+  const ASTERISK = node.querySelector(`.intro__asterisk`);
+  ASTERISK.addEventListener(`mousedown`, onMousedownAsterisk(ASTERISK));
+  return node;
 };
 
 

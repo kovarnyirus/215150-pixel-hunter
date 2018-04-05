@@ -122,16 +122,17 @@ const html = `<header class="header">
   </footer>`;
 
 const stats = createElement(html);
-const buttonBack = stats.querySelector(`.header__back`);
 
-const onMouseDownButtonBack = () => {
+const onMouseDownButtonBack = buttonBack => () => {
   buttonBack.removeEventListener(`mousedown`, onMouseDownButtonBack);
   renderScreen(getIntro());
 };
 
 const getStats = () => {
-  buttonBack.addEventListener(`mousedown`, onMouseDownButtonBack);
-  return stats;
+  const node = stats.cloneNode(true);
+  const buttonBack = node.querySelector(`.header__back`);
+  buttonBack.addEventListener(`mousedown`, onMouseDownButtonBack(buttonBack));
+  return node;
 };
 
 export default getStats;

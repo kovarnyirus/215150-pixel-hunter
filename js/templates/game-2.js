@@ -59,8 +59,8 @@ const html = ` <header class="header">
   </footer>`;
 
 const gameTwo = createElement(html);
-const buttonBack = gameTwo.querySelector(`.header__back`);
-const inputQuestion = gameTwo.querySelectorAll(`input`);
+let buttonBack;
+let inputQuestion;
 
 const onMouseDownButtonBack = () => {
   buttonBack.removeEventListener(`mousedown`, onMouseDownButtonBack);
@@ -77,10 +77,13 @@ const onChangeInput = () => {
 };
 
 const getGameTwo = () => {
+  const node = gameTwo.cloneNode(true);
+  buttonBack = node.querySelector(`.header__back`);
+  inputQuestion = node.querySelectorAll(`input`);
   buttonBack.addEventListener(`mousedown`, onMouseDownButtonBack);
   inputQuestion[0].addEventListener(`change`, onChangeInput);
   inputQuestion[1].addEventListener(`change`, onChangeInput);
-  return gameTwo;
+  return node;
 };
 
 export default getGameTwo;

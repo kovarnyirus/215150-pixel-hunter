@@ -1,6 +1,5 @@
 const createElement = (template) => {
-  const outer = document.createRange().createContextualFragment(template);
-  return outer;
+  return document.createRange().createContextualFragment(template);
 };
 
 export default createElement;

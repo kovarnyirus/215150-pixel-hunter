@@ -39,9 +39,9 @@ const html = `<header class="header">
   </footer>`;
 
 const rules = createElement(html);
-const buttonGo = rules.querySelector(`.rules__button`);
-const buttonBack = rules.querySelector(`.header__back`);
-const inputName = rules.querySelector(`.rules__input`);
+let buttonGo;
+let buttonBack;
+let inputName;
 
 const onKeyupInputName = () => {
   if (inputName.value.length) {
@@ -67,10 +67,15 @@ const onMouseDownButtonBack = () => {
 };
 
 const getRules = () => {
+  const node = rules.cloneNode(true);
+  buttonGo = node.querySelector(`.rules__button`);
+  buttonBack = node.querySelector(`.header__back`);
+  inputName = node.querySelector(`.rules__input`);
+
   buttonGo.addEventListener(`mousedown`, onMouseDownButtonGo);
   buttonBack.addEventListener(`mousedown`, onMouseDownButtonBack);
   inputName.addEventListener(`keyup`, onKeyupInputName);
-  return rules;
+  return node;
 };
 
 export default getRules;

@@ -70,9 +70,9 @@ const html = `  <header class="header">
   </footer`;
 
 const gameOne = createElement(html);
-const buttonBack = gameOne.querySelector(`.header__back`);
-const inputOne = gameOne.querySelectorAll(`input[name="question1"]`);
-const inputTwo = gameOne.querySelectorAll(`input[name="question2"]`);
+let buttonBack = gameOne.querySelector(`.header__back`);
+let inputOne = gameOne.querySelectorAll(`input[name="question1"]`);
+let inputTwo = gameOne.querySelectorAll(`input[name="question2"]`);
 let chekedOne = false;
 let chekedTwo = false;
 
@@ -107,12 +107,16 @@ const onChangeInputTwo = () => {
 };
 
 const getGameOne = () => {
+  const node = gameOne.cloneNode(true);
+  buttonBack = node.querySelector(`.header__back`);
+  inputOne = node.querySelectorAll(`input[name="question1"]`);
+  inputTwo = node.querySelectorAll(`input[name="question2"]`);
   buttonBack.addEventListener(`mousedown`, onMouseDownButtonBack);
   inputOne[0].addEventListener(`change`, onChangeInputOne);
   inputOne[1].addEventListener(`change`, onChangeInputOne);
   inputTwo[0].addEventListener(`change`, onChangeInputTwo);
   inputTwo[1].addEventListener(`change`, onChangeInputTwo);
-  return gameOne;
+  return node;
 };
 
 export default getGameOne;

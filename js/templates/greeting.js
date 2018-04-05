@@ -27,16 +27,18 @@ const html = `<div class="greeting central--blur">
   </footer>`;
 
 const greeting = createElement(html);
-const nextBtn = greeting.querySelector(`.greeting__continue`);
 
-const onMouseDownGreeting = () => {
+
+const onMouseDownGreeting = nextBtn  => () => {
   nextBtn.removeEventListener(`mousedown`, onMouseDownGreeting);
   renderScreen(getRules());
 };
 
 const getGreeting = () => {
-  nextBtn.addEventListener(`mousedown`, onMouseDownGreeting);
-  return greeting;
+  const node = greeting.cloneNode(true);
+  const nextBtn = node.querySelector(`.greeting__continue`);
+  nextBtn.addEventListener(`mousedown`, onMouseDownGreeting(nextBtn));
+  return node;
 };
 
 
