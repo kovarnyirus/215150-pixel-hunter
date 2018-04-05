@@ -60,24 +60,25 @@ const gameThree = createElement(html);
 let buttonBack;
 let gameCard;
 
-const onMouseDownButtonBack = () => {
+const removeListeners = () => {
   gameCard[0].removeEventListener(`change`, onMouseDownGameCard);
   gameCard[1].removeEventListener(`change`, onMouseDownGameCard);
   gameCard[2].removeEventListener(`change`, onMouseDownGameCard);
   buttonBack.removeEventListener(`mousedown`, onMouseDownButtonBack);
+};
+
+const onMouseDownButtonBack = () => {
+  removeListeners();
   renderScreen(getIntro());
 };
 
 const onMouseDownGameCard = () => {
-  gameCard[0].removeEventListener(`change`, onMouseDownGameCard);
-  gameCard[1].removeEventListener(`change`, onMouseDownGameCard);
-  gameCard[2].removeEventListener(`change`, onMouseDownGameCard);
-  buttonBack.removeEventListener(`mousedown`, onMouseDownButtonBack);
+  removeListeners();
   renderScreen(getStats());
 };
 
 const getGameThree = () => {
-const node = gameThree.cloneNode(true);
+  const node = gameThree.cloneNode(true);
   buttonBack = node.querySelector(`.header__back`);
   gameCard = node.querySelectorAll(`.game__option`);
   buttonBack.addEventListener(`mousedown`, onMouseDownButtonBack);

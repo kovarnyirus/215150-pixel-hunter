@@ -62,17 +62,19 @@ const gameTwo = createElement(html);
 let buttonBack;
 let inputQuestion;
 
-const onMouseDownButtonBack = () => {
+const removeListeners = () => {
   buttonBack.removeEventListener(`mousedown`, onMouseDownButtonBack);
   inputQuestion[0].removeEventListener(`change`, onChangeInput);
   inputQuestion[1].removeEventListener(`change`, onChangeInput);
+};
+
+const onMouseDownButtonBack = () => {
+  removeListeners();
   renderScreen(getIntro());
 };
 
 const onChangeInput = () => {
-  buttonBack.removeEventListener(`mousedown`, onMouseDownButtonBack);
-  inputQuestion[0].removeEventListener(`change`, onChangeInput);
-  inputQuestion[1].removeEventListener(`change`, onChangeInput);
+  removeListeners();
   renderScreen(getGameThree());
 };
 

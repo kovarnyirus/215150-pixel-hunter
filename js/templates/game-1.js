@@ -76,22 +76,23 @@ let inputTwo = gameOne.querySelectorAll(`input[name="question2"]`);
 let chekedOne = false;
 let chekedTwo = false;
 
-const onMouseDownButtonBack = () => {
+
+const removeListeners = () => {
   buttonBack.removeEventListener(`mousedown`, onMouseDownButtonBack);
   inputOne[0].removeEventListener(`mousedown`, onChangeInputOne);
   inputOne[1].removeEventListener(`mousedown`, onChangeInputOne);
   inputTwo[0].removeEventListener(`mousedown`, onChangeInputTwo);
   inputTwo[1].removeEventListener(`mousedown`, onChangeInputTwo);
+};
+
+const onMouseDownButtonBack = () => {
+  removeListeners();
   renderScreen(getIntro());
 };
 
 const nextScreen = () => {
   if (chekedOne && chekedTwo) {
-    buttonBack.removeEventListener(`mousedown`, onMouseDownButtonBack);
-    inputOne[0].removeEventListener(`mousedown`, onChangeInputOne);
-    inputOne[1].removeEventListener(`mousedown`, onChangeInputOne);
-    inputTwo[0].removeEventListener(`mousedown`, onChangeInputTwo);
-    inputTwo[1].removeEventListener(`mousedown`, onChangeInputTwo);
+    removeListeners();
     renderScreen(getGameTwo());
   }
 };

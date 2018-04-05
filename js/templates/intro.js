@@ -21,17 +21,17 @@ const html = `<div id="main" class="central__content">
 
 
 const intro = createElement(html);
-let removeListener;
+let handleMousedownAsterisk;
 
 const onMousedownAsterisk = (ASTERISK) => () => {
-  ASTERISK.removeEventListener(`mousedown`, removeListener);
+  ASTERISK.removeEventListener(`mousedown`, handleMousedownAsterisk);
   renderScreen(getGreeting());
 };
 const getIntro = () => {
   const node = intro.cloneNode(true);
   const ASTERISK = node.querySelector(`.intro__asterisk`);
-  removeListener = onMousedownAsterisk(ASTERISK);
-  ASTERISK.addEventListener(`mousedown`, onMousedownAsterisk(ASTERISK));
+  handleMousedownAsterisk = onMousedownAsterisk(ASTERISK);
+  ASTERISK.addEventListener(`mousedown`, handleMousedownAsterisk);
   return node;
 };
 

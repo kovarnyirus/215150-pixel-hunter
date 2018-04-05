@@ -42,9 +42,7 @@ const rules = createElement(html);
 let buttonGo;
 let buttonBack;
 let inputName;
-let buttonGoListener;
-let buttonBackListener;
-let inputNameListener;
+
 
 const onKeyupInputName = () => {
   if (inputName.value.length) {
@@ -54,18 +52,20 @@ const onKeyupInputName = () => {
   }
 };
 
-const onMouseDownButtonGo = (evt) => {
-  evt.preventDefault();
+const removeListeners = () => {
   buttonGo.removeEventListener(`mousedown`, onMouseDownButtonGo);
   buttonBack.removeEventListener(`mousedown`, onMouseDownButtonBack);
   inputName.removeEventListener(`keyup`, onKeyupInputName);
+};
+
+const onMouseDownButtonGo = (evt) => {
+  evt.preventDefault();
+  removeListeners();
   renderScreen(getGameOne());
 };
 
 const onMouseDownButtonBack = () => {
-  buttonGo.removeEventListener(`mousedown`, onMouseDownButtonGo);
-  buttonBack.removeEventListener(`mousedown`, onMouseDownButtonBack);
-  inputName.removeEventListener(`keyup`, onKeyupInputName);
+  removeListeners();
   renderScreen(getIntro());
 };
 
