@@ -6,21 +6,18 @@ const LIVES_ONE = 1;
 const LIVES_TWO = 2;
 const LIVES_THEE = 3;
 
-const fillWith = (number, object) => {
-  let arr = [];
-  for (let i = 0; i <= number - 1; ++i) {
-    arr.push(object);
-  }
-  return arr;
-};
+const fillWith = (cnt, item) => (new Array(cnt).fill(item));
 
 const answersLess = fillWith(9, {answer: true, time: 5});
 const fastAnswers = fillWith(10, {answer: true, time: 5});
 const slowAnswers = fillWith(10, {answer: true, time: 25});
-const differentAnswers = fillWith(3, {answer: true, time: 5}).concat(
-    fillWith(3, {answer: true, time: 15}),
-    fillWith(3, {answer: true, time: 25}),
-    fillWith(1, {answer: false, time: 25}));
+const differentAnswers = [
+  ...fillWith(3, {answer: true, time: 5}),
+  ...fillWith(3, {answer: true, time: 15}),
+  ...fillWith(3, {answer: true, time: 25}),
+  ...fillWith(1, {answer: false, time: 25})
+];
+
 
 describe(`Check points`, () => {
   it(`User answers less 10 questions`, () => {
