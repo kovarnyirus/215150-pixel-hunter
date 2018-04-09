@@ -1,10 +1,25 @@
 import {assert} from 'chai';
 import {countingPoints} from './game-logic.js';
-import {answersLess, fastAnswers, slowAnswers, differentAnswers} from './data.js';
+// import {differentAnswers} from './data.js';
 
 const LIVES_ONE = 1;
 const LIVES_TWO = 2;
 const LIVES_THEE = 3;
+
+const answersLess = (new Array(9)).fill({answer: true, time: 5});
+const fastAnswers = (new Array(10)).fill({answer: true, time: 5});
+const slowAnswers = (new Array(10)).fill({answer: true, time: 25});
+const differentAnswers = (new Array(10)).map((item, i) => {
+  if (i <= 3) {
+    item = {answer: true, time: 5};
+  } else if (i <= 6) {
+    item = {answer: true, time: 15};
+  } else if (i <= 9) {
+    item = {answer: true, time: 25};
+  } else if (i <= 10) {
+    item = {answer: false, time: 25};
+  }
+});
 
 
 describe(`Check points`, () => {
