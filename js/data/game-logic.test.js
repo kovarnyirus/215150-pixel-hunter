@@ -11,6 +11,7 @@ const fillWith = (cnt, item) => (new Array(cnt).fill(item));
 const answersLess = fillWith(9, {answer: true, time: 5});
 const fastAnswers = fillWith(10, {answer: true, time: 5});
 const slowAnswers = fillWith(10, {answer: true, time: 25});
+const normalAnswers = fillWith(10, {answer: true, time: 15});
 const differentAnswers = [
   ...fillWith(3, {answer: true, time: 5}),
   ...fillWith(3, {answer: true, time: 15}),
@@ -34,5 +35,9 @@ describe(`Check points`, () => {
 
   it(`called with 3 fast, 3 normal, 4 slow and 1 incorrect answers and with 2 lives`, () => {
     assert.equal(countingPoints(differentAnswers, LIVES_TWO), 950);
+  });
+
+  it(`user passed the test all right with average speed and 3 lives`, () => {
+    assert.equal(countingPoints(normalAnswers, LIVES_THEE), 1150);
   });
 });

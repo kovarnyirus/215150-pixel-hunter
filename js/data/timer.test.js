@@ -1,5 +1,5 @@
 import {assert} from 'chai';
-import {timer} from './timer';
+import timer from './timer';
 
 
 describe(`Check timer`, () => {

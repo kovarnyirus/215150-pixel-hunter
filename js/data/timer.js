@@ -1,4 +1,4 @@
-export const timer = (time) => {
+const timer = function (time) {
   if (typeof time !== `number`) {
     throw new Error(`time must be a number`);
   }
@@ -19,3 +19,5 @@ export const timer = (time) => {
     }
   };
 };
+
+export default timer;
