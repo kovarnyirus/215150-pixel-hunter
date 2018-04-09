@@ -6,35 +6,21 @@ const LIVES_ONE = 1;
 const LIVES_TWO = 2;
 const LIVES_THEE = 3;
 
-const answersLess = (new Array(9)).fill({answer: true, time: 5});
-const fastAnswers = (new Array(10)).fill({answer: true, time: 5});
-const slowAnswers = (new Array(10)).fill({answer: true, time: 25});
-
-//
-// const differentAnswers = [
-//   {answer: true, time: 5},
-//   {answer: true, time: 5},
-//   {answer: true, time: 5},
-//   {answer: true, time: 10},
-//   {answer: true, time: 10},
-//   {answer: true, time: 10},
-//   {answer: true, time: 25},
-//   {answer: true, time: 25},
-//   {answer: true, time: 25},
-//   {answer: false, time: 25}
-// ];
-//
-const differentAnswers = (new Array(10)).map((item, i) => {
-  if (i <= 3) {
-    item = {answer: true, time: 5};
-  } else if (i <= 6) {
-    item = {answer: true, time: 15};
-  } else if (i <= 9) {
-    item = {answer: true, time: 25};
-  } else if (i <= 10) {
-    item = {answer: false, time: 25};
+const fillWith = (number, object) => {
+  let arr = [];
+  for (let i = 0; i <= number - 1; ++i) {
+    arr.push(object);
   }
-});
+  return arr;
+};
+
+const answersLess = fillWith(9, {answer: true, time: 5});
+const fastAnswers = fillWith(10, {answer: true, time: 5});
+const slowAnswers = fillWith(10, {answer: true, time: 25});
+const differentAnswers = fillWith(3, {answer: true, time: 5}).concat(
+    fillWith(3, {answer: true, time: 15}),
+    fillWith(3, {answer: true, time: 25}),
+    fillWith(1, {answer: false, time: 25}));
 
 describe(`Check points`, () => {
   it(`User answers less 10 questions`, () => {
