@@ -1,5 +1,5 @@
 import {assert} from 'chai';
-import {countingPoints} from './game-logic.js';
+import {countScore} from './game-logic.js';
 
 
 const LIVES_ONE = 1;
@@ -22,22 +22,22 @@ const differentAnswers = [
 
 describe(`Check points`, () => {
   it(`User answers less 10 questions`, () => {
-    assert.equal(countingPoints(answersLess, LIVES_ONE), -1);
+    assert.equal(countScore(answersLess, LIVES_ONE), -1);
   });
 
   it(`10 fast true answers and 3 lives`, () => {
-    assert.equal(countingPoints(fastAnswers, LIVES_THEE), 1650);
+    assert.equal(countScore(fastAnswers, LIVES_THEE), 1650);
   });
 
   it(`10 slow true answers and 3 lives`, () => {
-    assert.equal(countingPoints(slowAnswers, LIVES_ONE), 550);
+    assert.equal(countScore(slowAnswers, LIVES_ONE), 550);
   });
 
   it(`called with 3 fast, 3 normal, 4 slow and 1 incorrect answers and with 2 lives`, () => {
-    assert.equal(countingPoints(differentAnswers, LIVES_TWO), 950);
+    assert.equal(countScore(differentAnswers, LIVES_TWO), 950);
   });
 
   it(`user passed the test all right with average speed and 3 lives`, () => {
-    assert.equal(countingPoints(normalAnswers, LIVES_THEE), 1150);
+    assert.equal(countScore(normalAnswers, LIVES_THEE), 1150);
   });
 });
