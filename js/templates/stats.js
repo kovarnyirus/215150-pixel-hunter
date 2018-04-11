@@ -110,7 +110,10 @@ const html = `<header class="header">
       </tr>
     </table>
   </div>
-  <footer class="footer">
+  `;
+
+
+const footerTemplate = `<footer class="footer">
     <a href="https://htmlacademy.ru" class="social-link social-link--academy">HTML Academy</a>
     <span class="footer__made-in">Сделано в <a href="https://htmlacademy.ru" class="footer__link">HTML Academy</a> &copy; 2016</span>
     <div class="footer__social-links">
@@ -119,7 +122,7 @@ const html = `<header class="header">
       <a href="https://www.facebook.com/htmlacademy" class="social-link  social-link--fb">Фэйсбук</a>
       <a href="https://vk.com/htmlacademy" class="social-link  social-link--vk">Вконтакте</a>
     </div>
-  </footer>`;
+  </footer>`
 
 const stats = createElement(html);
 let handleMousedownButtonBack;

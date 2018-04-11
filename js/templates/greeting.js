@@ -14,8 +14,9 @@ const html = `<div class="greeting central--blur">
         Помни, главное — смотреть очень внимательно.</p>
     </div>
     <div class="greeting__continue"><span><img src="img/arrow_right.svg" width="64" height="64" alt="Next"></span></div>
-  </div>
-  <footer class="footer">
+  </div>`;
+
+const footerTemplate = ` <footer class="footer">
     <a href="https://htmlacademy.ru" class="social-link social-link--academy">HTML Academy</a>
     <span class="footer__made-in">Сделано в <a href="https://htmlacademy.ru" class="footer__link">HTML Academy</a> &copy; 2016</span>
     <div class="footer__social-links">
@@ -25,6 +26,8 @@ const html = `<div class="greeting central--blur">
       <a href="https://vk.com/htmlacademy" class="social-link  social-link--vk">Вконтакте</a>
     </div>
   </footer>`;
+
+
 
 const greeting = createElement(html);
 let handleMousedownGreeting;

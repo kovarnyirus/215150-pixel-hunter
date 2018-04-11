@@ -1,5 +1,6 @@
 import INITIAL_STATE from './data.js';
-const headerTemplate = (satte) =>`
+
+const headerTemplate = (state) =>`
 <header class="header">
     <div class="header__back">
       <button class="back">

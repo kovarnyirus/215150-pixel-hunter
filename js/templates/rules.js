@@ -3,14 +3,7 @@ import renderScreen from '../utils.js';
 import getIntro from './intro.js';
 import getGameOne from './game-1.js';
 
-const html = `<header class="header">
-    <div class="header__back">
-      <button class="back">
-        <img src="img/arrow_left.svg" width="45" height="45" alt="Back">
-        <img src="img/logo_small.svg" width="101" height="44">
-      </button>
-    </div>
-  </header>
+const html = `
   <div class="rules">
     <h1 class="rules__title">Правила</h1>
     <p class="rules__description">Угадай 10 раз для каждого изображения фото <img
@@ -26,8 +19,18 @@ const html = `<header class="header">
       <input class="rules__input" type="text" placeholder="Ваше Имя">
       <button class="rules__button  continue" type="submit" disabled>Go!</button>
     </form>
-  </div>
-  <footer class="footer">
+  </div>`;
+
+const headerTemplate = `<header class="header">
+    <div class="header__back">
+      <button class="back">
+        <img src="img/arrow_left.svg" width="45" height="45" alt="Back">
+        <img src="img/logo_small.svg" width="101" height="44">
+      </button>
+    </div>
+  </header>`
+
+const footerTemplate = ` <footer class="footer">
     <a href="https://htmlacademy.ru" class="social-link social-link--academy">HTML Academy</a>
     <span class="footer__made-in">Сделано в <a href="https://htmlacademy.ru" class="footer__link">HTML Academy</a> &copy; 2016</span>
     <div class="footer__social-links">
