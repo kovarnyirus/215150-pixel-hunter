@@ -3,6 +3,7 @@ import renderScreen from '../utils.js';
 import getIntro from './intro.js';
 import getGameTwo from './game-2.js';
 
+
 const html = `  <header class="header">
     <div class="header__back">
       <button class="back">
