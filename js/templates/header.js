@@ -1,7 +1,7 @@
-import INITIAL_STATE from './data.js';
+import {INITIAL_STATE} from '../data.js';
 
-const headerTemplate = (state) =>`
-<header class="header">
+const header = () =>
+  `<header class="header">
     <div class="header__back">
       <button class="back">
         <img src="img/arrow_left.svg" width="45" height="45" alt="Back">
@@ -14,3 +14,5 @@ const headerTemplate = (state) =>`
     ${new Array(INITIAL_STATE.lives).fill(`<img src="img/heart__full.svg" class="game__heart" alt="Life" width="32" height="32">`).join(``)}
     </div>
   </header>`;
+
+export default header;

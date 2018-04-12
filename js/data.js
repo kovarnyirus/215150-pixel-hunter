@@ -1,10 +1,10 @@
-export const INITIAL_STATE = {
+const INITIAL_STATE = {
   lives: 3,
   time: 0
 };
 
-export const screens = {
-  `intro`: {
+const screens = {
+  'intro': {
     content: `<div id="main" class="central__content">
     <div id="intro" class="intro">
       <h1 class="intro__asterisk">*</h1>
@@ -12,4 +12,6 @@ export const screens = {
     </div>
   </div>`
   }
-}
+};
+
+export {INITIAL_STATE, screens};

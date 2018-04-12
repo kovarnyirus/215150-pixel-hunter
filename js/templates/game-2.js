@@ -2,6 +2,7 @@ import createElement from '../createElement.js';
 import renderScreen from '../utils.js';
 import getIntro from './intro.js';
 import getGameThree from './game-3.js';
+import FOOTER from './footer.js';
 
 const html = ` 
   <div class="game">
@@ -49,20 +50,10 @@ const headerTemplate = `<header class="header">
       <img src="img/heart__full.svg" class="game__heart" alt="Life" width="32" height="32">
       <img src="img/heart__full.svg" class="game__heart" alt="Life" width="32" height="32">
     </div>
-  </header>`
+  </header>`;
 
-const footerTemplate = `<footer class="footer">
-    <a href="https://htmlacademy.ru" class="social-link social-link--academy">HTML Academy</a>
-    <span class="footer__made-in">Сделано в <a href="https://htmlacademy.ru" class="footer__link">HTML Academy</a> &copy; 2016</span>
-    <div class="footer__social-links">
-      <a href="https://twitter.com/htmlacademy_ru" class="social-link  social-link--tw">Твиттер</a>
-      <a href="https://www.instagram.com/htmlacademy/" class="social-link  social-link--ins">Инстаграм</a>
-      <a href="https://www.facebook.com/htmlacademy" class="social-link  social-link--fb">Фэйсбук</a>
-      <a href="https://vk.com/htmlacademy" class="social-link  social-link--vk">Вконтакте</a>
-    </div>
-  </footer>`
-
-const gameTwo = createElement(html);
+const template = headerTemplate + html + FOOTER;
+const gameTwo = createElement(template);
 let buttonBack;
 let inputQuestion;
 
