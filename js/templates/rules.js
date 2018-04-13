@@ -3,6 +3,7 @@ import renderScreen from '../utils.js';
 import getIntro from './intro.js';
 import getGameOne from './game-1.js';
 import FOOTER from './footer.js';
+import {header} from './header.js';
 
 
 const html = `
@@ -22,16 +23,6 @@ const html = `
       <button class="rules__button  continue" type="submit" disabled>Go!</button>
     </form>
   </div>`;
-
-const header = `
-<header class="header">
-    <div class="header__back">
-      <button class="back">
-        <img src="img/arrow_left.svg" alt="Back" width="45" height="45">
-        <img src="img/logo_small.svg" width="101" height="44">
-      </button>
-    </div>
-  </header>`;
 
 const template = header + html + FOOTER;
 
