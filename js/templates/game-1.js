@@ -4,7 +4,8 @@ import getIntro from './intro.js';
 import getGameTwo from './game-2.js';
 import FOOTER from './footer.js';
 import {headerStatistics} from './header.js';
-import {INITIAL_STATE, gamesContent} from '../data.js';
+import {INITIAL_STATE, gamesContent, statsList} from '../data.js';
+import {stats} from './stats-template.js';
 
 
 const html = `<div class="game">
@@ -33,14 +34,7 @@ const html = `<div class="game">
         </label>
       </div>
     </form>
-    <div class="stats">
-      <ul class="stats">
-        <li class="stats__result stats__result--wrong"></li>
-        <li class="stats__result stats__result--slow"></li>
-        <li class="stats__result stats__result--fast"></li>
-        <li class="stats__result stats__result--correct"></li>
-      </ul>
-    </div>
+    ${stats(statsList)}
   </div>
   `;
 

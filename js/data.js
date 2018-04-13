@@ -6,6 +6,9 @@ const INITIAL_STATE = {
 const gameStatistics = [
   {lives: 0, time: 0},
 ];
+
+const statsList = [`true`, `false`, `fast`, `slow`, `slow`, `slow`, `slow`, `slow`, `slow`, `slow`];
+
 const gamesContent = [
   {
     gameNumber: `one`,
@@ -57,4 +60,4 @@ const screens = {
   }
 };
 
-export {INITIAL_STATE, screens, gamesContent};
+export {INITIAL_STATE, screens, gamesContent, statsList};
