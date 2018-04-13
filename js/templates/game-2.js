@@ -4,30 +4,12 @@ import getIntro from './intro.js';
 import getGameThree from './game-3.js';
 import FOOTER from './footer.js';
 import {headerStatistics} from './header.js';
-import {INITIAL_STATE, statsList} from '../data.js';
+import {INITIAL_STATE, statsList,gamesContent} from '../data.js';
 import {stats} from './stats-template.js';
+import {templateFirst, templateSecomnd, templateThird} from './game-tamplates';
 
-const html = ` 
-  <div class="game">
-    <p class="game__task">Угадай, фото или рисунок?</p>
-    <form class="game__content  game__content--wide">
-      <div class="game__option">
-        <img src="http://placehold.it/705x455" alt="Option 1" width="705" height="455">
-        <label class="game__answer  game__answer--photo">
-          <input name="question1" type="radio" value="photo">
-          <span>Фото</span>
-        </label>
-        <label class="game__answer  game__answer--wide  game__answer--paint">
-          <input name="question1" type="radio" value="paint">
-          <span>Рисунок</span>
-        </label>
-      </div>
-    </form>
-     ${stats(statsList)}
-  </div>
-  `;
 
-const template = headerStatistics(INITIAL_STATE) + html + FOOTER;
+const template = headerStatistics(INITIAL_STATE) + templateSecomnd(gamesContent.gameTwo) + FOOTER;
 const gameTwo = createElement(template);
 let buttonBack;
 let inputQuestion;

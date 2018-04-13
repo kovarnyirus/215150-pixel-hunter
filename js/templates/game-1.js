@@ -5,40 +5,11 @@ import getGameTwo from './game-2.js';
 import FOOTER from './footer.js';
 import {headerStatistics} from './header.js';
 import {INITIAL_STATE, gamesContent, statsList} from '../data.js';
-import {stats} from './stats-template.js';
+import {templateFirst, templateSecomnd, templateThird} from './game-tamplates';
 
 
-const html = `<div class="game">
-    <p class="game__task">Угадайте для каждого изображения фото или рисунок?</p>
-    <form class="game__content">
-      <div class="game__option">
-        <img src="http://placehold.it/468x458" alt="Option 1" width="468" height="458">
-        <label class="game__answer game__answer--photo">
-          <input name="question1" type="radio" value="photo">
-          <span>Фото</span>
-        </label>
-        <label class="game__answer game__answer--paint">
-          <input name="question1" type="radio" value="paint">
-          <span>Рисунок</span>
-        </label>
-      </div>
-      <div class="game__option">
-        <img src="http://placehold.it/468x458" alt="Option 2" width="468" height="458">
-        <label class="game__answer  game__answer--photo">
-          <input name="question2" type="radio" value="photo">
-          <span>Фото</span>
-        </label>
-        <label class="game__answer  game__answer--paint">
-          <input name="question2" type="radio" value="paint">
-          <span>Рисунок</span>
-        </label>
-      </div>
-    </form>
-    ${stats(statsList)}
-  </div>
-  `;
 
-const template = headerStatistics(INITIAL_STATE) + html + FOOTER;
+const template = headerStatistics(INITIAL_STATE) + templateFirst(gamesContent.gameOne) + FOOTER;
 const gameOne = createElement(template);
 let buttonBack = gameOne.querySelector(`.header__back`);
 let inputOne = gameOne.querySelectorAll(`input[name="question1"]`);

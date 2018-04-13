@@ -9,9 +9,8 @@ const gameStatistics = [
 
 const statsList = [`true`, `false`, `fast`, `slow`, `slow`, `slow`, `slow`, `slow`, `slow`, `slow`];
 
-const gamesContent = [
-  {
-    gameNumber: `one`,
+const gamesContent = {
+  gameOne: {
     title: `Угадайте для каждого изображения фото или рисунок?`,
     images: [
       {
@@ -21,19 +20,17 @@ const gamesContent = [
         photo: `http://i.imgur.com/1KegWPz.jpg`
       }
     ]
-
   },
-  {
-    gameNumber: `two`,
+  gameTwo: {
     title: `Угадай, фото или рисунок?`,
     images: [
       {
         figure: `https://k42.kn3.net/D2F0370D6.jpg`
-      },
+      }
     ]
   },
-  {
-    gameNumber: `three`,
+
+  gameThree: {
     title: `Найдите рисунок среди изображений`,
     images: [
       {
@@ -47,7 +44,7 @@ const gamesContent = [
       }
     ]
   }
-];
+};
 
 const screens = {
   'intro': {

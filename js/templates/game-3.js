@@ -4,31 +4,11 @@ import getIntro from './intro.js';
 import getStats from './stats.js';
 import FOOTER from './footer.js';
 import {headerStatistics} from './header.js';
-import {INITIAL_STATE, statsList} from '../data.js';
-import {stats} from './stats-template.js';
-
-const html = `
-  <div class="game">
-    <p class="game__task">Найдите рисунок среди изображений</p>
-    <form class="game__content  game__content--triple">
-      <div class="game__option">
-        <img src="http://placehold.it/304x455" alt="Option 1" width="304" height="455">
-      </div>
-      <div class="game__option  game__option--selected">
-        <img src="http://placehold.it/304x455" alt="Option 1" width="304" height="455">
-      </div>
-      <div class="game__option">
-        <img src="http://placehold.it/304x455" alt="Option 1" width="304" height="455">
-      </div>
-    </form>
-    ${stats(statsList)}
-  </div>
-  `;
+import {INITIAL_STATE, statsList, gamesContent} from '../data.js';
+import {templateThird} from './game-tamplates';
 
 
-
-
-const template = headerStatistics(INITIAL_STATE) + html + FOOTER;
+const template = headerStatistics(INITIAL_STATE) + templateThird(gamesContent.gameThree) + FOOTER;
 const gameThree = createElement(template);
 let buttonBack;
 let gameCard;
