@@ -4,7 +4,7 @@ import getIntro from './intro.js';
 import getGameTwo from './game-2.js';
 import FOOTER from './footer.js';
 import {headerStatistics} from './header.js';
-import {INITIAL_STATE, gamesContent, statsList} from '../data.js';
+import {INITIAL_STATE, gamesContent, gameStatistics} from '../data.js';
 import {templateFirst, templateSecomnd, templateThird} from './game-tamplates';
 
 
@@ -34,17 +34,20 @@ const onMouseDownButtonBack = () => {
 const nextScreen = () => {
   if (chekedOne && chekedTwo) {
     removeListeners();
+    gameStatistics.push({answer: chekedOne, time: 20});
+    gameStatistics.push({answer: chekedTwo, time: 20});
+    console.log(gameStatistics);
     renderScreen(getGameTwo());
   }
 };
 
-const onChangeInputOne = () => {
-  chekedOne = true;
+const onChangeInputOne = (evt) => {
+  chekedOne = evt.target.value;
   nextScreen();
 };
 
-const onChangeInputTwo = () => {
-  chekedTwo = true;
+const onChangeInputTwo = (evt) => {
+  chekedTwo = evt.target.value;
   nextScreen();
 };
 

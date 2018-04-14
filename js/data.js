@@ -3,13 +3,7 @@ const INITIAL_STATE = {
   time: 0
 };
 
-const gameStatistics = [
-  {
-    answer: 0,
-    lives: 0,
-    time: 0
-  }
-];
+const gameStatistics = [];
 
 const statsList = [`true`, `false`, `fast`, `slow`, `slow`, `slow`, `slow`, `slow`, `slow`, `slow`];
 
@@ -18,10 +12,12 @@ const gamesContent = {
     title: `Угадайте для каждого изображения фото или рисунок?`,
     images: [
       {
-        figure: `https://k42.kn3.net/CF42609C8.jpg`
+        src: `https://k42.kn3.net/CF42609C8.jpg`,
+        type: `paint`
       },
       {
-        photo: `http://i.imgur.com/1KegWPz.jpg`
+        src: `http://i.imgur.com/1KegWPz.jpg`,
+        type: `photo`
       }
     ]
   },
@@ -29,7 +25,8 @@ const gamesContent = {
     title: `Угадай, фото или рисунок?`,
     images: [
       {
-        figure: `https://k42.kn3.net/D2F0370D6.jpg`
+        src: `https://k42.kn3.net/D2F0370D6.jpg`,
+        type: `paint`
       }
     ]
   },
@@ -38,17 +35,20 @@ const gamesContent = {
     title: `Найдите рисунок среди изображений`,
     images: [
       {
-        figure: `https://k32.kn3.net/5C7060EC5.jpg`
+        figure: `https://k32.kn3.net/5C7060EC5.jpg`,
+        type: `paint`
       },
       {
-        photo: `https://i.imgur.com/DiHM5Zb.jpg`
+        photo: `https://i.imgur.com/DiHM5Zb.jpg`,
+        type: `photo`
       },
       {
-        photo: `http://i.imgur.com/DKR1HtB.jpg`
+        photo: `http://i.imgur.com/DKR1HtB.jpg`,
+        type: `photo`
       }
     ]
   }
 };
 
 
-export {INITIAL_STATE, gamesContent, statsList};
+export {INITIAL_STATE, gamesContent, statsList, gameStatistics};
