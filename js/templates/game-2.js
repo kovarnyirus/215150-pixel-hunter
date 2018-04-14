@@ -5,7 +5,6 @@ import getGameThree from './game-3.js';
 import FOOTER from './footer.js';
 import {headerStatistics} from './header.js';
 import {INITIAL_STATE, statsList,gamesContent} from '../data.js';
-import {stats} from './stats-template.js';
 import {templateFirst, templateSecomnd, templateThird} from './game-tamplates';
 
 

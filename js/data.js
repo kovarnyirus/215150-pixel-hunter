@@ -4,7 +4,11 @@ const INITIAL_STATE = {
 };
 
 const gameStatistics = [
-  {lives: 0, time: 0},
+  {
+    answer: 0,
+    lives: 0,
+    time: 0
+  }
 ];
 
 const statsList = [`true`, `false`, `fast`, `slow`, `slow`, `slow`, `slow`, `slow`, `slow`, `slow`];
@@ -46,15 +50,5 @@ const gamesContent = {
   }
 };
 
-const screens = {
-  'intro': {
-    content: `<div id="main" class="central__content">
-    <div id="intro" class="intro">
-      <h1 class="intro__asterisk">*</h1>
-      <p class="intro__motto"><sup>*</sup> Это не фото. Это рисунок маслом нидерландского художника-фотореалиста Tjalf Sparnaay.</p>
-    </div>
-  </div>`
-  }
-};
 
-export {INITIAL_STATE, screens, gamesContent, statsList};
+export {INITIAL_STATE, gamesContent, statsList};
