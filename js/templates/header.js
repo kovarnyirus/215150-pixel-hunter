@@ -24,4 +24,4 @@ const header = `<header class="header">
     </div>
   </header>`;
 
-export {headerStatistics, header} ;
+export {headerStatistics, header};

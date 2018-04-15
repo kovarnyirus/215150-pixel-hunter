@@ -53,29 +53,41 @@ let getRandomImage = () => {
   };
 };
 
-const getGame1Level = () =>{
-  return {
-    type: `game-1`,
-    title: `Угадайте для каждого изображения фото или рисунок?`,
-    images: [getRandomImage(), getRandomImage()]
-  };
-};
+const getIntro = () =>({
+  type: `intro`
+});
 
-const getGame2Level = () =>{
-  return {
-    type: `game-2`,
-    title: `Угадай, фото или рисунок?`,
-    images: [getRandomImage(), getRandomImage()]
-  };
-};
+const getGreeting = () => ({
+  type: `greeting`
+});
 
-const getGame3Level = () =>{
-  return {
-    type: `game-3`,
-    title: `Найдите рисунок среди изображений`,
-    images: [getRandomImage(), getRandomImage(), getRandomImage()]
-  };
-};
+const getRules = () => ({
+  type: `rules`,
+  userName: ``
+});
+
+const getGame1Level = () =>({
+  type: `game-1`,
+  title: `Угадайте для каждого изображения фото или рисунок?`,
+  images: [getRandomImage(), getRandomImage()]
+});
+
+const getGame2Level = () =>({
+  type: `game-2`,
+  title: `Угадай, фото или рисунок?`,
+  images: [getRandomImage(), getRandomImage()]
+});
+
+const getGame3Level = () =>({
+  type: `game-3`,
+  title: `Найдите рисунок среди изображений`,
+  images: [getRandomImage(), getRandomImage(), getRandomImage()]
+});
+
+const getStats = () => ({
+
+});
+
 
 const levelGenerators = [getGame1Level, getGame2Level, getGame3Level];
 
@@ -85,7 +97,7 @@ const INITIAL_STATE = {
 };
 
 const getGameState = () => {
-  let gameList = [];
+  let gameList = [getIntro, getGreeting, getRules];
   for (let i = 0; i < lelengthArrGames; i++) {
     getImage = {
       'painting': elementGetter(images.paintings),
@@ -93,6 +105,7 @@ const getGameState = () => {
     };
     gameList.push(levelGenerators[getRandom(2)]());
   }
+  gameList.push(getStats);
   return gameList;
 };
 
@@ -100,12 +113,11 @@ const state = {
   stats: [], // будет зполняться по мере игры
   lives: 3, // будет зполняться по мере игры
   answers: [], // будет зполняться по мере игры
-  levels: getRandomGame(),
+  levels: getGameState(),
   currentLevel: 0,
   time: []
 };
 
 getGameState();
-console.log(state);
 
 export {INITIAL_STATE, state, getGameState};
