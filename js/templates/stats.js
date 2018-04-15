@@ -4,6 +4,7 @@ import getIntro from './intro.js';
 import FOOTER from './footer.js';
 import {header} from './header.js';
 
+const IS_GAME = false;
 const html = `<div class="result">
     <h1>Победа!</h1>
     <table class="result__table">

@@ -7,7 +7,7 @@ import {headerStatistics} from './header.js';
 import {INITIAL_STATE, state} from '../data.js';
 import {templateThird} from './game-tamplates';
 
-
+const IS_GAME = rtue;
 const template = headerStatistics(INITIAL_STATE) + templateThird(state.levels[2]) + FOOTER;
 const gameThree = createElement(template);
 let buttonBack;

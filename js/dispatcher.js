@@ -1,4 +1,4 @@
-import getGameState from `./data.js`;
+import getGameState from './data.js';
 import renderScreen from './utils.js';
 import getGreeting from './templates/greeting.js';
 import getIntro from './templates/intro.js';
@@ -9,13 +9,26 @@ import getGameThree from './templates/game-3.js';
 import getStats from './templates/stats.js';
 
 const levelScreens = {
-  `intro`: getIntro,
-  `greeting`: getGreeting,
-  `rules`: getRules,
-  `game-1`: getGameOne,
-  `game-2`: getGameTwo,
-  `game-3`: getGameThree,
-  `stats`: getStats
-}
+  'intro': getIntro,
+  'greeting': getGreeting,
+  'rules': getRules,
+  'game-1': getGameOne,
+  'game-2': getGameTwo,
+  'game-3': getGameThree,
+  'stats': getStats
+};
 
 let state = getGameState();
+
+const dispatcher = () => {
+  // let callback = (status, time) =>{
+  //   if(status === 'succes'){
+  //     state.currentLevel++;
+  //     state.answers.push(true)
+  //   }
+  if (state.currentLevel === 0) {
+    renderScreen(levelScreens['intro']());
+  }
+};
+
+export default dispatcher;

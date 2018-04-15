@@ -1,8 +1,7 @@
 import createElement from '../createElement.js';
-import renderScreen from '../utils.js';
-import getRules from './rules.js';
 import FOOTER from './footer.js';
 
+const IS_GAME = false;
 const html = `<div class="greeting central--blur">
     <div class="greeting__logo"><img src="img/logo_big.png" width="201" height="89" alt="Pixel Hunter"></div>
     <h1 class="greeting__asterisk">*</h1>

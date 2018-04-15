@@ -1,6 +1,5 @@
-import getIntro from './templates/intro.js';
-import renderScreen from './utils.js';
+import dispatcher from './dispatcher.js';
 
-renderScreen(getIntro());
+dispatcher();
 
 

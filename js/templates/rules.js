@@ -1,11 +1,8 @@
 import createElement from '../createElement.js';
-import renderScreen from '../utils.js';
-import getIntro from './intro.js';
-import getGameOne from './game-1.js';
 import FOOTER from './footer.js';
 import {header} from './header.js';
 
-
+const IS_GAME = false;
 const html = `
   <div class="rules">
     <h1 class="rules__title">Правила</h1>
