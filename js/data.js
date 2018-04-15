@@ -1,8 +1,7 @@
-const lelengthArrPicture = 2;
-const lelengthArrPhoto = 2;
+const lelengthArrGames = 10;
 let getImage;
 const images = {
-  pictures: [
+  paintings: [
     // People
     `https://k42.kn3.net/CF42609C8.jpg`,
 
@@ -78,21 +77,21 @@ const getGame3Level = () =>{
   };
 };
 
-const levelGenerators = [getGame1Level(), getGame2Level(), getGame3Level()];
+const levelGenerators = [getGame1Level, getGame2Level, getGame3Level];
 
 const INITIAL_STATE = {
   lives: 3,
   time: 0
 };
 
-const getRandomGame = () => {
+const getGameState = () => {
   let gameList = [];
-  for (let i = 0; i <= 10; i++) {
+  for (let i = 0; i < lelengthArrGames; i++) {
     getImage = {
-      'painting': elementGetter(images.pictures),
+      'painting': elementGetter(images.paintings),
       'photo': elementGetter(images.photos)
     };
-    arr.push(levelGenerators[getRandom(2)]);
+    gameList.push(levelGenerators[getRandom(2)]());
   }
   return gameList;
 };
@@ -106,7 +105,7 @@ const state = {
   time: []
 };
 
-getRandomGame();
+getGameState();
 console.log(state);
 
-export {INITIAL_STATE, state};
+export {INITIAL_STATE, state, getGameState};
