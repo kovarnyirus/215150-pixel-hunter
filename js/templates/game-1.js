@@ -8,7 +8,7 @@ import {INITIAL_STATE, state} from '../data.js';
 import {templateFirst, templateSecomnd, templateThird} from './game-tamplates';
 
 
-const template = headerStatistics(INITIAL_STATE) + templateFirst(state.gameOne) + FOOTER;
+const template = headerStatistics(INITIAL_STATE) + templateFirst(state.levels[0]) + FOOTER;
 const gameOne = createElement(template);
 let buttonBack = gameOne.querySelector(`.header__back`);
 let inputOne = gameOne.querySelectorAll(`input[name="question1"]`);

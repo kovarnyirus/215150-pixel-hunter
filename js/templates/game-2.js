@@ -8,7 +8,7 @@ import {INITIAL_STATE, state} from '../data.js';
 import {templateFirst, templateSecomnd, templateThird} from './game-tamplates';
 
 
-const template = headerStatistics(INITIAL_STATE) + templateSecomnd(state.gameTwo) + FOOTER;
+const template = headerStatistics(INITIAL_STATE) + templateSecomnd(state.levels[1]) + FOOTER;
 const gameTwo = createElement(template);
 let buttonBack;
 let inputQuestion;

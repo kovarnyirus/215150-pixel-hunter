@@ -8,7 +8,7 @@ import {INITIAL_STATE, state} from '../data.js';
 import {templateThird} from './game-tamplates';
 
 
-const template = headerStatistics(INITIAL_STATE) + templateThird(state.gameThree) + FOOTER;
+const template = headerStatistics(INITIAL_STATE) + templateThird(state.levels[2]) + FOOTER;
 const gameThree = createElement(template);
 let buttonBack;
 let gameCard;
