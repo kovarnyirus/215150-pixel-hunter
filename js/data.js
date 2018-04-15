@@ -1,6 +1,6 @@
 const lelengthArrPicture = 2;
 const lelengthArrPhoto = 2;
-
+let getImage;
 const images = {
   pictures: [
     // People
@@ -29,13 +29,15 @@ let getRandom = (maxValue) => {
   return Math.round(Math.random() * (maxValue - minValue) + minValue);
 };
 
-const getRandomPainting = () =>{
-  return images.pictures[getRandom(lelengthArrPicture)];
-};
-
-
-const getRandomPhoto = () => {
-  return images.photos[getRandom(lelengthArrPhoto)];
+const elementGetter = (array) =>{
+  const data = array.slice(0);
+  return () => {
+    if (data.length === 0) {
+      data = array.slice(0);
+    }
+    let index = getRandom(data.length - 1);
+    return data.splice(index, 1).pop();
+  };
 };
 
 const getRandomImageType = () =>{
@@ -43,10 +45,6 @@ const getRandomImageType = () =>{
   return imgTypeList[getRandom(1)];
 };
 
-let getImage = {
-  'photo': getRandomPhoto(),
-  'painting': getRandomPainting()
-};
 
 let getRandomImage = () => {
   let imageType = getRandomImageType();
@@ -90,6 +88,10 @@ const INITIAL_STATE = {
 const getRandomGame = () => {
   let gameList = [];
   for (let i = 0; i <= 10; i++) {
+    getImage = {
+      'painting': elementGetter(images.pictures),
+      'photo': elementGetter(images.photos)
+    };
     arr.push(levelGenerators[getRandom(2)]);
   }
   return gameList;
@@ -104,8 +106,7 @@ const state = {
   time: []
 };
 
-
-console.log(state);
 getRandomGame();
+console.log(state);
 
 export {INITIAL_STATE, state};
