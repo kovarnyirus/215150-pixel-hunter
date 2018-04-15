@@ -85,7 +85,7 @@ const getGame3Level = () =>({
 });
 
 const getStats = () => ({
-
+  type: `stats`,
 });
 
 
@@ -106,18 +106,16 @@ const getGameState = () => {
     gameList.push(levelGenerators[getRandom(2)]());
   }
   gameList.push(getStats);
-  return gameList;
+
+  const state = {
+    stats: [], // будет зполняться по мере игры
+    lives: 3, // будет зполняться по мере игры
+    answers: [], // будет зполняться по мере игры
+    levels: gameList,
+    currentLevel: 0,
+    time: []
+  };
+  return state;
 };
 
-const state = {
-  stats: [], // будет зполняться по мере игры
-  lives: 3, // будет зполняться по мере игры
-  answers: [], // будет зполняться по мере игры
-  levels: getGameState(),
-  currentLevel: 0,
-  time: []
-};
-
-getGameState();
-
-export {INITIAL_STATE, state, getGameState};
+export default getGameState;
