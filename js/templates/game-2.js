@@ -4,11 +4,11 @@ import getIntro from './intro.js';
 import getGameThree from './game-3.js';
 import FOOTER from './footer.js';
 import {headerStatistics} from './header.js';
-import {INITIAL_STATE, statsList,gamesContent} from '../data.js';
+import {INITIAL_STATE, state} from '../data.js';
 import {templateFirst, templateSecomnd, templateThird} from './game-tamplates';
 
 
-const template = headerStatistics(INITIAL_STATE) + templateSecomnd(gamesContent.gameTwo) + FOOTER;
+const template = headerStatistics(INITIAL_STATE) + templateSecomnd(state.gameTwo) + FOOTER;
 const gameTwo = createElement(template);
 let buttonBack;
 let inputQuestion;

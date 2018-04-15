@@ -4,12 +4,11 @@ import getIntro from './intro.js';
 import getGameTwo from './game-2.js';
 import FOOTER from './footer.js';
 import {headerStatistics} from './header.js';
-import {INITIAL_STATE, gamesContent, gameStatistics} from '../data.js';
+import {INITIAL_STATE, state} from '../data.js';
 import {templateFirst, templateSecomnd, templateThird} from './game-tamplates';
 
 
-
-const template = headerStatistics(INITIAL_STATE) + templateFirst(gamesContent.gameOne) + FOOTER;
+const template = headerStatistics(INITIAL_STATE) + templateFirst(state.gameOne) + FOOTER;
 const gameOne = createElement(template);
 let buttonBack = gameOne.querySelector(`.header__back`);
 let inputOne = gameOne.querySelectorAll(`input[name="question1"]`);
@@ -34,9 +33,10 @@ const onMouseDownButtonBack = () => {
 const nextScreen = () => {
   if (chekedOne && chekedTwo) {
     removeListeners();
-    gameStatistics.push({answer: chekedOne, time: 20});
-    gameStatistics.push({answer: chekedTwo, time: 20});
-    console.log(gameStatistics);
+    state.answers.push({answer: chekedOne});
+    state.time.push({time: 20});
+    state.answers.push({answer: chekedTwo});
+    state.time.push({time: 20});
     renderScreen(getGameTwo());
   }
 };

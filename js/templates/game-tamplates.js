@@ -1,5 +1,5 @@
 import {stats} from './stats-template.js';
-import {statsList} from '../data.js';
+import {state} from '../data.js';
 
 const templateFirst = (data) => {
   return `<div class="game">
@@ -29,7 +29,7 @@ const templateFirst = (data) => {
       </div>
     </form>
   </div>
-  ${stats(statsList)}
+  ${stats(state.stats)}
   `;
 };
 
@@ -49,7 +49,7 @@ const templateSecomnd = (data) => `<div class="game">
         </label>
       </div>
     </form>
-     ${stats(statsList)}
+     ${stats(state.stats)}
   </div>
   `;
 
@@ -67,7 +67,7 @@ const templateThird = (data) => `
         <img src="${data.images[2].src}" alt="Option 1" width="304" height="455">
       </div>
     </form>
-    ${stats(statsList)}
+    ${stats(state.stats)}
   </div>
   `;
 

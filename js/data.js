@@ -3,12 +3,10 @@ const INITIAL_STATE = {
   time: 0
 };
 
-const gameStatistics = [];
 
-const statsList = [`true`, `false`, `fast`, `slow`, `slow`, `slow`, `slow`, `slow`, `slow`, `slow`];
-
-const gamesContent = {
+const state = {
   gameOne: {
+    type: `game-1`,
     title: `Угадайте для каждого изображения фото или рисунок?`,
     images: [
       {
@@ -22,6 +20,7 @@ const gamesContent = {
     ]
   },
   gameTwo: {
+    type: `game-2`,
     title: `Угадай, фото или рисунок?`,
     images: [
       {
@@ -30,25 +29,30 @@ const gamesContent = {
       }
     ]
   },
-
   gameThree: {
+    type: `game-3`,
     title: `Найдите рисунок среди изображений`,
     images: [
       {
-        figure: `https://k32.kn3.net/5C7060EC5.jpg`,
+        src: `https://k32.kn3.net/5C7060EC5.jpg`,
         type: `paint`
       },
       {
-        photo: `https://i.imgur.com/DiHM5Zb.jpg`,
+        src: `https://i.imgur.com/DiHM5Zb.jpg`,
         type: `photo`
       },
       {
-        photo: `http://i.imgur.com/DKR1HtB.jpg`,
+        src: `http://i.imgur.com/DKR1HtB.jpg`,
         type: `photo`
       }
     ]
-  }
+  },
+  stats: [], // будет зполняться по мере игры
+  lives: 3, // будет зполняться по мере игры
+  answers: [], // будет зполняться по мере игры
+  level: 0,
+  time: []
 };
 
 
-export {INITIAL_STATE, gamesContent, statsList, gameStatistics};
+export {INITIAL_STATE, state};

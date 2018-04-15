@@ -4,11 +4,11 @@ import getIntro from './intro.js';
 import getStats from './stats.js';
 import FOOTER from './footer.js';
 import {headerStatistics} from './header.js';
-import {INITIAL_STATE, statsList, gamesContent} from '../data.js';
+import {INITIAL_STATE, state} from '../data.js';
 import {templateThird} from './game-tamplates';
 
 
-const template = headerStatistics(INITIAL_STATE) + templateThird(gamesContent.gameThree) + FOOTER;
+const template = headerStatistics(INITIAL_STATE) + templateThird(state.gameThree) + FOOTER;
 const gameThree = createElement(template);
 let buttonBack;
 let gameCard;
