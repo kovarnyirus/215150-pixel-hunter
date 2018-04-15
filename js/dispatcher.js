@@ -9,13 +9,13 @@ import getGameThree from './templates/game-3.js';
 import getStats from './templates/stats.js';
 
 const levelScreens = {
-  `intro`: renderScreen(getIntro),
-  `greeting`: renderScreen(getGreeting),
-  `rules`: renderScreen(getRules),
-  `game-1`: renderScreen(getGameOne),
-  `game-2`: renderScreen(getGameTwo),
-  `game-3`: renderScreen(getGameThree),
-  `stats`: renderScreen(getStats)
+  `intro`: getIntro,
+  `greeting`: getGreeting,
+  `rules`: getRules,
+  `game-1`: getGameOne,
+  `game-2`: getGameTwo,
+  `game-3`: getGameThree,
+  `stats`: getStats
 }
 
 let state = getGameState();

@@ -1,4 +1,6 @@
-const lelengthArrGames = 10;
+const IMG_TYPE_LIST = [`photo`, `painting`];
+const INITIAL_LIVES = 3;
+const LENGTH_ARR_GAMES = 10;
 let getImage;
 const images = {
   paintings: [
@@ -24,7 +26,6 @@ const images = {
 };
 
 let getRandom = (maxValue) => {
-  const minValue = 0;
   return Math.round(Math.random() * (maxValue - minValue) + minValue);
 };
 
@@ -39,9 +40,8 @@ const elementGetter = (array) =>{
   };
 };
 
-const getRandomImageType = () =>{
-  const imgTypeList = [`photo`, `painting`];
-  return imgTypeList[getRandom(1)];
+const getRandomImageType = () => {
+  return IMG_TYPE_LIST[getRandom(1)];
 };
 
 
@@ -91,14 +91,11 @@ const getStats = () => ({
 
 const levelGenerators = [getGame1Level, getGame2Level, getGame3Level];
 
-const INITIAL_STATE = {
-  lives: 3,
-  time: 0
-};
+
 
 const getGameState = () => {
   let gameList = [getIntro, getGreeting, getRules];
-  for (let i = 0; i < lelengthArrGames; i++) {
+  for (let i = 0; i < LENGTH_ARR_GAMES; i++) {
     getImage = {
       'painting': elementGetter(images.paintings),
       'photo': elementGetter(images.photos)
@@ -108,9 +105,9 @@ const getGameState = () => {
   gameList.push(getStats);
 
   const state = {
-    stats: [], // будет зполняться по мере игры
-    lives: 3, // будет зполняться по мере игры
-    answers: [], // будет зполняться по мере игры
+    stats: [],
+    lives: INITIAL_LIVES,
+    answers: [],
     levels: gameList,
     currentLevel: 0,
     time: []
