@@ -80,7 +80,7 @@ const getGame3Level = () =>{
   };
 };
 
-const arrGames = [getGame1Level(), getGame2Level(), getGame3Level()];
+const levelGenerators = [getGame1Level(), getGame2Level(), getGame3Level()];
 
 const INITIAL_STATE = {
   lives: 3,
@@ -90,7 +90,7 @@ const INITIAL_STATE = {
 const getRandomGame = () => {
   let gameList = [];
   for (let i = 0; i <= 10; i++) {
-    arr.push(arrGames[getRandom(2)]);
+    arr.push(levelGenerators[getRandom(2)]);
   }
   return gameList;
 };
