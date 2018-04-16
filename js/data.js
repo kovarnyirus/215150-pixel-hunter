@@ -92,9 +92,8 @@ const getStats = () => ({
 const levelGenerators = [getGame1Level, getGame2Level, getGame3Level];
 
 
-
 const getGameState = () => {
-  let gameList = [getIntro, getGreeting, getRules];
+  let gameList = [getIntro(), getGreeting(), getRules()];
   for (let i = 0; i < LENGTH_ARR_GAMES; i++) {
     getImage = {
       'painting': elementGetter(images.paintings),
@@ -102,7 +101,7 @@ const getGameState = () => {
     };
     gameList.push(levelGenerators[getRandom(2)]());
   }
-  gameList.push(getStats);
+  gameList.push(getStats());
 
   const state = {
     stats: [],
