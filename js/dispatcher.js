@@ -3,32 +3,42 @@ import renderScreen from './utils.js';
 import getGreeting from './templates/greeting.js';
 import getIntro from './templates/intro.js';
 import getRules from './templates/rules.js';
-import getGameTwo from './templates/game-2.js';
+// import getGameTwo from './templates/game-2.js';
 import getGameOne from './templates/game-1.js';
-import getGameThree from './templates/game-3.js';
-import getStats from './templates/stats.js';
+// import getGameThree from './templates/game-3.js';
+// import getStats from './templates/stats.js';
 
 const levelScreens = {
   'intro': getIntro,
   'greeting': getGreeting,
   'rules': getRules,
   'game-1': getGameOne,
-  'game-2': getGameTwo,
-  'game-3': getGameThree,
-  'stats': getStats
+  // 'game-2': getGameTwo,
+  // 'game-3': getGameThree,
+  // 'stats': getStats
 };
 
 let state = getGameState();
 
-const dispatcher = () => {
-  // let callback = (status, time) =>{
-  //   if(status === 'succes'){
-  //     state.currentLevel++;
-  //     state.answers.push(true)
-  //   }
-  if (state.currentLevel === 0) {
-    renderScreen(levelScreens['intro']());
+let handlerDispatcher = (status, time, name) => {
+  if (status === `succes`) {
+    name ? state.userName = name : ``;
+    state.currentLevel++;
+    state.answers.push(true);
+    state.time.push(time);
+  }else if(status === `goBack`){
+    state.currentLevel = 0;
   }
+  dispatcher();
 };
 
-export default dispatcher;
+const dispatcher = () => {
+  if (state.currentLevel === 0) {
+    return renderScreen(getIntro(handlerDispatcher));
+  } else if (state.currentLevel < 14) {
+    renderScreen(levelScreens[state.levels[state.currentLevel]().type](handlerDispatcher));
+  }
+
+};
+
+export {dispatcher, state};

@@ -1,5 +1,3 @@
-import {INITIAL_STATE} from '../data.js';
-
 const headerStatistics = (state) =>
   `<header class="header">
     <div class="header__back">

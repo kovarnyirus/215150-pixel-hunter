@@ -26,7 +26,7 @@ const images = {
 };
 
 let getRandom = (maxValue) => {
-  return Math.round(Math.random() * (maxValue - minValue) + minValue);
+  return Math.round(Math.random() * (maxValue));
 };
 
 const elementGetter = (array) =>{
@@ -110,6 +110,7 @@ const getGameState = () => {
     answers: [],
     levels: gameList,
     currentLevel: 0,
+    userName: '',
     time: []
   };
   return state;

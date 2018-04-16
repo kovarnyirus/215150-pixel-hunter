@@ -14,14 +14,14 @@ const htmlAll = html + FOOTER;
 const intro = createElement(htmlAll);
 let handleMousedownAsterisk;
 
-const onMousedownAsterisk = (ASTERISK) => () => {
+const onMousedownAsterisk = (ASTERISK, handlerDispatcher) => () => {
   ASTERISK.removeEventListener(`mousedown`, handleMousedownAsterisk);
-  callback('succes', 20);
+  handlerDispatcher('succes');
 };
-const getIntro = (callback) => {
+const getIntro = (handlerDispatcher) => {
   const node = intro.cloneNode(true);
   const ASTERISK = node.querySelector(`.intro__asterisk`);
-  handleMousedownAsterisk = onMousedownAsterisk(ASTERISK);
+  handleMousedownAsterisk = onMousedownAsterisk(ASTERISK, handlerDispatcher);
   ASTERISK.addEventListener(`mousedown`, handleMousedownAsterisk);
   return node;
 };

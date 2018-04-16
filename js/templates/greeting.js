@@ -22,15 +22,15 @@ const template = html + FOOTER;
 const greeting = createElement(template);
 let handleMousedownGreeting;
 
-const onMouseDownGreeting = (nextBtn) => () => {
+const onMouseDownGreeting = (nextBtn, handlerDispatcher) => () => {
   nextBtn.removeEventListener(`mousedown`, handleMousedownGreeting);
-  renderScreen(getRules());
+  handlerDispatcher('succes');
 };
 
-const getGreeting = () => {
+const getGreeting = (handlerDispatcher) => {
   const node = greeting.cloneNode(true);
   const nextBtn = node.querySelector(`.greeting__continue`);
-  handleMousedownGreeting = onMouseDownGreeting(nextBtn);
+  handleMousedownGreeting = onMouseDownGreeting(nextBtn, handlerDispatcher);
   nextBtn.addEventListener(`mousedown`, handleMousedownGreeting);
   return node;
 };

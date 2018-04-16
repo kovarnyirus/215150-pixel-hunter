@@ -27,7 +27,7 @@ const rules = createElement(template);
 let buttonGo;
 let buttonBack;
 let inputName;
-
+let handlerDispatchers;
 
 const onKeyupInputName = () => {
   if (inputName.value.length) {
@@ -46,15 +46,16 @@ const removeListeners = () => {
 const onMouseDownButtonGo = (evt) => {
   evt.preventDefault();
   removeListeners();
-  renderScreen(getGameOne());
+  handlerDispatchers(`succes`, ``, inputName.value);
 };
 
 const onMouseDownButtonBack = () => {
   removeListeners();
-  renderScreen(getIntro());
+  handlerDispatchers(`goBack`, ``, inputName.value);
 };
 
-const getRules = () => {
+const getRules = (handlerDispatcher) => {
+  handlerDispatchers = handlerDispatcher;
   const node = rules.cloneNode(true);
   buttonGo = node.querySelector(`.rules__button`);
   buttonBack = node.querySelector(`.header__back`);
