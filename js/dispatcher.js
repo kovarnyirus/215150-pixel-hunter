@@ -22,16 +22,27 @@ let state = getGameState();
 
 let handlerDispatcher = (status, time, name) => {
   if (status === `succes`) {
-    name ? state.userName = name : ``;
+    if (name) {
+      state.userName = name;
+    } else if (time) {
+      if (time < 10) {
+        state.questionStats.push(`fast`);
+      } else if (time > 20) {
+        state.questionStats.push(`slow`);
+      } else {
+        state.questionStats.push(`succes`);
+      }
+      state.time.push(time);
+    }
     state.currentLevel++;
     state.answers.push(true);
-    state.time.push(time);
   } else if (status === `goBack`) {
     state.currentLevel = 0;
-  }else if (status === `fail`){
+  } else if (status === `fail`) {
     state.answers.push(false);
     state.lives--;
     state.currentLevel++;
+    state.questionStats.push(`fail`);
   }
   dispatcher();
 };

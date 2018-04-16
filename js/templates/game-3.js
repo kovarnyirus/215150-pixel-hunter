@@ -28,8 +28,9 @@ const onMouseDownGameCard = () => {
 };
 
 const getGameThree = (handlerDispatcher, level, stats) => {
+  const statsData = stats.questionStats;
   dispatcherCallback = handlerDispatcher;
-  template = headerStatistics(stats) + templateThird(level) + FOOTER;
+  template = headerStatistics(stats) + templateThird(level, statsData) + FOOTER;
   gameThree = createElement(template);
   const node = gameThree.cloneNode(true);
   buttonBack = node.querySelector(`.header__back`);

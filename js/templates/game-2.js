@@ -33,9 +33,10 @@ const onChangeInput = (evt) => {
 };
 
 const getGameTwo = (handlerDispatcher, levelData, stats) => {
+  const statsData = stats.questionStats;
   gameImages = levelData.images;
   dispatcherCallback = handlerDispatcher;
-  template = headerStatistics(stats) + templateSecomnd(levelData) + FOOTER;
+  template = headerStatistics(stats) + templateSecomnd(levelData, statsData) + FOOTER;
   gameTwo = createElement(template);
   const node = gameTwo.cloneNode(true);
   buttonBack = node.querySelector(`.header__back`);

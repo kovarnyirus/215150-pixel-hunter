@@ -1,6 +1,6 @@
 import {stats} from './stats-template.js';
 
-const templateFirst = (data) => {
+const templateFirst = (data, statsData) => {
   return `<div class="game">
     <p class="game__task">${data.title}</p>
     <form class="game__content">
@@ -27,13 +27,13 @@ const templateFirst = (data) => {
         </label>
       </div>
     </form>
-    
+    ${stats(statsData)}
   </div>
   `;
 };
 
 
-const templateSecomnd = (data) => `<div class="game">
+const templateSecomnd = (data, statsData) => `<div class="game">
     <p class="game__task">${data.title}</p>
     <form class="game__content  game__content--wide">
       <div class="game__option">
@@ -48,10 +48,11 @@ const templateSecomnd = (data) => `<div class="game">
         </label>
       </div>
     </form>
+    ${stats(statsData)}
   </div>
   `;
 
-const templateThird = (data) => `
+const templateThird = (data, statsData) => `
   <div class="game">
     <p class="game__task">${data.title}</p>
     <form class="game__content  game__content--triple">
@@ -65,7 +66,7 @@ const templateThird = (data) => `
         <img src="${data.images[2].src()}" alt="Option 1" width="304" height="455">
       </div>
     </form>
-
+  ${stats(statsData)}
   </div>
   `;
 

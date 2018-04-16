@@ -110,6 +110,7 @@ const getGameState = () => {
     levels: gameList,
     currentLevel: 0,
     userName: '',
+    questionStats: [],
     time: []
   };
   return state;

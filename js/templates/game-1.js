@@ -36,7 +36,6 @@ const nextScreen = () => {
     } else {
       dispatcherCallback(`fail`, 20);
     }
-
   }
 };
 
@@ -53,7 +52,8 @@ const onChangeInputTwo = (evt) => {
 const getGameOne = (handlerDispatcher, levelData, stats) => {
   dispatcherCallback = handlerDispatcher;
   gameImages = levelData.images;
-  template = headerStatistics(stats) + templateFirst(levelData) + FOOTER;
+  const statsData = stats.questionStats;
+  template = headerStatistics(stats) + templateFirst(levelData, statsData) + FOOTER;
   gameOne = createElement(template);
   const node = gameOne.cloneNode(true);
   buttonBack = gameOne.querySelector(`.header__back`);
