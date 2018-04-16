@@ -1,17 +1,14 @@
 import createElement from '../createElement.js';
-import renderScreen from '../utils.js';
-import getIntro from './intro.js';
-import getStats from './stats.js';
 import FOOTER from './footer.js';
 import {headerStatistics} from './header.js';
-import {INITIAL_STATE, state} from '../data.js';
 import {templateThird} from './game-tamplates';
 
 const IS_GAME = rtue;
-const template = headerStatistics(INITIAL_STATE) + templateThird(state.levels[2]) + FOOTER;
-const gameThree = createElement(template);
+let template;
+let gameThree;
 let buttonBack;
 let gameCard;
+let dispatcherCallback;
 
 const removeListeners = () => {
   gameCard[0].removeEventListener(`change`, onMouseDownGameCard);
@@ -22,15 +19,18 @@ const removeListeners = () => {
 
 const onMouseDownButtonBack = () => {
   removeListeners();
-  renderScreen(getIntro());
+  dispatcherCallback(`goBack`);
 };
 
 const onMouseDownGameCard = () => {
   removeListeners();
-  renderScreen(getStats());
+  dispatcherCallback(`succes`, 20);
 };
 
-const getGameThree = () => {
+const getGameThree = (handlerDispatcher, level, stats) => {
+  dispatcherCallback = handlerDispatcher;
+  template = headerStatistics(stats) + templateThird(level) + FOOTER;
+  gameThree = createElement(template);
   const node = gameThree.cloneNode(true);
   buttonBack = node.querySelector(`.header__back`);
   gameCard = node.querySelectorAll(`.game__option`);

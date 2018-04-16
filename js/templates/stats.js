@@ -1,10 +1,9 @@
 import createElement from '../createElement.js';
-import renderScreen from '../utils.js';
-import getIntro from './intro.js';
 import FOOTER from './footer.js';
 import {header} from './header.js';
 
 const IS_GAME = false;
+let gameData;
 const html = `<div class="result">
     <h1>Победа!</h1>
     <table class="result__table">
@@ -107,18 +106,20 @@ const html = `<div class="result">
   </div>
   `;
 
-
-const template = header + html + FOOTER;
-const stats = createElement(template);
+let dispatcherCallback;
 let handleMousedownButtonBack;
 
 const onMouseDownButtonBack = (buttonBack) => () => {
   buttonBack.removeEventListener(`mousedown`, handleMousedownButtonBack);
-  renderScreen(getIntro());
+  dispatcherCallback(`goBack`);
 };
 
-const getStats = () => {
-  const node = stats.cloneNode(true);
+const getStats = (handlerDispatcher, levelData, stats) => {
+  gameData = stats;
+  dispatcherCallback = handlerDispatcher;
+  const template = header + html + FOOTER;
+  const statsTemplate = createElement(template);
+  const node = statsTemplate.cloneNode(true);
   const buttonBack = node.querySelector(`.header__back`);
   handleMousedownButtonBack = onMouseDownButtonBack(buttonBack);
   buttonBack.addEventListener(`mousedown`, handleMousedownButtonBack);

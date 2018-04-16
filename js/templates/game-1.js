@@ -1,18 +1,18 @@
 import createElement from '../createElement.js';
 import FOOTER from './footer.js';
 import {headerStatistics} from './header.js';
-import {state} from '../dispatcher.js';
-import {templateFirst, templateSecomnd, templateThird} from './game-tamplates';
+import {templateFirst} from './game-tamplates';
 
 const IS_GAME = rtue;
-const template = headerStatistics(state) + templateFirst(state.levels[0]) + FOOTER;
-const gameOne = createElement(template);
-let buttonBack = gameOne.querySelector(`.header__back`);
-let inputOne = gameOne.querySelectorAll(`input[name="question1"]`);
-let inputTwo = gameOne.querySelectorAll(`input[name="question2"]`);
+let template;
+let gameOne;
+let buttonBack;
+let inputOne;
+let inputTwo;
 let chekedOne = false;
 let chekedTwo = false;
 let dispatcherCallback;
+let gameImages;
 
 
 const removeListeners = () => {
@@ -31,7 +31,12 @@ const onMouseDownButtonBack = () => {
 const nextScreen = () => {
   if (chekedOne && chekedTwo) {
     removeListeners();
-    handlerDispatcher('succes', 20);
+    if (gameImages[0].type === chekedOne && gameImages[1].type === chekedTwo) {
+      dispatcherCallback(`succes`, 20);
+    } else {
+      dispatcherCallback(`fail`, 20);
+    }
+
   }
 };
 
@@ -45,9 +50,15 @@ const onChangeInputTwo = (evt) => {
   nextScreen();
 };
 
-const getGameOne = (handlerDispatcher) => {
+const getGameOne = (handlerDispatcher, levelData, stats) => {
   dispatcherCallback = handlerDispatcher;
+  gameImages = levelData.images;
+  template = headerStatistics(stats) + templateFirst(levelData) + FOOTER;
+  gameOne = createElement(template);
   const node = gameOne.cloneNode(true);
+  buttonBack = gameOne.querySelector(`.header__back`);
+  inputOne = gameOne.querySelectorAll(`input[name="question1"]`);
+  inputTwo = gameOne.querySelectorAll(`input[name="question2"]`);
   buttonBack = node.querySelector(`.header__back`);
   inputOne = node.querySelectorAll(`input[name="question1"]`);
   inputTwo = node.querySelectorAll(`input[name="question2"]`);

@@ -16,7 +16,7 @@ let handleMousedownAsterisk;
 
 const onMousedownAsterisk = (ASTERISK, handlerDispatcher) => () => {
   ASTERISK.removeEventListener(`mousedown`, handleMousedownAsterisk);
-  handlerDispatcher('succes');
+  handlerDispatcher(`succes`);
 };
 const getIntro = (handlerDispatcher) => {
   const node = intro.cloneNode(true);

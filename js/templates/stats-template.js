@@ -1,4 +1,3 @@
-
 const lengthStats = 10;
 
 const drawStats = (stats) => {
