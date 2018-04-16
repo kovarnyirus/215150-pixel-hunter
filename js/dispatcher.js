@@ -26,7 +26,7 @@ let handlerDispatcher = (status, time, name) => {
     state.currentLevel++;
     state.answers.push(true);
     state.time.push(time);
-  }else if(status === `goBack`){
+  } else if (status === `goBack`) {
     state.currentLevel = 0;
   }
   dispatcher();
@@ -37,8 +37,7 @@ const dispatcher = () => {
   if (state.currentLevel === 0) {
     return renderScreen(getIntro(handlerDispatcher));
   } else if (state.currentLevel < 14) {
-    console.log(levelScreens[levelData]);
-    renderScreen(levelScreens[levelData]);
+    renderScreen(levelScreens[levelData]());
   }
 };
 
