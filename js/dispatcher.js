@@ -33,11 +33,11 @@ let handlerDispatcher = (status, time, name) => {
 };
 
 const dispatcher = () => {
-  const levelData = state.levels[state.currentLevel].type;
+  const levelData = state.levels[state.currentLevel];
   if (state.currentLevel === 0) {
     return renderScreen(getIntro(handlerDispatcher));
   } else if (state.currentLevel < 14) {
-    renderScreen(levelScreens[levelData]());
+    renderScreen(levelScreens[levelData.type](handlerDispatcher, levelData));
   }
 };
 
