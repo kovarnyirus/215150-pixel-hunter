@@ -10,6 +10,7 @@ let buttonBack;
 let inputQuestion;
 let dispatcherCallback;
 let gameImages;
+const timeAnswer = 20;
 
 const removeListeners = () => {
   buttonBack.removeEventListener(`mousedown`, onMouseDownButtonBack);
@@ -25,17 +26,17 @@ const onMouseDownButtonBack = () => {
 const onChangeInput = (evt) => {
   removeListeners();
   if (gameImages[0].type === evt.target.value) {
-    dispatcherCallback(`succes`, 20);
+    dispatcherCallback(`succes`, timeAnswer);
   } else {
-    dispatcherCallback(`fail`, 20);
+    dispatcherCallback(`fail`, timeAnswer);
   }
 
 };
 
-const getGameTwo = (handlerDispatcher, levelData, stats) => {
+const getGameTwo = (dispatch, levelData, stats) => {
   const statsData = stats.questionStats;
   gameImages = levelData.images;
-  dispatcherCallback = handlerDispatcher;
+  dispatcherCallback = dispatch;
   template = headerStatistics(stats) + templateSecomnd(levelData, statsData) + FOOTER;
   gameTwo = createElement(template);
   const node = gameTwo.cloneNode(true);

@@ -9,6 +9,7 @@ let gameThree;
 let buttonBack;
 let gameCard;
 let dispatcherCallback;
+const timeAnswer = 20;
 
 const removeListeners = () => {
   gameCard[0].removeEventListener(`change`, onMouseDownGameCard);
@@ -24,12 +25,12 @@ const onMouseDownButtonBack = () => {
 
 const onMouseDownGameCard = () => {
   removeListeners();
-  dispatcherCallback(`succes`, 20);
+  dispatcherCallback(`succes`, timeAnswer);
 };
 
-const getGameThree = (handlerDispatcher, level, stats) => {
+const getGameThree = (dispatch, level, stats) => {
   const statsData = stats.questionStats;
-  dispatcherCallback = handlerDispatcher;
+  dispatcherCallback = dispatch;
   template = headerStatistics(stats) + templateThird(level, statsData) + FOOTER;
   gameThree = createElement(template);
   const node = gameThree.cloneNode(true);

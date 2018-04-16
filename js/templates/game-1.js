@@ -13,6 +13,7 @@ let chekedOne = false;
 let chekedTwo = false;
 let dispatcherCallback;
 let gameImages;
+const timeAnswer = 20;
 
 
 const removeListeners = () => {
@@ -32,9 +33,9 @@ const nextScreen = () => {
   if (chekedOne && chekedTwo) {
     removeListeners();
     if (gameImages[0].type === chekedOne && gameImages[1].type === chekedTwo) {
-      dispatcherCallback(`succes`, 20);
+      dispatcherCallback(`succes`, timeAnswer);
     } else {
-      dispatcherCallback(`fail`, 20);
+      dispatcherCallback(`fail`, timeAnswer);
     }
   }
 };
@@ -49,16 +50,13 @@ const onChangeInputTwo = (evt) => {
   nextScreen();
 };
 
-const getGameOne = (handlerDispatcher, levelData, stats) => {
-  dispatcherCallback = handlerDispatcher;
+const getGameOne = (dispatch, levelData, stats) => {
+  dispatcherCallback = dispatch;
   gameImages = levelData.images;
   const statsData = stats.questionStats;
   template = headerStatistics(stats) + templateFirst(levelData, statsData) + FOOTER;
   gameOne = createElement(template);
   const node = gameOne.cloneNode(true);
-  buttonBack = gameOne.querySelector(`.header__back`);
-  inputOne = gameOne.querySelectorAll(`input[name="question1"]`);
-  inputTwo = gameOne.querySelectorAll(`input[name="question2"]`);
   buttonBack = node.querySelector(`.header__back`);
   inputOne = node.querySelectorAll(`input[name="question1"]`);
   inputTwo = node.querySelectorAll(`input[name="question2"]`);

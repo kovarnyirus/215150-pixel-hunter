@@ -7,21 +7,20 @@ const html = `<div id="main" class="central__content">
       <h1 class="intro__asterisk">*</h1>
       <p class="intro__motto"><sup>*</sup> Это не фото. Это рисунок маслом нидерландского художника-фотореалиста Tjalf Sparnaay.</p>
     </div>
-  </div>`;
+  </div>
+${FOOTER}`;
 
-const htmlAll = html + FOOTER;
-
-const intro = createElement(htmlAll);
+const intro = createElement(html);
 let handleMousedownAsterisk;
 
-const onMousedownAsterisk = (ASTERISK, handlerDispatcher) => () => {
+const onMousedownAsterisk = (ASTERISK, dispatch) => () => {
   ASTERISK.removeEventListener(`mousedown`, handleMousedownAsterisk);
-  handlerDispatcher(`succes`);
+  dispatch(`succes`);
 };
-const getIntro = (handlerDispatcher) => {
+const getIntro = (dispatch) => {
   const node = intro.cloneNode(true);
   const ASTERISK = node.querySelector(`.intro__asterisk`);
-  handleMousedownAsterisk = onMousedownAsterisk(ASTERISK, handlerDispatcher);
+  handleMousedownAsterisk = onMousedownAsterisk(ASTERISK, dispatch);
   ASTERISK.addEventListener(`mousedown`, handleMousedownAsterisk);
   return node;
 };

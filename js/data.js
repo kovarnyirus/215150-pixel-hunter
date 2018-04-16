@@ -1,4 +1,4 @@
-const IMG_TYPE_LIST = [`photo`, `painting`];
+const IMG_TYPE_LIST = [`photo`, `paint`];
 const INITIAL_LIVES = 3;
 const LENGTH_ARR_GAMES = 10;
 let getImage;
@@ -26,7 +26,7 @@ const images = {
 };
 
 let getRandom = (maxValue) => {
-  return Math.round(Math.random() * (maxValue));
+  return Math.floor(Math.random() * (maxValue));
 };
 
 const elementGetter = (array) =>{
@@ -45,11 +45,18 @@ const getRandomImageType = () => {
 };
 
 
+// const randomImage = (type) => {
+//   return {
+//     type: type,
+//     src: getImage[type]()
+//   };
+// }
+
 let getRandomImage = () => {
   let imageType = getRandomImageType();
   return {
     type: imageType,
-    src: getImage[imageType]
+    src: getImage[imageType]()
   };
 };
 

@@ -4,7 +4,9 @@ import {header} from './header.js';
 
 const IS_GAME = false;
 let gameData;
-const html = `<div class="result">
+const html = `
+${header}
+<div class="result">
     <h1>Победа!</h1>
     <table class="result__table">
       <tr>
@@ -104,6 +106,7 @@ const html = `<div class="result">
       </tr>
     </table>
   </div>
+  ${FOOTER}
   `;
 
 let dispatcherCallback;
@@ -114,11 +117,10 @@ const onMouseDownButtonBack = (buttonBack) => () => {
   dispatcherCallback(`goBack`);
 };
 
-const getStats = (handlerDispatcher, levelData, stats) => {
+const getStats = (dispatch, levelData, stats) => {
   gameData = stats;
-  dispatcherCallback = handlerDispatcher;
-  const template = header + html + FOOTER;
-  const statsTemplate = createElement(template);
+  dispatcherCallback = dispatch;
+  const statsTemplate = createElement(html);
   const node = statsTemplate.cloneNode(true);
   const buttonBack = node.querySelector(`.header__back`);
   handleMousedownButtonBack = onMouseDownButtonBack(buttonBack);

@@ -37,7 +37,7 @@ let handlerDispatcher = (status, time, name) => {
     state.currentLevel++;
     state.answers.push(true);
   } else if (status === `goBack`) {
-    state.currentLevel = 0;
+    state;
   } else if (status === `fail`) {
     state.answers.push(false);
     state.lives--;
@@ -58,4 +58,4 @@ const dispatcher = () => {
   }
 };
 
-export {dispatcher, state};
+export default dispatcher;

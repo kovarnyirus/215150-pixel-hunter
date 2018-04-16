@@ -4,6 +4,7 @@ import {header} from './header.js';
 
 const IS_GAME = false;
 const html = `
+${header}
   <div class="rules">
     <h1 class="rules__title">Правила</h1>
     <p class="rules__description">Угадай 10 раз для каждого изображения фото <img
@@ -19,15 +20,15 @@ const html = `
       <input class="rules__input" type="text" placeholder="Ваше Имя">
       <button class="rules__button  continue" type="submit" disabled>Go!</button>
     </form>
-  </div>`;
+  </div>
+${FOOTER}`;
 
-const template = header + html + FOOTER;
 
-const rules = createElement(template);
+const rules = createElement(html);
 let buttonGo;
 let buttonBack;
 let inputName;
-let handlerDispatchers;
+let dispatchs;
 
 const onKeyupInputName = () => {
   if (inputName.value.length) {
@@ -46,16 +47,16 @@ const removeListeners = () => {
 const onMouseDownButtonGo = (evt) => {
   evt.preventDefault();
   removeListeners();
-  handlerDispatchers(`succes`, ``, inputName.value);
+  dispatchs(`succes`, ``, inputName.value);
 };
 
 const onMouseDownButtonBack = () => {
   removeListeners();
-  handlerDispatchers(`goBack`, ``, inputName.value);
+  dispatchs(`goBack`);
 };
 
-const getRules = (handlerDispatcher) => {
-  handlerDispatchers = handlerDispatcher;
+const getRules = (dispatch) => {
+  dispatchs = dispatch;
   const node = rules.cloneNode(true);
   buttonGo = node.querySelector(`.rules__button`);
   buttonBack = node.querySelector(`.header__back`);

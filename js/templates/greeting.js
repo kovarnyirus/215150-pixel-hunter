@@ -14,23 +14,21 @@ const html = `<div class="greeting central--blur">
         Помни, главное — смотреть очень внимательно.</p>
     </div>
     <div class="greeting__continue"><span><img src="img/arrow_right.svg" width="64" height="64" alt="Next"></span></div>
-  </div>`;
+  </div>
+${FOOTER}`;
 
-const template = html + FOOTER;
-
-
-const greeting = createElement(template);
+const greeting = createElement(html);
 let handleMousedownGreeting;
 
-const onMouseDownGreeting = (nextBtn, handlerDispatcher) => () => {
+const onMouseDownGreeting = (nextBtn, dispatch) => () => {
   nextBtn.removeEventListener(`mousedown`, handleMousedownGreeting);
-  handlerDispatcher(`succes`);
+  dispatch(`succes`);
 };
 
-const getGreeting = (handlerDispatcher) => {
+const getGreeting = (dispatch) => {
   const node = greeting.cloneNode(true);
   const nextBtn = node.querySelector(`.greeting__continue`);
-  handleMousedownGreeting = onMouseDownGreeting(nextBtn, handlerDispatcher);
+  handleMousedownGreeting = onMouseDownGreeting(nextBtn, dispatch);
   nextBtn.addEventListener(`mousedown`, handleMousedownGreeting);
   return node;
 };
