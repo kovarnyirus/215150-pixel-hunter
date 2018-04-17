@@ -101,7 +101,7 @@ const getGame3Level = () => {
     type: `game-3`,
     title: `Найдите рисунок среди изображений`,
     correctAnswer: correctType,
-    images: levelIamges
+    images: arrayShuffle([getImageByType(wrongType), getImageByType(wrongType), getImageByType(correctType)]
   }
 
 
@@ -123,7 +123,6 @@ const getGameState = () => {
     };
     gameList.push(levelGenerators[getRandom(3)]());
   }
-  levelIamges = arrayShuffle([getImageByType(wrongType), getImageByType(wrongType), getImageByType(correctType)]);
   gameList.push(getStats());
 
   const state = {
