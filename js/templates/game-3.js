@@ -3,12 +3,13 @@ import FOOTER from './footer.js';
 import {headerStatistics} from './header.js';
 import {templateThird} from './game-tamplates';
 
-const IS_GAME = rtue;
+const IS_GAME = true;
 let template;
 let gameThree;
 let buttonBack;
 let gameCard;
 let dispatcherCallback;
+let correctAnswer;
 const timeAnswer = 20;
 
 const removeListeners = () => {
@@ -23,13 +24,19 @@ const onMouseDownButtonBack = () => {
   dispatcherCallback(`goBack`);
 };
 
-const onMouseDownGameCard = () => {
+const onMouseDownGameCard = (evt) => {
   removeListeners();
-  dispatcherCallback(`succes`, timeAnswer);
+  if (evt.target.attributes[2].value === correctAnswer){
+    dispatcherCallback(`succes`, timeAnswer, IS_GAME);
+  } else {
+    dispatcherCallback(`fail`);
+  }
+
 };
 
 const getGameThree = (dispatch, level, stats) => {
   const statsData = stats.questionStats;
+  correctAnswer = level.correctAnswer;
   dispatcherCallback = dispatch;
   template = headerStatistics(stats) + templateThird(level, statsData) + FOOTER;
   gameThree = createElement(template);

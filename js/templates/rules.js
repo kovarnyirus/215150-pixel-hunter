@@ -46,7 +46,7 @@ const removeListeners = () => {
 const onMouseDownButtonGo = (evt) => {
   evt.preventDefault();
   removeListeners();
-  dispatcherCallback(`succes`, ``, inputName.value);
+  dispatcherCallback(`succes`, ``, IS_GAME, inputName.value);
 };
 
 const onMouseDownButtonBack = () => {

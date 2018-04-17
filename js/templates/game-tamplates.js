@@ -27,7 +27,9 @@ const templateFirst = (data, statsData) => {
         </label>
       </div>
     </form>
+    <div class="stats">
     ${stats(statsData)}
+    </div>
   </div>
   `;
 };
@@ -48,7 +50,9 @@ const templateSecomnd = (data, statsData) => `<div class="game">
         </label>
       </div>
     </form>
+    <div class="stats">
     ${stats(statsData)}
+    </div>
   </div>
   `;
 
@@ -57,16 +61,18 @@ const templateThird = (data, statsData) => `
     <p class="game__task">${data.title}</p>
     <form class="game__content  game__content--triple">
       <div class="game__option">
-        <img src="${data.images[0].src}" alt="Option 1" width="304" height="455">
+        <img src="${data.images[0].src}" alt="Option 1" data="${data.images[0].type}" width="304" height="455">
       </div>
       <div class="game__option  game__option--selected">
-        <img src="${data.images[1].src}" alt="Option 1" width="304" height="455">
+        <img src="${data.images[1].src}" alt="Option 1" data="${data.images[1].type}" width="304" height="455">
       </div>
       <div class="game__option">
-        <img src="${data.images[2].src}" alt="Option 1" width="304" height="455">
+        <img src="${data.images[2].src}" alt="Option 1" data="${data.images[2].type}" width="304" height="455">
       </div>
     </form>
+    <div class="stats">
   ${stats(statsData)}
+  </div>
   </div>
   `;
 

@@ -20,7 +20,7 @@ const levelScreens = {
 
 let state = getGameState();
 
-let handlerDispatcher = (status, time, name) => {
+let handlerDispatcher = (status, time, isGame, name) => {
   if (status === `succes`) {
     if (name) {
       state.userName = name;
@@ -35,7 +35,7 @@ let handlerDispatcher = (status, time, name) => {
       state.time.push(time);
     }
     state.currentLevel++;
-    state.answers.push(true);
+    if (isGame) {state.answers.push(true)};
   } else if (status === `goBack`) {
     state = getGameState();
   } else if (status === `fail`) {
@@ -48,14 +48,14 @@ let handlerDispatcher = (status, time, name) => {
 };
 
 const dispatcher = () => {
+  console.log(state.time);
   const levelData = state.levels[state.currentLevel];
   if (state.currentLevel === 0) {
     return renderScreen(getIntro(handlerDispatcher));
   } else if (state.lives === 0) {
-    renderScreen(getStats(handlerDispatcher, levelData, state));
+    renderScreen(getStats(handlerDispatcher, `fail`, state));
   } else if (state.currentLevel < 14) {
     renderScreen(levelScreens[levelData.type](handlerDispatcher, levelData, state));
-    console.log(state);
   }
 };
 

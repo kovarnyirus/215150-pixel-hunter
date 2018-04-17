@@ -3,7 +3,7 @@ import FOOTER from './footer.js';
 import {headerStatistics} from './header.js';
 import {templateSecomnd} from './game-tamplates';
 
-const IS_GAME = rtue;
+const IS_GAME = true;
 let template;
 let gameTwo;
 let buttonBack;
@@ -26,7 +26,7 @@ const onMouseDownButtonBack = () => {
 const onChangeInput = (evt) => {
   removeListeners();
   if (gameImages[0].type === evt.target.value) {
-    dispatcherCallback(`succes`, timeAnswer);
+    dispatcherCallback(`succes`, timeAnswer, IS_GAME);
   } else {
     dispatcherCallback(`fail`, timeAnswer);
   }

@@ -3,7 +3,7 @@ import FOOTER from './footer.js';
 import {headerStatistics} from './header.js';
 import {templateFirst} from './game-tamplates';
 
-const IS_GAME = rtue;
+const IS_GAME = true;
 let template;
 let gameOne;
 let buttonBack;
@@ -33,7 +33,7 @@ const nextScreen = () => {
   if (chekedOne && chekedTwo) {
     removeListeners();
     if (gameImages[0].type === chekedOne && gameImages[1].type === chekedTwo) {
-      dispatcherCallback(`succes`, timeAnswer);
+      dispatcherCallback(`succes`, timeAnswer, IS_GAME);
     } else {
       dispatcherCallback(`fail`, timeAnswer);
     }

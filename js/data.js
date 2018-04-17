@@ -1,8 +1,5 @@
 const IMG_TYPE_LIST = [`photo`, `paint`];
-const TILE_LIST = {
-  photo: `фото`,
-  paint: `рисунок`
-}
+const TILE_LIST = {photo: `фото`, paint: `рисунок`}
 const INITIAL_LIVES = 3;
 const LENGTH_ARR_GAMES = 10;
 let getImage;
@@ -29,9 +26,8 @@ const images = {
   ]
 };
 
-let getRandom = (maxValue) => {
-  return Math.floor(Math.random() * (maxValue + 1));
-};
+let getRandom = (maxValue) => Math.floor(Math.random() * (maxValue + 1));
+
 
 const elementGetter = (array) => {
   const data = array.slice(0);
@@ -43,22 +39,15 @@ const elementGetter = (array) => {
   };
 };
 
-const getRandomImageType = () => {
-  return IMG_TYPE_LIST[getRandom(1)];
-};
+const getRandomImageType = () =>  IMG_TYPE_LIST[getRandom(1)];
 
-const arrayShuffle = (array) => {
-  return array.sort(() => {
-    return Math.random() - 0.5;
-  });
-};
 
-let getImageByType = (imageType) => {
-  return {
+const arrayShuffle = (array) => array.sort(() => Math.random() - 0.5);
+
+let getImageByType = (imageType) => ({
     type: imageType,
     src: getImage[imageType]()
-  };
-};
+  });
 
 let getRandomImage = () => getImageByType(getRandomImageType());
 

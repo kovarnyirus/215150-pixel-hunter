@@ -17,7 +17,7 @@ const drawStats = (stats) => {
 };
 
 const stats = (statsList) => `
-  <div class="stats">
+  
       <ul class="stats">
         ${drawStats(statsList)}
       </ul>
