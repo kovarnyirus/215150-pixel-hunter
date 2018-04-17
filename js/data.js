@@ -29,7 +29,7 @@ let getRandom = (maxValue) => {
   return Math.floor(Math.random() * (maxValue));
 };
 
-const elementGetter = (array) =>{
+const elementGetter = (array) => {
   const data = array.slice(0);
   return () => {
     if (data.length === 0) {
@@ -45,12 +45,24 @@ const getRandomImageType = () => {
 };
 
 
-// const randomImage = (type) => {
+
+const getRandomSortArray = (array) => {
+  return array.sort(() => {
+    return Math.random() - 0.5;
+  });
+};
+
+const getRandomType = (array) => {
+  const type = elementGetter(array);
+  return type();
+};
+
+// const getRandomType = (array) => {
 //   return {
-//     type: type,
+//     type: elementGetter(array),
 //     src: getImage[type]()
 //   };
-// }
+// };
 
 let getRandomImage = () => {
   let imageType = getRandomImageType();
@@ -88,7 +100,9 @@ const getGame2Level = () =>({
 const getGame3Level = () =>({
   type: `game-3`,
   title: `Найдите рисунок среди изображений`,
+  correctAnswer: getRandomType(IMG_TYPE_LIST),
   images: [getRandomImage(), getRandomImage(), getRandomImage()]
+
 });
 
 const getStats = () => ({
@@ -106,7 +120,7 @@ const getGameState = () => {
       'painting': elementGetter(images.paintings),
       'photo': elementGetter(images.photos)
     };
-    gameList.push(levelGenerators[getRandom(2)]());
+    gameList.push(levelGenerators[getRandom(3)]());
   }
   gameList.push(getStats());
 
@@ -116,7 +130,7 @@ const getGameState = () => {
     answers: [],
     levels: gameList,
     currentLevel: 0,
-    userName: '',
+    userName: ``,
     questionStats: [],
     time: []
   };

@@ -3,8 +3,7 @@ import FOOTER from './footer.js';
 import {header} from './header.js';
 
 const IS_GAME = false;
-const html = `
-${header}
+const html = `${header}
   <div class="rules">
     <h1 class="rules__title">Правила</h1>
     <p class="rules__description">Угадай 10 раз для каждого изображения фото <img
@@ -28,7 +27,7 @@ const rules = createElement(html);
 let buttonGo;
 let buttonBack;
 let inputName;
-let dispatchs;
+let dispatcherCallback;
 
 const onKeyupInputName = () => {
   if (inputName.value.length) {
@@ -47,16 +46,16 @@ const removeListeners = () => {
 const onMouseDownButtonGo = (evt) => {
   evt.preventDefault();
   removeListeners();
-  dispatchs(`succes`, ``, inputName.value);
+  dispatcherCallback(`succes`, ``, inputName.value);
 };
 
 const onMouseDownButtonBack = () => {
   removeListeners();
-  dispatchs(`goBack`);
+  dispatcherCallback(`goBack`);
 };
 
 const getRules = (dispatch) => {
-  dispatchs = dispatch;
+  dispatcherCallback = dispatch;
   const node = rules.cloneNode(true);
   buttonGo = node.querySelector(`.rules__button`);
   buttonBack = node.querySelector(`.header__back`);
