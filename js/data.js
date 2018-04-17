@@ -57,13 +57,7 @@ let getImageByType = (typeImage) => {
   };
 };
 
-let getRandomImage = () => {
-  let imageType = getRandomImageType();
-  return {
-    type: imageType,
-    src: getImage[imageType]()
-  };
-};
+let getRandomImage = () => getImageByType(getRandomImageType());
 
 const getIntro = () =>({
   type: `intro`
