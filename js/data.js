@@ -26,7 +26,7 @@ const images = {
 };
 
 let getRandom = (maxValue) => {
-  return Math.floor(Math.random() * (maxValue));
+  return Math.floor(Math.random() * (maxValue + 1));
 };
 
 const elementGetter = (array) => {
@@ -35,8 +35,7 @@ const elementGetter = (array) => {
     if (data.length === 0) {
       data = array.slice(0);
     }
-    let index = getRandom(data.length - 1);
-    return data.splice(index, 1).pop();
+    return data.splice(getRandom(data.length - 1), 1).pop();
   };
 };
 
@@ -50,16 +49,16 @@ const arrayShuffle = (array) => {
   });
 };
 
-let getImageByType = (typeImage) => {
+let getImageByType = (imageType) => {
   return {
-    type: typeImage,
-    src: getImage[typeImage]()
+    type: imageType,
+    src: getImage[imageType]()
   };
 };
 
 let getRandomImage = () => getImageByType(getRandomImageType());
 
-const getIntro = () =>({
+const getIntro = () => ({
   type: `intro`
 });
 
@@ -72,13 +71,13 @@ const getRules = () => ({
   userName: ``
 });
 
-const getGame1Level = () =>({
+const getGame1Level = () => ({
   type: `game-1`,
   title: `Угадайте для каждого изображения фото или рисунок?`,
   images: [getRandomImage(), getRandomImage()]
 });
 
-const getGame2Level = () =>({
+const getGame2Level = () => ({
   type: `game-2`,
   title: `Угадай, фото или рисунок?`,
   images: [getRandomImage(), getRandomImage()]
@@ -88,7 +87,7 @@ const getGame3Level = () => {
   const getRandomImageTypes = elementGetter(IMG_TYPE_LIST);
   const [wrongType, correctType] = [getRandomImageTypes(), getRandomImageTypes()];
 
-  return{
+  return {
     type: `game-3`,
     title: `Найдите рисунок среди изображений`,
     correctAnswer: correctType,
@@ -107,10 +106,10 @@ const getGameState = () => {
   let gameList = [getIntro(), getGreeting(), getRules()];
   for (let i = 0; i < LENGTH_ARR_GAMES; i++) {
     getImage = {
-      'painti': elementGetter(images.paintings),
+      'paint': elementGetter(images.paintings),
       'photo': elementGetter(images.photos)
     };
-    gameList.push(levelGenerators[getRandom(3)]());
+    gameList.push(levelGenerators[getRandom(2)]());
   }
   gameList.push(getStats());
 
