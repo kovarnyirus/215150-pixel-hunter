@@ -57,10 +57,6 @@ let getImageByType = (typeImage) => {
   };
 };
 
-
-
-let levelIamges;
-
 let getRandomImage = () => {
   let imageType = getRandomImageType();
   return {
@@ -117,7 +113,7 @@ const getGameState = () => {
   let gameList = [getIntro(), getGreeting(), getRules()];
   for (let i = 0; i < LENGTH_ARR_GAMES; i++) {
     getImage = {
-      'painting': elementGetter(images.paintings),
+      'painti': elementGetter(images.paintings),
       'photo': elementGetter(images.photos)
     };
     gameList.push(levelGenerators[getRandom(3)]());
