@@ -1,4 +1,8 @@
 const IMG_TYPE_LIST = [`photo`, `paint`];
+const TILE_LIST = {
+  photo: `фото`,
+  paint: `рисунок`
+}
 const INITIAL_LIVES = 3;
 const LENGTH_ARR_GAMES = 10;
 let getImage;
@@ -89,7 +93,7 @@ const getGame3Level = () => {
 
   return {
     type: `game-3`,
-    title: `Найдите рисунок среди изображений`,
+    title: `Найдите ${TILE_LIST[correctType]} среди изображений`,
     correctAnswer: correctType,
     images: arrayShuffle([getImageByType(wrongType), getImageByType(wrongType), getImageByType(correctType)])
   };
