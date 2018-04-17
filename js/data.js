@@ -44,25 +44,24 @@ const getRandomImageType = () => {
   return IMG_TYPE_LIST[getRandom(1)];
 };
 
-
-
-const getRandomSortArray = (array) => {
+const arrayShuffle = (array) => {
   return array.sort(() => {
     return Math.random() - 0.5;
   });
 };
 
-const getRandomType = (array) => {
-  const type = elementGetter(array);
-  return type();
+let getImageByType = (typeImage) => {
+  return {
+    type: typeImage,
+    src: getImage[typeImage]()
+  };
 };
 
-// const getRandomType = (array) => {
-//   return {
-//     type: elementGetter(array),
-//     src: getImage[type]()
-//   };
-// };
+const getRandomImageTypes = elementGetter(IMG_TYPE_LIST);
+
+const [wrongType, correctType] = [getRandomImageTypes(), getRandomImageTypes()];
+
+let levelIamges;
 
 let getRandomImage = () => {
   let imageType = getRandomImageType();
@@ -100,8 +99,8 @@ const getGame2Level = () =>({
 const getGame3Level = () =>({
   type: `game-3`,
   title: `Найдите рисунок среди изображений`,
-  correctAnswer: getRandomType(IMG_TYPE_LIST),
-  images: [getRandomImage(), getRandomImage(), getRandomImage()]
+  correctAnswer: correctType,
+  images: levelIamges
 
 });
 
@@ -109,11 +108,10 @@ const getStats = () => ({
   type: `stats`,
 });
 
-
 const levelGenerators = [getGame1Level, getGame2Level, getGame3Level];
 
-
 const getGameState = () => {
+
   let gameList = [getIntro(), getGreeting(), getRules()];
   for (let i = 0; i < LENGTH_ARR_GAMES; i++) {
     getImage = {
@@ -122,6 +120,7 @@ const getGameState = () => {
     };
     gameList.push(levelGenerators[getRandom(3)]());
   }
+  levelIamges = arrayShuffle([getImageByType(wrongType), getImageByType(wrongType), getImageByType(correctType)]);
   gameList.push(getStats());
 
   const state = {
