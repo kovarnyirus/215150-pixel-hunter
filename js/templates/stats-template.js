@@ -17,11 +17,8 @@ const drawStats = (stats) => {
 };
 
 const stats = (statsList) => `
-  
       <ul class="stats">
         ${drawStats(statsList)}
-      </ul>
-    </div>
-  </div>`;
+      </ul>`;
 
 export {stats};

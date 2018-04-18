@@ -20,24 +20,23 @@ const levelScreens = {
 
 let state = getGameState();
 
+const questionStats = (time) => (time < 10) ? `fast` :
+  (time > 20) ? `slow` : `succes`;
+
 let handlerDispatcher = (status, time, isGame, name) => {
   if (status === `succes`) {
     if (name) {
       state.userName = name;
     } else if (time) {
-      if (time < 10) {
-        state.questionStats.push(`fast`);
-      } else if (time > 20) {
-        state.questionStats.push(`slow`);
-      } else {
-        state.questionStats.push(`succes`);
-      }
+      state.questionStats.push(questionStats(time));
       state.time.push(time);
     }
     state.currentLevel++;
     if (isGame) {state.answers.push(true)};
   } else if (status === `goBack`) {
-    state = getGameState();
+    // state = getGameState();
+    state.currentLevel = 0;
+    state.questionStats = [];
   } else if (status === `fail`) {
     state.answers.push(false);
     state.lives--;

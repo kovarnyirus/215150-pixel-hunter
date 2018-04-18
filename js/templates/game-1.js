@@ -37,6 +37,8 @@ const nextScreen = () => {
     } else {
       dispatcherCallback(`fail`, timeAnswer);
     }
+    chekedOne = false;
+    chekedTwo = false;
   }
 };
 

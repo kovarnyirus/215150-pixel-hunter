@@ -1,5 +1,21 @@
 import {stats} from './stats-template.js';
-import countScore from '../data/game-logic';
+import {countScore, POINTS_FAST_ANSWER, POINTS_CORRECT_ANSWER, POINTS_SLOW_ANSWER, POINTS_LIVE} from '../data/game-logic';
+
+const FAST = `fast`;
+const SLOW = `slow`;
+const SUCCES_ANSWER = `succes`;
+
+
+
+const countStat = (array, searchElement) => {
+  let counter = 0;
+  array.forEach((item) => {
+    if (item === searchElement){
+      counter++
+    };
+  });
+  return counter;
+};
 
 const winTemplate = (gameData) =>
   `<div class="result">
@@ -10,29 +26,29 @@ const winTemplate = (gameData) =>
         <td colspan="2">
           ${stats(gameData.questionStats)}
         </td>
-        <td class="result__points">×&nbsp;100</td>
-        <td class="result__total">900</td>
+        <td class="result__points">×&nbsp;${POINTS_CORRECT_ANSWER}</td>
+        <td class="result__total">${countStat(gameData.questionStats, SUCCES_ANSWER) * POINTS_CORRECT_ANSWER}</td>
       </tr>
       <tr>
         <td></td>
         <td class="result__extra">Бонус за скорость:</td>
-        <td class="result__extra">1&nbsp;<span class="stats__result stats__result--fast"></span></td>
-        <td class="result__points">×&nbsp;50</td>
-        <td class="result__total">50</td>
+        <td class="result__extra">${countStat(gameData.questionStats, FAST)}&nbsp;<span class="stats__result stats__result--fast"></span></td>
+        <td class="result__points">×&nbsp;${POINTS_FAST_ANSWER}</td>
+        <td class="result__total">${countStat(gameData.questionStats, FAST) * POINTS_FAST_ANSWER}</td>
       </tr>
       <tr>
         <td></td>
         <td class="result__extra">Бонус за жизни:</td>
-        <td class="result__extra">2&nbsp;<span class="stats__result stats__result--alive"></span></td>
-        <td class="result__points">×&nbsp;50</td>
-        <td class="result__total">100</td>
+        <td class="result__extra">${gameData.lives}&nbsp;<span class="stats__result stats__result--alive"></span></td>
+        <td class="result__points">×&nbsp;${POINTS_LIVE}</td>
+        <td class="result__total">${gameData.lives * POINTS_LIVE}</td>
       </tr>
       <tr>
         <td></td>
         <td class="result__extra">Штраф за медлительность:</td>
-        <td class="result__extra">2&nbsp;<span class="stats__result stats__result--slow"></span></td>
-        <td class="result__points">×&nbsp;50</td>
-        <td class="result__total">-100</td>
+        <td class="result__extra">${countStat(gameData.questionStats, SLOW)}&nbsp;<span class="stats__result stats__result--slow"></span></td>
+        <td class="result__points">×&nbsp;${POINTS_SLOW_ANSWER}</td>
+        <td class="result__total">-${countStat(gameData.questionStats, SLOW)* POINTS_SLOW_ANSWER}</td>
       </tr>
       <tr>
         <td colspan="5" class="result__total  result__total--final">${countScore(gameData, gameData.lives)}</td>
@@ -47,7 +63,6 @@ const failTemplate = (gameData) =>
     <tr>
     <td class="result__number">2.</td>
     <td>
-    <ul class="stats">
     ${stats(gameData.questionStats)}
     </td>
     <td class="result__total"></td>
@@ -66,18 +81,18 @@ const timeOutTemplate = (gameData) =>
     <td colspan="2">
    ${stats(gameData.questionStats)}
     </td>
-    <td class="result__points">×&nbsp;100</td>
-  <td class="result__total">900</td>
+    <td class="result__points">×&nbsp;${POINTS_CORRECT_ANSWER}</td>
+  <td class="result__total">${countStat(gameData.questionStats, SUCCES_ANSWER) * POINTS_CORRECT_ANSWER}</td>
     </tr>
     <tr>
     <td></td>
     <td class="result__extra">Бонус за жизни:</td>
-  <td class="result__extra">2&nbsp;<span class="stats__result stats__result--alive"></span></td>
-  <td class="result__points">×&nbsp;50</td>
-  <td class="result__total">100</td>
+  <td class="result__extra">${gameData.lives}&nbsp;<span class="stats__result stats__result--alive"></span></td>
+  <td class="result__points">×&nbsp;${POINTS_LIVE}</td>
+  <td class="result__total">${gameData.lives * POINTS_LIVE}</td>
     </tr>
     <tr>
-    <td colspan="5" class="result__total  result__total--final">950</td>
+    <td colspan="5" class="result__total  result__total--final">${countScore(gameData, gameData.lives)}</td>
     </tr>
     </table>
 </div>`;
