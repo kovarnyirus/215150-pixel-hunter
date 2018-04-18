@@ -21,15 +21,15 @@ const removeListeners = () => {
 
 const onMouseDownButtonBack = () => {
   removeListeners();
-  dispatcherCallback(`goBack`);
+  dispatcherCallback({status: `goBack`});
 };
 
 const onMouseDownGameCard = (evt) => {
   removeListeners();
-  if (evt.target.attributes[2].value === correctAnswer){
-    dispatcherCallback(`succes`, timeAnswer, IS_GAME);
+  if (evt.target.attributes[2].value === correctAnswer) {
+    dispatcherCallback({status: `succes`, time: timeAnswer, isGame: IS_GAME});
   } else {
-    dispatcherCallback(`fail`);
+    dispatcherCallback({status: `fail`});
   }
 
 };

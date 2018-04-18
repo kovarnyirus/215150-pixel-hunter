@@ -22,7 +22,7 @@ let handleMousedownGreeting;
 
 const onMouseDownGreeting = (nextBtn, dispatch) => () => {
   nextBtn.removeEventListener(`mousedown`, handleMousedownGreeting);
-  dispatch(`succes`);
+  dispatch({status:`succes`, isGame: IS_GAME});
 };
 
 const getGreeting = (dispatch) => {

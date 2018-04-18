@@ -20,15 +20,15 @@ const removeListeners = () => {
 
 const onMouseDownButtonBack = () => {
   removeListeners();
-  dispatcherCallback(`goBack`);
+  dispatcherCallback({status: `goBack`});
 };
 
 const onChangeInput = (evt) => {
   removeListeners();
   if (gameImages[0].type === evt.target.value) {
-    dispatcherCallback(`succes`, timeAnswer, IS_GAME);
+    dispatcherCallback({status: `succes`, time: timeAnswer, isGame: IS_GAME});
   } else {
-    dispatcherCallback(`fail`, timeAnswer);
+    dispatcherCallback({status: `fail`});
   }
 
 };

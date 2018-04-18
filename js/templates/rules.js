@@ -46,12 +46,12 @@ const removeListeners = () => {
 const onMouseDownButtonGo = (evt) => {
   evt.preventDefault();
   removeListeners();
-  dispatcherCallback(`succes`, ``, IS_GAME, inputName.value);
+  dispatcherCallback({status:`succes`, isGame: IS_GAME, name: inputName.value});
 };
 
 const onMouseDownButtonBack = () => {
   removeListeners();
-  dispatcherCallback(`goBack`);
+  dispatcherCallback({status:`goBack`});
 };
 
 const getRules = (dispatch) => {

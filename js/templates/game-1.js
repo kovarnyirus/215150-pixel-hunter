@@ -26,16 +26,16 @@ const removeListeners = () => {
 
 const onMouseDownButtonBack = () => {
   removeListeners();
-  dispatcherCallback(`goBack`);
+  dispatcherCallback({status: `goBack`});
 };
 
 const nextScreen = () => {
   if (chekedOne && chekedTwo) {
     removeListeners();
     if (gameImages[0].type === chekedOne && gameImages[1].type === chekedTwo) {
-      dispatcherCallback(`succes`, timeAnswer, IS_GAME);
+      dispatcherCallback({status: `succes`, time: timeAnswer, isGame: IS_GAME});
     } else {
-      dispatcherCallback(`fail`, timeAnswer);
+      dispatcherCallback({status: `fail`});
     }
     chekedOne = false;
     chekedTwo = false;

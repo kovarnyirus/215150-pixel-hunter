@@ -23,7 +23,8 @@ let state = getGameState();
 const questionStats = (time) => (time < 10) ? `fast` :
   (time > 20) ? `slow` : `succes`;
 
-let handlerDispatcher = (status, time, isGame, name) => {
+let handlerDispatcher = ({status, time, isGame, name}) => {
+  console.log(state.answers);
   if (status === `succes`) {
     if (name) {
       state.userName = name;
@@ -47,7 +48,6 @@ let handlerDispatcher = (status, time, isGame, name) => {
 };
 
 const dispatcher = () => {
-  console.log(state.time);
   const levelData = state.levels[state.currentLevel];
   if (state.currentLevel === 0) {
     return renderScreen(getIntro(handlerDispatcher));

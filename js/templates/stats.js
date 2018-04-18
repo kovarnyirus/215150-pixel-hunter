@@ -13,7 +13,7 @@ let handleMousedownButtonBack;
 
 const onMouseDownButtonBack = (buttonBack) => () => {
   buttonBack.removeEventListener(`mousedown`, handleMousedownButtonBack);
-  dispatcherCallback(`goBack`);
+  dispatcherCallback({status: `goBack`, isGame: IS_GAME});
 };
 
 const getStats = (dispatch, status, stats) => {
