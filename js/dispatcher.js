@@ -35,9 +35,7 @@ let handlerDispatcher = ({status, time, isGame, name}) => {
     state.currentLevel++;
     if (isGame) {state.answers.push(true)};
   } else if (status === `goBack`) {
-    // state = getGameState();
-    state.currentLevel = 0;
-    state.questionStats = [];
+    state = getGameState();
   } else if (status === `fail`) {
     state.answers.push(false);
     state.lives--;
