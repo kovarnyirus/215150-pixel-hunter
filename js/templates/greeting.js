@@ -1,7 +1,7 @@
 import createElement from '../createElement.js';
-import renderScreen from '../utils.js';
-import getRules from './rules.js';
+import FOOTER from './footer.js';
 
+const IS_GAME = false;
 const html = `<div class="greeting central--blur">
     <div class="greeting__logo"><img src="img/logo_big.png" width="201" height="89" alt="Pixel Hunter"></div>
     <h1 class="greeting__asterisk">*</h1>
@@ -15,29 +15,20 @@ const html = `<div class="greeting central--blur">
     </div>
     <div class="greeting__continue"><span><img src="img/arrow_right.svg" width="64" height="64" alt="Next"></span></div>
   </div>
-  <footer class="footer">
-    <a href="https://htmlacademy.ru" class="social-link social-link--academy">HTML Academy</a>
-    <span class="footer__made-in">Сделано в <a href="https://htmlacademy.ru" class="footer__link">HTML Academy</a> &copy; 2016</span>
-    <div class="footer__social-links">
-      <a href="https://twitter.com/htmlacademy_ru" class="social-link  social-link--tw">Твиттер</a>
-      <a href="https://www.instagram.com/htmlacademy/" class="social-link  social-link--ins">Инстаграм</a>
-      <a href="https://www.facebook.com/htmlacademy" class="social-link  social-link--fb">Фэйсбук</a>
-      <a href="https://vk.com/htmlacademy" class="social-link  social-link--vk">Вконтакте</a>
-    </div>
-  </footer>`;
+${FOOTER}`;
 
 const greeting = createElement(html);
 let handleMousedownGreeting;
 
-const onMouseDownGreeting = (nextBtn) => () => {
+const onMouseDownGreeting = (nextBtn, dispatch) => () => {
   nextBtn.removeEventListener(`mousedown`, handleMousedownGreeting);
-  renderScreen(getRules());
+  dispatch({status:`succes`, isGame: IS_GAME});
 };
 
-const getGreeting = () => {
+const getGreeting = (dispatch) => {
   const node = greeting.cloneNode(true);
   const nextBtn = node.querySelector(`.greeting__continue`);
-  handleMousedownGreeting = onMouseDownGreeting(nextBtn);
+  handleMousedownGreeting = onMouseDownGreeting(nextBtn, dispatch);
   nextBtn.addEventListener(`mousedown`, handleMousedownGreeting);
   return node;
 };
