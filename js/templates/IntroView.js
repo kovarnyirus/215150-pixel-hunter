@@ -1,8 +1,10 @@
 import AbstractView from '../abstract-view.js';
 
 class IntroView extends AbstractView {
-  constructor() {
-    super();
+  constructor(dispatch) {
+    super(dispatch);
+    this.ASTERISK = this.element().querySelector(`.intro__asterisk`);
+    this.ASTERISK.addEventListener(`mousedown`, onMousedownAsterisk(this._dispatch )) = this.onMousedownAsterisk
   }
 
   get template() {
@@ -16,9 +18,11 @@ class IntroView extends AbstractView {
   }
 
   bind() {
-    const ASTERISK = this.element().querySelector(`.intro__asterisk`);
-    const handleMousedownAsterisk = onMousedownAsterisk(ASTERISK, this._dispatch);
-    ASTERISK.addEventListener(`mousedown`, onMousedownAsterisk(handleMousedownAsterisk));
+    // const ASTERISK = this.element().querySelector(`.intro__asterisk`);
+    // ASTERISK.addEventListener(`mousedown`, onMousedownAsterisk(ASTERISK, this._dispatch ));
+  }
+    onMousedownAsterisk(){
+    }
   }
 }
 
