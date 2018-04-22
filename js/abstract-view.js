@@ -7,9 +7,9 @@ export default class AbstractView {
       throw new Error(`Нельзя создать AbstractView`);
     }
     this._footer = FOOTER;
-    if (!dispatch){
+    if (!dispatch) {
       throw new Error(`Не передан dispatch`);
-    };
+    }
     this._dispatch = dispatch;
 
   }
