@@ -7,7 +7,11 @@ export default class AbstractView {
       throw new Error(`Нельзя создать AbstractView`);
     }
     this._footer = FOOTER;
+    if (!dispatch){
+      throw new Error(`Не передан dispatch`);
+    };
     this._dispatch = dispatch;
+
   }
   get template() {
     throw new Error(`Не найден подходящий шаблон`);
