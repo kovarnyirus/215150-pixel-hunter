@@ -1,7 +1,7 @@
 import createElement from '../createElement.js';
-import FOOTER from './footer.js';
-import {header} from './header.js';
-import {timeOutTemplate, failTemplate, winTemplate} from './stats-templates.js';
+import FOOTER from '../templates/footer.js';
+import {header} from '../templates/header.js';
+import {timeOutTemplate, failTemplate, winTemplate} from '../templates/stats-templates.js';
 
 const IS_GAME = false;
 let gameData;

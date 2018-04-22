@@ -1,5 +1,5 @@
 import createElement from '../createElement.js';
-import FOOTER from './footer.js';
+import FOOTER from '../templates/footer.js';
 
 const IS_GAME = false;
 const html = `<div id="main" class="central__content">

@@ -6,12 +6,12 @@ export default class AbstractView {
     if (new.target === AbstractView) {
       throw new Error(`Нельзя создать AbstractView`);
     }
-    this._footer = FOOTER;
     if (!dispatch) {
       throw new Error(`Не передан dispatch`);
     }
-    this._dispatch = dispatch;
-
+    this.dispatch = this.dispatch.bind(this);
+    this._footer = FOOTER;
+    this._dispach = dispatch;
   }
   get template() {
     throw new Error(`Не найден подходящий шаблон`);
@@ -31,10 +31,10 @@ export default class AbstractView {
     return createElement(this.template);
   }
 
-  dispatch() {
-    this._dispatch();
+  dispatch(data) {
+    return this._dispach(data);
   }
 
   bind(element) {
   }
-}
+};

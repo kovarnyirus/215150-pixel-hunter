@@ -1,6 +1,6 @@
 import createElement from '../createElement.js';
-import FOOTER from './footer.js';
-import {header} from './header.js';
+import FOOTER from '../templates/footer.js';
+import {header} from '../templates/header.js';
 
 const IS_GAME = false;
 const html = `${header}

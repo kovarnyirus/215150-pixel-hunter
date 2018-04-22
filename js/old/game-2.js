@@ -1,7 +1,7 @@
 import createElement from '../createElement.js';
-import FOOTER from './footer.js';
-import {headerStatistics} from './header.js';
-import {templateSecomnd} from './game-tamplates';
+import FOOTER from '../templates/footer.js';
+import {headerStatistics} from '../templates/header.js';
+import {templateSecomnd} from '../templates/game-tamplates';
 
 const IS_GAME = true;
 let template;

@@ -17,13 +17,13 @@ class IntroView extends AbstractView {
   }
 
   bind() {
-    this._ASTERISK = this.element().querySelector(`.intro__asterisk`);
-    this._ASTERISK.addEventListener(`mousedown`, onMousedownAsterisk);
+    this._ASTERISK = this.element.querySelector(`.intro__asterisk`);
+    this._ASTERISK.addEventListener(`mousedown`, this.onMousedownAsterisk);
   }
 
   onMousedownAsterisk() {
-    this._ASTERISK.removeEventListener(`mousedown`, onMousedownAsterisk);
-    dispatch({status: `succes`, isGame: false});
+    this._ASTERISK.removeEventListener(`mousedown`, this.onMousedownAsterisk);
+    this.dispatch({status: `succes`, isGame: false});
   }
 }
 

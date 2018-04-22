@@ -1,22 +1,21 @@
 import getGameState from './data.js';
 import renderScreen from './utils.js';
-import getGreeting from './templates/greeting.js';
-import introScreen from './templates/intro/intro-screen';
-import getIntro from './templates/intro.js';
-import getRules from './templates/rules.js';
-import getGameTwo from './templates/game-2.js';
-import getGameOne from './templates/game-1.js';
-import getGameThree from './templates/game-3.js';
-import getStats from './templates/stats.js';
+import greetingView from './templates/greetingView';
+import IntroView from './templates/IntroView.js';
+import rulesView from './templates/rulesView.js';
+import gameTwoView from './templates/gameTwoView.js';
+import gameOneView from './templates/gameOneView.js';
+import gameThreeView from './templates/gameThreeView.js';
+import statsView from './templates/statsView.js';
 
 const levelScreens = {
-  'intro': introScreen,
-  'greeting': getGreeting,
-  'rules': getRules,
-  'game-1': getGameOne,
-  'game-2': getGameTwo,
-  'game-3': getGameThree,
-  'stats': getStats
+  'intro': IntroView,
+  'greeting': greetingView,
+  'rules': rulesView,
+  'game-1': gameOneView,
+  'game-2': gameTwoView,
+  'game-3': gameThreeView,
+  'stats': statsView
 };
 
 let state = getGameState();
@@ -49,11 +48,11 @@ let handlerDispatcher = ({status, time, isGame, name}) => {
 const dispatcher = () => {
   const levelData = state.levels[state.currentLevel];
   if (state.currentLevel === 0) {
-    return renderScreen(introScreen().element);
+    return renderScreen(new IntroView(handlerDispatcher).element);
   } else if (state.lives === 0) {
-    renderScreen(getStats(handlerDispatcher, `fail`, state));
+    renderScreen(new statsView(handlerDispatcher, `fail`, state).element);
   } else if (state.currentLevel < 14) {
-    renderScreen(levelScreens[levelData.type](handlerDispatcher, levelData, state));
+    renderScreen( new levelScreens[levelData.type](handlerDispatcher, levelData, state).element);
   }
 };
 
