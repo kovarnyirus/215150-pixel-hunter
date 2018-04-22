@@ -1,8 +1,9 @@
 import AbstractView from '../../abstract-view.js';
 
-class IntroView extends AbstractView {
-  constructor() {
+export default class IntroView extends AbstractView {
+  constructor(dispatch) {
     super();
+    this.dispatch = dispatch;
   }
 
   get template() {
@@ -11,15 +12,16 @@ class IntroView extends AbstractView {
         <h1 class="intro__asterisk">*</h1>
         <p class="intro__motto"><sup>*</sup> Это не фото. Это рисунок маслом нидерландского художника-фотореалиста Tjalf Sparnaay.</p>
        </div>
-    </div>`;
+    </div>
+      ${super.footer()}`;
   }
 
-  bind(dispatch){
-    const node = this.element.cloneNode(true);
-    const ASTERISK = node.querySelector(`.intro__asterisk`);
-    const handleMousedownAsterisk = onMousedownAsterisk(ASTERISK, dispatch);
-    ASTERISK.addEventListener(`mousedown`, handleMousedownAsterisk);
-    return node;
+  bind() {
+    const ASTERISK = this.element().querySelector(`.intro__asterisk`);
+    ASTERISK.addEventListener(`mousedown`,  onMousedownAsterisk(ASTERISK, this.dispatch));
   }
 
-}
+  onMousedownAsterisk(ASTERISK, dispatch) {
+
+  }
+};
