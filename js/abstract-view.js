@@ -21,10 +21,9 @@ export default class AbstractView {
     if (this._element) {
       return this._element;
     } else {
-      this._element = this.render();
-      this._node = this._element.cloneNode(true);
-      this.bind(this._node);
-      return this._node;
+      this._element = this.render().cloneNode(true);
+      this.bind(this._element);
+      return this._element;
     }
   }
 
