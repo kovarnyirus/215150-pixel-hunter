@@ -19,9 +19,9 @@ class IntroView extends AbstractView {
 
   bind() {
     const ASTERISK = this.element().querySelector(`.intro__asterisk`);
-    ASTERISK.addEventListener(`mousedown`, onMousedownAsterisk(ASTERISK, this.dispatch));
+    const handleMousedownAsterisk = onMousedownAsterisk(ASTERISK, this._dispatch);
+    ASTERISK.addEventListener(`mousedown`, onMousedownAsterisk(handleMousedownAsterisk));
   }
-
 }
 
 export default IntroView;
