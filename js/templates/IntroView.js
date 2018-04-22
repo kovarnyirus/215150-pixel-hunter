@@ -3,8 +3,6 @@ import AbstractView from '../abstract-view.js';
 class IntroView extends AbstractView {
   constructor() {
     super();
-    this._dispatch;
-    this._footer;
   }
 
   get template() {
