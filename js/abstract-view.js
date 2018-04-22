@@ -30,6 +30,9 @@ export default class AbstractView {
   render() {
     return createElement(this.template);
   }
+  dispatch() {
+    this.dispatch();
+  }
 
   bind(element) {
   }
