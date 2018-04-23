@@ -1,8 +1,13 @@
-import createElement from '../createElement.js';
-import FOOTER from './footer.js';
+import AbstractView from '../abstract-view.js';
 
-const IS_GAME = false;
-const html = `<div class="greeting central--blur">
+class greetingView extends AbstractView {
+  constructor(dispatch) {
+    super(dispatch);
+    this.onMouseDownGreeting = this.onMouseDownGreeting.bind(this);
+  }
+
+  get template() {
+    return `<div class="greeting central--blur">
     <div class="greeting__logo"><img src="img/logo_big.png" width="201" height="89" alt="Pixel Hunter"></div>
     <h1 class="greeting__asterisk">*</h1>
     <div class="greeting__challenge">
@@ -15,25 +20,18 @@ const html = `<div class="greeting central--blur">
     </div>
     <div class="greeting__continue"><span><img src="img/arrow_right.svg" width="64" height="64" alt="Next"></span></div>
   </div>
-${FOOTER}`;
+      ${this._footer}`;
+  }
 
-const greeting = createElement(html);
-let handleMousedownGreeting;
+  bind() {
+    this._nextBtn = this.element.querySelector(`.greeting__continue`);
+    this._nextBtn.addEventListener(`mousedown`, this.onMouseDownGreeting);
+  }
 
-const onMouseDownGreeting = (nextBtn, dispatch) => () => {
-  nextBtn.removeEventListener(`mousedown`, handleMousedownGreeting);
-  dispatch({status:`succes`, isGame: IS_GAME});
-};
+  onMouseDownGreeting() {
+    this._nextBtn.removeEventListener(`mousedown`, this.onMouseDownGreeting);
+    this.dispatch({status: `succes`, isGame: false});
+  }
+}
 
-const getGreeting = (dispatch) => {
-  const node = greeting.cloneNode(true);
-  const nextBtn = node.querySelector(`.greeting__continue`);
-  handleMousedownGreeting = onMouseDownGreeting(nextBtn, dispatch);
-  nextBtn.addEventListener(`mousedown`, handleMousedownGreeting);
-  return node;
-};
-
-
-export default getGreeting;
-
-
+export default greetingView;
