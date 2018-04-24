@@ -56,7 +56,7 @@ const getIntro = () => ({
 });
 
 const getGreeting = () => ({
-  type: `greeting`
+  type: `greeting`    
 });
 
 const getRules = () => ({
