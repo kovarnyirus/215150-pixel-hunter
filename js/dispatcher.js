@@ -1,4 +1,4 @@
-import getGameState from './data.js';
+import gameModel from './data.js';
 import renderScreen from './utils.js';
 import greetingView from './templates/greetingView';
 import IntroView from './templates/IntroView.js';
@@ -24,23 +24,29 @@ const questionStats = (time) => (time < 10) ? `fast` :
   (time > 20) ? `slow` : `succes`;
 
 let handlerDispatcher = ({status, time, isGame, name}) => {
-  console.log(state.answers);
   if (status === `succes`) {
     if (name) {
-      state.userName = name;
+      // state.userName = name;
+      gameModel(name).writePlayerName();
     } else if (time) {
-      state.questionStats.push(questionStats(time));
-      state.time.push(time);
+      gameModel(time).succesAnswer()
+      // state.questionStats.push(questionStats(time));
+      // state.time.push(time);
     }
-    state.currentLevel++;
-    if (isGame) {state.answers.push(true)};
+    // state.currentLevel++
+    gameModel().nextScreen();
+    // if (isGame) {
+    //   state.answers.push(true);
+    // }
   } else if (status === `goBack`) {
-    state = getGameState();
+    // state = getGameState();
+    gameModel().restart();
   } else if (status === `fail`) {
-    state.answers.push(false);
-    state.lives--;
-    state.currentLevel++;
-    state.questionStats.push(`fail`);
+    gameModel().wrongAnswer();
+    // state.answers.push(false);
+    // state.lives--;
+    // state.currentLevel++;
+    // state.questionStats.push(`fail`);
   }
   dispatcher();
 };
@@ -52,7 +58,7 @@ const dispatcher = () => {
   } else if (state.lives === 0) {
     renderScreen(new statsView(handlerDispatcher, `fail`, state).element);
   } else if (state.currentLevel < 14) {
-    renderScreen( new levelScreens[levelData.type](handlerDispatcher, levelData, state).element);
+    renderScreen(new levelScreens[levelData.type](handlerDispatcher, levelData, state).element);
   }
 };
 

@@ -1,5 +1,5 @@
 const IMG_TYPE_LIST = [`photo`, `paint`];
-const TILE_LIST = {photo: `фото`, paint: `рисунок`}
+const TILE_LIST = {photo: `фото`, paint: `рисунок`};
 const INITIAL_LIVES = 3;
 const LENGTH_ARR_GAMES = 10;
 let getImage;
@@ -39,15 +39,15 @@ const elementGetter = (array) => {
   };
 };
 
-const getRandomImageType = () =>  IMG_TYPE_LIST[getRandom(1)];
+const getRandomImageType = () => IMG_TYPE_LIST[getRandom(1)];
 
 
 const arrayShuffle = (array) => array.sort(() => Math.random() - 0.5);
 
 let getImageByType = (imageType) => ({
-    type: imageType,
-    src: getImage[imageType]()
-  });
+  type: imageType,
+  src: getImage[imageType]()
+});
 
 let getRandomImage = () => getImageByType(getRandomImageType());
 
@@ -56,7 +56,7 @@ const getIntro = () => ({
 });
 
 const getGreeting = () => ({
-  type: `greeting`    
+  type: `greeting`
 });
 
 const getRules = () => ({
@@ -109,7 +109,7 @@ const fillGameData = () => {
 let gameData;
 
 const getGameData = () => {
-  if(!gameData){
+  if (!gameData) {
     gameData = fillGameData();
   }
   return gameData;
@@ -131,4 +131,34 @@ const getGameState = () => {
   return state;
 };
 
-export default getGameState;
+
+class gameModel {
+  constructor(playerName, time) {
+    this._playerName = playerName;
+    this._time = time;
+    this._state = getGameState;
+    this.restart();
+  }
+  succesAnswer() {
+    this._state.questionStats.push(questionStats(time));
+    this._state.time.push(this._time);
+    this._state.currentLevel++;
+  }
+  restart() {
+    this._state();
+  }
+  wrongAnswer() {
+    this._state.answers.push(false);
+    this._state.lives--;
+    this._state.currentLevel++;
+    this._state.questionStats.push(`fail`);
+  }
+  writePlayerName() {
+    this._state.userName = this._playerName;
+  }
+  nextScreen() {
+    this._state.currentLevel++;
+  }
+}
+
+export {gameModel, getGameData};
