@@ -2,7 +2,7 @@ const IMG_TYPE_LIST = [`photo`, `paint`];
 const TILE_LIST = {photo: `фото`, paint: `рисунок`};
 const INITIAL_LIVES = 3;
 const LENGTH_ARR_GAMES = 10;
-let getImage;
+
 const images = {
   paintings: [
     // People
@@ -28,7 +28,6 @@ const images = {
 
 let getRandom = (maxValue) => Math.floor(Math.random() * (maxValue + 1));
 
-
 const elementGetter = (array) => {
   const data = array.slice(0);
   return () => {
@@ -41,124 +40,205 @@ const elementGetter = (array) => {
 
 const getRandomImageType = () => IMG_TYPE_LIST[getRandom(1)];
 
-
 const arrayShuffle = (array) => array.sort(() => Math.random() - 0.5);
 
-let getImageByType = (imageType) => ({
-  type: imageType,
-  src: getImage[imageType]()
-});
-
-let getRandomImage = () => getImageByType(getRandomImageType());
-
-const getIntro = () => ({
-  type: `intro`
-});
-
-const getGreeting = () => ({
-  type: `greeting`
-});
-
-const getRules = () => ({
-  type: `rules`,
-  userName: ``
-});
-
-const getGame1Level = () => ({
-  type: `game-1`,
-  title: `Угадайте для каждого изображения фото или рисунок?`,
-  images: [getRandomImage(), getRandomImage()]
-});
-
-const getGame2Level = () => ({
-  type: `game-2`,
-  title: `Угадай, фото или рисунок?`,
-  images: [getRandomImage(), getRandomImage()]
-});
-
-const getGame3Level = () => {
-  const getRandomImageTypes = elementGetter(IMG_TYPE_LIST);
-  const [wrongType, correctType] = [getRandomImageTypes(), getRandomImageTypes()];
-
-  return {
-    type: `game-3`,
-    title: `Найдите ${TILE_LIST[correctType]} среди изображений`,
-    correctAnswer: correctType,
-    images: arrayShuffle([getImageByType(wrongType), getImageByType(wrongType), getImageByType(correctType)])
-  };
-};
-
-const getStats = () => ({
-  type: `stats`,
-});
-
-const levelGenerators = [getGame1Level, getGame2Level, getGame3Level];
-
-const fillGameData = () => {
-  const data = [];
-  for (let i = 0; i < LENGTH_ARR_GAMES; i++) {
-    getImage = {
-      'paint': elementGetter(images.paintings),
-      'photo': elementGetter(images.photos)
-    };
-    data.push(levelGenerators[getRandom(2)]());
-  }
-  return data;
-};
-
-let gameData;
-
-const getGameData = () => {
-  if (!gameData) {
-    gameData = fillGameData();
-  }
-  return gameData;
-};
-
-
-const getGameState = () => {
-  let gameList = [getIntro(), getGreeting(), getRules(), ...getGameData(), getStats()];
-  const state = {
-    stats: [],
-    lives: INITIAL_LIVES,
-    answers: [],
-    levels: gameList,
-    currentLevel: 0,
-    userName: ``,
-    questionStats: [],
-    time: []
-  };
-  return state;
-};
+// let getImageByType = (imageType) => ({
+//   type: imageType,
+//   src: getImage[imageType]()
+// });
+//
+// let getRandomImage = () => getImageByType(getRandomImageType());
+//
+// const getIntro = () => ({
+//   type: `intro`
+// });
+//
+// const getGreeting = () => ({
+//   type: `greeting`
+// });
+//
+// const getRules = () => ({
+//   type: `rules`,
+//   userName: ``
+// });
+//
+// const getGame1Level = () => ({
+//   type: `game-1`,
+//   title: `Угадайте для каждого изображения фото или рисунок?`,
+//   images: [getRandomImage(), getRandomImage()]
+// });
+//
+// const getGame2Level = () => ({
+//   type: `game-2`,
+//   title: `Угадай, фото или рисунок?`,
+//   images: [getRandomImage(), getRandomImage()]
+// });
+//
+// const getGame3Level = () => {
+//   const getRandomImageTypes = elementGetter(IMG_TYPE_LIST);
+//   const [wrongType, correctType] = [getRandomImageTypes(), getRandomImageTypes()];
+//
+//   return {
+//     type: `game-3`,
+//     title: `Найдите ${TILE_LIST[correctType]} среди изображений`,
+//     correctAnswer: correctType,
+//     images: arrayShuffle([getImageByType(wrongType), getImageByType(wrongType), getImageByType(correctType)])
+//   };
+// };
+//
+// const getStats = () => ({
+//   type: `stats`,
+// });
+//
+// const levelGenerators = [getGame1Level, getGame2Level, getGame3Level];
+//
+// const fillGameData = () => {
+//   const data = [];
+//   for (let i = 0; i < LENGTH_ARR_GAMES; i++) {
+//     getImage = {
+//       'paint': elementGetter(images.paintings),
+//       'photo': elementGetter(images.photos)
+//     };
+//     data.push(levelGenerators[getRandom(2)]());
+//   }
+//   return data;
+// };
+//
+// let gameData;
+//
+// const getGameData = () => {
+//   if (!gameData) {
+//     gameData = fillGameData();
+//   }
+//   return gameData;
+// };
+//
+//
+// const getGameState = () => {
+//   let gameList = [getIntro(), getGreeting(), getRules(), ...getGameData(), getStats()];
+//   const state = {
+//     stats: [],
+//     lives: INITIAL_LIVES,
+//     answers: [],
+//     levels: gameList,
+//     currentLevel: 0,
+//     userName: ``,
+//     questionStats: [],
+//     time: []
+//   };
+//   return state;
+// };
 
 
 class gameModel {
-  constructor(playerName, time) {
-    this._playerName = playerName;
-    this._time = time;
-    this._state = getGameState;
-    this.restart();
+  constructor() {
+    this.init = this.getGameState();
   }
-  succesAnswer() {
-    this._state.questionStats.push(questionStats(time));
-    this._state.time.push(this._time);
-    this._state.currentLevel++;
+
+  let getImage;
+
+  let gameData;
+
+  getImageByType(imageType) {
+    return {
+      type: imageType,
+      src: this.getImage[imageType]()
+    };
   }
-  restart() {
-    this._state();
+
+  getRandomImage() {
+    this.getImageByType(getRandomImageType());
   }
-  wrongAnswer() {
-    this._state.answers.push(false);
-    this._state.lives--;
-    this._state.currentLevel++;
-    this._state.questionStats.push(`fail`);
+
+  getIntro() {
+    return {
+      type: `intro`
+    };
   }
-  writePlayerName() {
-    this._state.userName = this._playerName;
+
+  getGreeting() {
+    return {
+      type: `greeting`
+    };
   }
-  nextScreen() {
-    this._state.currentLevel++;
+
+  getRules() {
+    return {
+      type: `rules`,
+      userName: ``
+    };
+  }
+
+  getGame1Level() {
+    return {
+      type: `game-1`,
+      title: `Угадайте для каждого изображения фото или рисунок?`,
+      images: [this.getRandomImage(), this.getRandomImage()]
+    };
+  }
+
+  getGame2Level() {
+    return {
+      type: `game-2`,
+      title: `Угадай, фото или рисунок?`,
+      images: [this.getRandomImage(), this.getRandomImage()]
+    };
+  }
+
+  getGame3Level() {
+    const getRandomImageTypes = elementGetter(IMG_TYPE_LIST);
+    const [wrongType, correctType] = [getRandomImageTypes(), getRandomImageTypes()];
+    return {
+      type: `game-3`,
+      title: `Найдите ${TILE_LIST[correctType]} среди изображений`,
+      correctAnswer: correctType,
+      images: arrayShuffle([this.getImageByType(wrongType), this.getImageByType(wrongType), this.getImageByType(correctType)])
+    };
+  }
+
+  getStats() {
+    return {
+      type: `stats`
+    };
+  }
+
+  levelGenerators() {
+    [this.getGame1Level, this.getGame2Level, this.getGame3Level];
+  }
+
+  fillGameData() {
+    const data = [];
+    for (let i = 0; i < LENGTH_ARR_GAMES; i++) {
+      this.getImage = {
+        'paint': elementGetter(images.paintings),
+        'photo': elementGetter(images.photos)
+      };
+      data.push(this.levelGenerators[getRandom(2)]());
+    }
+    return data;
+  }
+
+  getGameData() {
+    if (!this.gameData) {
+      this.gameData = this.fillGameData();
+    }
+    return this.gameData;
+  }
+
+  getGameState() {
+    let gameList = [this.getIntro(), this.getGreeting(), this.getRules(), ...this.getGameData(), this.getStats()];
+    const state = {
+      stats: [],
+      lives: INITIAL_LIVES,
+      answers: [],
+      levels: gameList,
+      currentLevel: 0,
+      userName: ``,
+      questionStats: [],
+      time: []
+    };
+    return state;
   }
 }
 
-export {gameModel, getGameData};
+export default gameModel;
