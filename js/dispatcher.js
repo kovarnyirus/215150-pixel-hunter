@@ -19,7 +19,6 @@ const levelScreens = {
 };
 
 let game = new GameModel();
-let state = game.state;
 
 let handlerDispatcher = ({status, time, isGame, name}) =>{
   if (status === `succes`) {
@@ -38,14 +37,16 @@ let handlerDispatcher = ({status, time, isGame, name}) =>{
 }
 ;
 
-const dispatcher = () =>{
-  const levelData = state.levels[state.currentLevel];
-  if (state.currentLevel === 0) {
+const dispatcher = () => {
+  const gameData = game.gameData;
+  const levelData = gameData.levels[gameData.currentLevel];
+  if (gameData.currentLevel === 0) {
     return renderScreen(new IntroView(handlerDispatcher).element);
-  } else if (state.lives === 0) {
-    renderScreen(new statsView(handlerDispatcher, `fail`, state).element);
-  } else if (state.currentLevel < 14) {
-    renderScreen(new levelScreens[levelData.type](handlerDispatcher, levelData, state).element);
+  } else if (gameData.lives === 0) {
+    renderScreen(new statsView(handlerDispatcher, `fail`, gameData).element);
+  } else if (gameData.currentLevel < 14) {
+    console.log(gameData);
+    renderScreen(new levelScreens[levelData.type](handlerDispatcher, levelData, gameData).element);
   }
 };
 //

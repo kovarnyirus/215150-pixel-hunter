@@ -46,10 +46,20 @@ class GameModel {
   constructor() {
     this._getImage = null;
     this._gameData = null;
-    this.state = null;
+    this._state = null;
     this.restart = this.restart.bind(this);
     this.init = this.init.bind(this);
     this.restart();
+  }
+
+  get gameData() {
+    return {
+      currentLevel: this._state.currentLevel,
+      lives: this._state.lives,
+      levels: this._state.levels,
+      userName: this._state.userName,
+      questionStats: this._state.questionStats
+    };
   }
 
   _getImageByType(imageType) {
@@ -59,9 +69,10 @@ class GameModel {
     };
   }
 
+
   _getRandomImage() {
     const randomImageType = getRandomImageType();
-    const randomImage =  this._getImageByType(randomImageType);
+    const randomImage = this._getImageByType(randomImageType);
 
     return randomImage;
   }
@@ -119,7 +130,7 @@ class GameModel {
   }
 
   _fillGameData() {
-    //разобраться  почему теряется контекст this без bind в следующей строке
+    // разобраться  почему теряется контекст this без bind в следующей строке
     const levelGenerators = [this._getGame1Level.bind(this), this._getGame2Level.bind(this), this._getGame3Level.bind(this)];
     const data = [];
     for (let i = 0; i < LENGTH_ARR_GAMES; i++) {
@@ -146,7 +157,7 @@ class GameModel {
 
   init() {
     let gameList = [this._getIntro(), this._getGreeting(), this._getRules(), ...this._getGameData(), this._getStats()];
-    this.state = {
+    this._state = {
       stats: [],
       lives: INITIAL_LIVES,
       answers: [],
@@ -159,27 +170,27 @@ class GameModel {
   }
 
   succesAnswer(time) {
-    this.state.questionStats.push(this._questionStats(time));
-    this.state.time.push(time);
-    this.state.currentLevel++;
+    this._state.questionStats.push(this._questionStats(time));
+    this._state.time.push(time);
+    this._state.currentLevel++;
   }
   restart() {
     this.init();
   }
   wrongAnswer() {
-    this.state.answers.push(false);
-    this.state.lives--;
-    this.state.currentLevel++;
-    this.state.questionStats.push(`fail`);
-    if (this.state.lives === 0) {
-      this.state.currentLevel = this.state.levels.length - 1;
+    this._state.answers.push(false);
+    this._state.lives--;
+    this._state.currentLevel++;
+    this._state.questionStats.push(`fail`);
+    if (this._state.lives === 0) {
+      this._state.currentLevel = this._state.levels.length - 1;
     }
   }
   writePlayerName(playerName) {
-    this.state.userName = playerName;
+    this._state.userName = playerName;
   }
   nextScreen() {
-    this.state.currentLevel++;
+    this._state.currentLevel++;
   }
 }
 
