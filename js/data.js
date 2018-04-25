@@ -43,13 +43,10 @@ const getRandomImageType = () => IMG_TYPE_LIST[getRandom(1)];
 const arrayShuffle = (array) => array.sort(() => Math.random() - 0.5);
 
 class gameModel {
-  constructor(playerName, time) {
+  constructor() {
     this._state = this.init;
     this._getImage = null;
     this._gameData = null;
-
-    this._playerName = playerName;
-    this._time = time;
     this.restart();
   }
 
@@ -139,8 +136,8 @@ class gameModel {
     return this._gameData;
   }
 
-  _questionStats() {
-    return (this._time < 10) ? `fast` : (this._time > 20) ? `slow` : `succes`;
+  _questionStats(time) {
+    return (time < 10) ? `fast` : (time > 20) ? `slow` : `succes`;
   }
 
   init() {
@@ -158,22 +155,26 @@ class gameModel {
     return state;
   }
 
-  succesAnswer() {
-    this._state.questionStats.push(this._questionStats());
-    this._state.time.push(this._time);
+  succesAnswer(time) {
+    this._state.questionStats.push(this._questionStats(time));
+    this._state.time.push(time);
     this._state.currentLevel++;
   }
   restart() {
     this._state();
   }
   wrongAnswer() {
-    this._state.answers.push(false);
-    this._state.lives--;
-    this._state.currentLevel++;
-    this._state.questionStats.push(`fail`);
+    if (this._state.lives > 0) {
+      this._state.answers.push(false);
+      this._state.lives--;
+      this._state.currentLevel++;
+      this._state.questionStats.push(`fail`);
+    } else {
+      this._state.currentLevel = this._state.levels.length - 1;
+    }
   }
-  writePlayerName() {
-    this._state.userName = this._playerName;
+  writePlayerName(playerName) {
+    this._state.userName = playerName;
   }
   nextScreen() {
     this._state.currentLevel++;
