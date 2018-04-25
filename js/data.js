@@ -45,11 +45,9 @@ const arrayShuffle = (array) => array.sort(() => Math.random() - 0.5);
 class gameModel {
   constructor() {
     this.init();
+    this._getImage = null;
+    this._gameData = null;
   }
-
-  _getImage() {}
-
-  _gameData() {}
 
   _getImageByType(imageType) {
     return {
