@@ -24,27 +24,15 @@ let state = new gameModel().init();
 let handlerDispatcher = ({status, time, isGame, name}) => {
   if (status === `succes`) {
     if (name) {
-      // state.userName = name;
       gameModel.writePlayerName(name);
     } else if (time) {
-      gameModel.succesAnswer(time)
-      // state.questionStats.push(questionStats(time));
-      // state.time.push(time);
+      gameModel.succesAnswer(time);
     }
-    // state.currentLevel++
     gameModel.nextScreen();
-    // if (isGame) {
-    //   state.answers.push(true);
-    // }
   } else if (status === `goBack`) {
-    // state = getGameState();
     gameModel.restart();
   } else if (status === `fail`) {
-    gameModel.wrongAnswer;
-    // state.answers.push(false);
-    // state.lives--;
-    // state.currentLevel++;
-    // state.questionStats.push(`fail`);
+    gameModel.wrongAnswer();
   }
   dispatcher();
 };

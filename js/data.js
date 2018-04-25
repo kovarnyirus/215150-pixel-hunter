@@ -48,7 +48,6 @@ class gameModel {
     this._gameData = null;
     this._state = this.init;
     this.restart();
-
   }
 
   _getImageByType(imageType) {
