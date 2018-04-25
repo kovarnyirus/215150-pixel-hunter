@@ -26,9 +26,7 @@ const images = {
   ]
 };
 
-function getRandom (maxValue) {
-  Math.floor(Math.random() * (maxValue + 1));
-} ;
+let getRandom = (maxValue) => Math.floor(Math.random() * (maxValue + 1));
 
 const elementGetter = (array) => {
   const data = array.slice(0);
@@ -44,11 +42,13 @@ const getRandomImageType = () => IMG_TYPE_LIST[getRandom(1)];
 
 const arrayShuffle = (array) => array.sort(() => Math.random() - 0.5);
 
-class gameModel {
+class GameModel {
   constructor() {
     this._getImage = null;
     this._gameData = null;
     this.state = null;
+    this.restart = this.restart.bind(this);
+    this.init = this.init.bind(this);
     this.restart();
   }
 
@@ -60,7 +60,10 @@ class gameModel {
   }
 
   _getRandomImage() {
-    this._getImageByType(getRandomImageType());
+    const randomImageType = getRandomImageType();
+    const randomImage =  this._getImageByType(randomImageType);
+
+    return randomImage;
   }
 
   _getIntro() {
@@ -116,14 +119,16 @@ class gameModel {
   }
 
   _fillGameData() {
-    const levelGenerators = [this._getGame1Level, this._getGame2Level, this._getGame3Level];
+    //разобраться  почему теряется контекст this без bind в следующей строке
+    const levelGenerators = [this._getGame1Level.bind(this), this._getGame2Level.bind(this), this._getGame3Level.bind(this)];
     const data = [];
     for (let i = 0; i < LENGTH_ARR_GAMES; i++) {
-      this.getImage = {
+      this._getImage = {
         'paint': elementGetter(images.paintings),
         'photo': elementGetter(images.photos)
       };
-      data.push(levelGenerators[getRandom(2)]);
+      const randomIndex = getRandom(2);
+      data.push(levelGenerators[randomIndex]());
     }
     return data;
   }
@@ -178,4 +183,4 @@ class gameModel {
   }
 }
 
-export default gameModel;
+export default GameModel;
