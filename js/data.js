@@ -164,12 +164,11 @@ class gameModel {
     this._state();
   }
   wrongAnswer() {
-    if (this._state.lives > 0) {
-      this._state.answers.push(false);
-      this._state.lives--;
-      this._state.currentLevel++;
-      this._state.questionStats.push(`fail`);
-    } else {
+    this._state.answers.push(false);
+    this._state.lives--;
+    this._state.currentLevel++;
+    this._state.questionStats.push(`fail`);
+    if (this._state.lives === 0) {
       this._state.currentLevel = this._state.levels.length - 1;
     }
   }
