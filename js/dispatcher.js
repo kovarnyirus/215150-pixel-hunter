@@ -18,21 +18,21 @@ const levelScreens = {
   'stats': statsView
 };
 
-let state = new gameModel().init();
-
+let game = new gameModel();
+let state = game.state;
 
 let handlerDispatcher = ({status, time, isGame, name}) => {
   if (status === `succes`) {
     if (name) {
-      gameModel.writePlayerName(name);
+      game.writePlayerName(name);
     } else if (time) {
-      gameModel.succesAnswer(time);
+      game.succesAnswer(time);
     }
-    gameModel.nextScreen();
+    game.nextScreen();
   } else if (status === `goBack`) {
-    gameModel.restart();
+    game.restart();
   } else if (status === `fail`) {
-    gameModel.wrongAnswer();
+    game.wrongAnswer();
   }
   dispatcher();
 };
