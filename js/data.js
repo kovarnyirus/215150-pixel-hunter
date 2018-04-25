@@ -43,10 +43,14 @@ const getRandomImageType = () => IMG_TYPE_LIST[getRandom(1)];
 const arrayShuffle = (array) => array.sort(() => Math.random() - 0.5);
 
 class gameModel {
-  constructor() {
-    this.init();
+  constructor(playerName, time) {
+    this._state = this.init;
     this._getImage = null;
     this._gameData = null;
+
+    this._playerName = playerName;
+    this._time = time;
+    this.restart();
   }
 
   _getImageByType(imageType) {
@@ -135,6 +139,10 @@ class gameModel {
     return this._gameData;
   }
 
+  _questionStats() {
+    return (this._time < 10) ? `fast` : (this._time > 20) ? `slow` : `succes`;
+  }
+
   init() {
     let gameList = [this._getIntro(), this._getGreeting(), this._getRules(), ...this._getGameData(), this._getStats()];
     const state = {
@@ -148,6 +156,27 @@ class gameModel {
       time: []
     };
     return state;
+  }
+
+  succesAnswer() {
+    this._state.questionStats.push(this._questionStats());
+    this._state.time.push(this._time);
+    this._state.currentLevel++;
+  }
+  restart() {
+    this._state();
+  }
+  wrongAnswer() {
+    this._state.answers.push(false);
+    this._state.lives--;
+    this._state.currentLevel++;
+    this._state.questionStats.push(`fail`);
+  }
+  writePlayerName() {
+    this._state.userName = this._playerName;
+  }
+  nextScreen() {
+    this._state.currentLevel++;
   }
 }
 
