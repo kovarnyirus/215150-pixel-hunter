@@ -44,10 +44,11 @@ const arrayShuffle = (array) => array.sort(() => Math.random() - 0.5);
 
 class gameModel {
   constructor() {
-    this._state = this.init;
     this._getImage = null;
     this._gameData = null;
+    this._state = this.init;
     this.restart();
+
   }
 
   _getImageByType(imageType) {
@@ -113,18 +114,15 @@ class gameModel {
     };
   }
 
-  _levelGenerators() {
-    [this._getGame1Level, this._getGame2Level, this._getGame3Level];
-  }
-
   _fillGameData() {
+    const levelGenerators = [this._getGame1Level, this._getGame2Level, this._getGame3Level];
     const data = [];
     for (let i = 0; i < LENGTH_ARR_GAMES; i++) {
       this.getImage = {
         'paint': elementGetter(images.paintings),
         'photo': elementGetter(images.photos)
       };
-      data.push(this._levelGenerators[getRandom(2)]());
+      data.push(levelGenerators[getRandom(2)]);
     }
     return data;
   }

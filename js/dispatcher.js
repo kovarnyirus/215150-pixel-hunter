@@ -18,31 +18,29 @@ const levelScreens = {
   'stats': statsView
 };
 
-let state = getGameState();
+let state = new gameModel().init();
 
-const questionStats = (time) => (time < 10) ? `fast` :
-  (time > 20) ? `slow` : `succes`;
 
 let handlerDispatcher = ({status, time, isGame, name}) => {
   if (status === `succes`) {
     if (name) {
       // state.userName = name;
-      gameModel(name).writePlayerName();
+      gameModel.writePlayerName(name);
     } else if (time) {
-      gameModel(time).succesAnswer()
+      gameModel.succesAnswer(time)
       // state.questionStats.push(questionStats(time));
       // state.time.push(time);
     }
     // state.currentLevel++
-    gameModel().nextScreen();
+    gameModel.nextScreen();
     // if (isGame) {
     //   state.answers.push(true);
     // }
   } else if (status === `goBack`) {
     // state = getGameState();
-    gameModel().restart();
+    gameModel.restart();
   } else if (status === `fail`) {
-    gameModel().wrongAnswer();
+    gameModel.wrongAnswer;
     // state.answers.push(false);
     // state.lives--;
     // state.currentLevel++;
