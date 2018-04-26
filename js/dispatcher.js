@@ -1,4 +1,5 @@
-import GameModel from './data.js';
+import GameModel from './data/gameModel.js';
+import timer from './data/timer.js';
 import renderScreen from './utils.js';
 import greetingView from './templates/greetingView';
 import IntroView from './templates/IntroView.js';
@@ -8,6 +9,7 @@ import gameOneView from './templates/gameOneView.js';
 import gameThreeView from './templates/gameThreeView.js';
 import statsView from './templates/statsView.js';
 
+const REMAINING_SECONDS = 5;
 const levelScreens = {
   'intro': IntroView,
   'greeting': greetingView,
@@ -20,17 +22,12 @@ const levelScreens = {
 
 class GameDispatcher {
   constructor() {
-    this.dispatcher = this.dispatcher.bind(this);
-    this.handlerDispatcher = this.handlerDispatcher.bind(this);
-    this._data = this._gameModel();
-    this.dispatcher();
+    this.run = this.run.bind(this);
+    this._handlerDispatcher = this._handlerDispatcher.bind(this);
+    this._data = new GameModel();
   }
 
-  _gameModel() {
-    return new GameModel();
-  }
-
-  handlerDispatcher({status, time, isGame, name}) {
+  _handlerDispatcher({status, time, isGame, name}) {
     if (status === `succes`) {
       if (name) {
         this._data.writePlayerName(name);
@@ -43,22 +40,48 @@ class GameDispatcher {
     } else if (status === `fail`) {
       this._data.wrongAnswer();
     }
-    this.dispatcher();
-  };
+    this.run();
+  }
 
 
-  dispatcher() {
+  run() {
     let gameData = this._data.gameData;
     const levelData = gameData.levels[gameData.currentLevel];
     if (gameData.currentLevel === 0) {
-      return renderScreen(new IntroView(this.handlerDispatcher).element);
+      return renderScreen(new IntroView(this._handlerDispatcher).element);
     } else if (gameData.lives === 0) {
-      renderScreen(new statsView(this.handlerDispatcher, `fail`, this._state).element);
+      renderScreen(new statsView(this._handlerDispatcher, `fail`, this._state).element);
     } else if (gameData.currentLevel < 14) {
-      renderScreen(new levelScreens[levelData.type](this.handlerDispatcher, levelData, gameData).element);
+      const levelScreen = new levelScreens[levelData.type](this._handlerDispatcher, levelData, gameData);
+      const element = levelScreen.timer;
+      console.log(levelScreen.timer);
+      renderScreen(levelScreen.element);
+      this._initTimer(element, 30);
     }
-  };
+  }
 
+  _initTimer(element, sec) {
+    time = 
+    this._timer = setInterval(() => {
+      this._renderTimer(element, this._nextTick(sec).value);
+    }, 1000);
+  }
+
+  _nextTick(sec) {
+    console.log(timer(sec).tick())
+    return timer(sec).tick();
+  }
+
+  _renderTimer(element, value) {
+    element.textContent = value;
+    if (value === REMAINING_SECONDS) {
+      element.classList.add(`blink`);
+    }
+  }
+
+  _stopTimer() {
+    clearInterval(this._timer);
+  }
 }
 
 export default GameDispatcher;

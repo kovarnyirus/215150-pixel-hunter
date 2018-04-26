@@ -1,5 +1,4 @@
 import GameDispatcher from './dispatcher.js';
 
-new GameDispatcher();
-
-
+const game = new GameDispatcher();
+game.run();

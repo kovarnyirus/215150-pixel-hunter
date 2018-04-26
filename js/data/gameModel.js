@@ -2,6 +2,9 @@ const IMG_TYPE_LIST = [`photo`, `paint`];
 const TILE_LIST = {photo: `фото`, paint: `рисунок`};
 const INITIAL_LIVES = 3;
 const LENGTH_ARR_GAMES = 10;
+const MAX_TIMER_VAL = 30;
+const MIN_TIMER = 0;
+
 
 const images = {
   paintings: [

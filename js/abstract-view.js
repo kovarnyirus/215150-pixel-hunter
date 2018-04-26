@@ -27,6 +27,10 @@ export default class AbstractView {
     }
   }
 
+  get timer(){
+    return this.element.querySelector(`.game__timer`);
+  }
+
   render() {
     return createElement(this.template);
   }
