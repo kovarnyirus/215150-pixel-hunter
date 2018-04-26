@@ -1,5 +1,5 @@
-import dispatcher from './dispatcher.js';
+import GameDispatcher from './dispatcher.js';
 
-dispatcher();
+new GameDispatcher();
 
 

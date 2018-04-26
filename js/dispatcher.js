@@ -18,83 +18,47 @@ const levelScreens = {
   'stats': statsView
 };
 
-// let game = new GameModel();
-//
-// let handlerDispatcher = ({status, time, isGame, name}) =>{
-//   if (status === `succes`) {
-//     if (name) {
-//       game.writePlayerName(name);
-//     } else if (time) {
-//       game.succesAnswer(time);
-//     }
-//     game.nextScreen();
-//   } else if (status === `goBack`) {
-//     game.restart();
-//   } else if (status === `fail`) {
-//     game.wrongAnswer();
-//   }
-//   dispatcher();
-// }
-// ;
-//
-// const dispatcher = () => {
-//   const gameData = game.gameData;
-//   const levelData = gameData.levels[gameData.currentLevel];
-//   if (gameData.currentLevel === 0) {
-//     return renderScreen(new IntroView(handlerDispatcher).element);
-//   } else if (gameData.lives === 0) {
-//     renderScreen(new statsView(handlerDispatcher, `fail`, gameData).element);
-//   } else if (gameData.currentLevel < 14) {
-//     console.log(gameData);
-//     renderScreen(new levelScreens[levelData.type](handlerDispatcher, levelData, gameData).element);
-//   }
-// };
-
 class GameDispatcher {
   constructor() {
     this.dispatcher = this.dispatcher.bind(this);
     this.handlerDispatcher = this.handlerDispatcher.bind(this);
+    this._data = this._gameModel();
     this.dispatcher();
   }
 
-  _game() {
+  _gameModel() {
     return new GameModel();
   }
 
-  _state() {
-    this._game.state;
-  }
-
-
-  get handlerDispatcher({status, time, isGame, name}) {
+  handlerDispatcher({status, time, isGame, name}) {
     if (status === `succes`) {
       if (name) {
-        this._game.writePlayerName(name);
+        this._data.writePlayerName(name);
       } else if (time) {
-        this._game.succesAnswer(time);
+        this._data.succesAnswer(time);
       }
-      this._game.nextScreen();
+      this._data.nextScreen();
     } else if (status === `goBack`) {
-      this._game.restart();
+      this._data.restart();
     } else if (status === `fail`) {
-      this._game.wrongAnswer();
+      this._data.wrongAnswer();
     }
     this.dispatcher();
   };
 
 
-  get dispatcher() {
-    gameData = game.gameData;
-    const levelData = this._state.levels[this._state.currentLevel];
-    if (this._state.currentLevel === 0) {
-      return renderScreen(new IntroView(handlerDispatcher).element);
-    } else if (this._state.lives === 0) {
-      renderScreen(new statsView(handlerDispatcher, `fail`, this._state).element);
-    } else if (this._state.currentLevel < 14) {
-      renderScreen(new levelScreens[levelData.type](handlerDispatcher, levelData, this._state).element);
+  dispatcher() {
+    let gameData = this._data.gameData;
+    const levelData = gameData.levels[gameData.currentLevel];
+    if (gameData.currentLevel === 0) {
+      return renderScreen(new IntroView(this.handlerDispatcher).element);
+    } else if (gameData.lives === 0) {
+      renderScreen(new statsView(this.handlerDispatcher, `fail`, this._state).element);
+    } else if (gameData.currentLevel < 14) {
+      renderScreen(new levelScreens[levelData.type](this.handlerDispatcher, levelData, gameData).element);
     }
   };
 
 }
 
-export default dispatcher;
+export default GameDispatcher;
