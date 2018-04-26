@@ -18,82 +18,83 @@ const levelScreens = {
   'stats': statsView
 };
 
-let game = new GameModel();
-
-let handlerDispatcher = ({status, time, isGame, name}) =>{
-  if (status === `succes`) {
-    if (name) {
-      game.writePlayerName(name);
-    } else if (time) {
-      game.succesAnswer(time);
-    }
-    game.nextScreen();
-  } else if (status === `goBack`) {
-    game.restart();
-  } else if (status === `fail`) {
-    game.wrongAnswer();
-  }
-  dispatcher();
-}
-;
-
-const dispatcher = () => {
-  const gameData = game.gameData;
-  const levelData = gameData.levels[gameData.currentLevel];
-  if (gameData.currentLevel === 0) {
-    return renderScreen(new IntroView(handlerDispatcher).element);
-  } else if (gameData.lives === 0) {
-    renderScreen(new statsView(handlerDispatcher, `fail`, gameData).element);
-  } else if (gameData.currentLevel < 14) {
-    console.log(gameData);
-    renderScreen(new levelScreens[levelData.type](handlerDispatcher, levelData, gameData).element);
-  }
-};
+// let game = new GameModel();
 //
-// class GameDispatcher {
-//   constructor() {
-//     this.dispatcher = this.dispatcher.bind(this);
-//     this.handlerDispatcher = this.handlerDispatcher.bind(this);
-//     this.dispatcher();
-//   }
-//
-//   _game() {
-//     return new GameModel();
-//   }
-//
-//   _state() {
-//     this._game.state;
-//   }
-//
-//
-//   get handlerDispatcher({status, time, isGame, name}) {
-//     if (status === `succes`) {
-//       if (name) {
-//         this._game.writePlayerName(name);
-//       } else if (time) {
-//         this._game.succesAnswer(time);
-//       }
-//       this._game.nextScreen();
-//     } else if (status === `goBack`) {
-//       this._game.restart();
-//     } else if (status === `fail`) {
-//       this._game.wrongAnswer();
+// let handlerDispatcher = ({status, time, isGame, name}) =>{
+//   if (status === `succes`) {
+//     if (name) {
+//       game.writePlayerName(name);
+//     } else if (time) {
+//       game.succesAnswer(time);
 //     }
-//     this.dispatcher();
-//   };
-//
-//
-//   get dispatcher() {
-//     const levelData = this._state.levels[this._state.currentLevel];
-//     if (this._state.currentLevel === 0) {
-//       return renderScreen(new IntroView(handlerDispatcher).element);
-//     } else if (this._state.lives === 0) {
-//       renderScreen(new statsView(handlerDispatcher, `fail`, this._state).element);
-//     } else if (this._state.currentLevel < 14) {
-//       renderScreen(new levelScreens[levelData.type](handlerDispatcher, levelData, this._state).element);
-//     }
-//   };
-//
+//     game.nextScreen();
+//   } else if (status === `goBack`) {
+//     game.restart();
+//   } else if (status === `fail`) {
+//     game.wrongAnswer();
+//   }
+//   dispatcher();
 // }
+// ;
+//
+// const dispatcher = () => {
+//   const gameData = game.gameData;
+//   const levelData = gameData.levels[gameData.currentLevel];
+//   if (gameData.currentLevel === 0) {
+//     return renderScreen(new IntroView(handlerDispatcher).element);
+//   } else if (gameData.lives === 0) {
+//     renderScreen(new statsView(handlerDispatcher, `fail`, gameData).element);
+//   } else if (gameData.currentLevel < 14) {
+//     console.log(gameData);
+//     renderScreen(new levelScreens[levelData.type](handlerDispatcher, levelData, gameData).element);
+//   }
+// };
+
+class GameDispatcher {
+  constructor() {
+    this.dispatcher = this.dispatcher.bind(this);
+    this.handlerDispatcher = this.handlerDispatcher.bind(this);
+    this.dispatcher();
+  }
+
+  _game() {
+    return new GameModel();
+  }
+
+  _state() {
+    this._game.state;
+  }
+
+
+  get handlerDispatcher({status, time, isGame, name}) {
+    if (status === `succes`) {
+      if (name) {
+        this._game.writePlayerName(name);
+      } else if (time) {
+        this._game.succesAnswer(time);
+      }
+      this._game.nextScreen();
+    } else if (status === `goBack`) {
+      this._game.restart();
+    } else if (status === `fail`) {
+      this._game.wrongAnswer();
+    }
+    this.dispatcher();
+  };
+
+
+  get dispatcher() {
+    gameData = game.gameData;
+    const levelData = this._state.levels[this._state.currentLevel];
+    if (this._state.currentLevel === 0) {
+      return renderScreen(new IntroView(handlerDispatcher).element);
+    } else if (this._state.lives === 0) {
+      renderScreen(new statsView(handlerDispatcher, `fail`, this._state).element);
+    } else if (this._state.currentLevel < 14) {
+      renderScreen(new levelScreens[levelData.type](handlerDispatcher, levelData, this._state).element);
+    }
+  };
+
+}
 
 export default dispatcher;
