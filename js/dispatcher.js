@@ -59,7 +59,6 @@ class GameDispatcher {
     } else if (gameData.currentLevel <= 14) {
       const levelScreen = new levelScreens[levelData.type](this._handlerDispatcher, levelData, gameData);
       const element = levelScreen.timer;
-      console.log(levelScreen.timer);
       renderScreen(levelScreen.element);
       this._initTimer(element, 10);
     }
@@ -67,7 +66,7 @@ class GameDispatcher {
 
   _initTimer(element, sec) {
     let time = sec;
-
+    element.textContent = sec;
     if (element !== null) {
       this._timer = setInterval(() => {
         if (time === 1) {
@@ -75,7 +74,6 @@ class GameDispatcher {
           this._data.timeOut();
           this.run();
         }
-        console.log(time);
         time = this._nextTick(time);
         this._renderTimer(element, time);
       }, 1000);

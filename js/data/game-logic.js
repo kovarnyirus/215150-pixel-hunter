@@ -11,10 +11,10 @@ const countScore = (data, lives) => {
   if (lives < MIN_LIVES) {
     return false;
   }
-  if (data.answers.length !== LENGTH_ARR_ANSWERS) {
+  if (data.answers.length !== LENGTH_ARR_ANSWERS && !data.timeOver) {
     return -1;
   }
-
+console.log(data)
   let pointsAnswers = data.answers.reduce((previousValue, item) => {
     return item ? previousValue += POINTS_CORRECT_ANSWER : previousValue;
   }, 0);

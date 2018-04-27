@@ -12,7 +12,6 @@ class gameOneView extends AbstractView {
     this._chekedOne = false;
     this._chekedTwo = false;
     this._gameImages = levelData.images;
-    this._timeAnswer = 20;
 
     this.onMouseDownButtonBack = this.onMouseDownButtonBack.bind(this);
     this.onChangeInputOne = this.onChangeInputOne.bind(this);
@@ -27,14 +26,13 @@ class gameOneView extends AbstractView {
 
   bind() {
     this._buttonBack = this.element.querySelector(`.header__back`);
+    this._timeAnswer = this.element.querySelector(`.game__timer`);
     this._inputOne = this.element.querySelectorAll(`input[name="question1"]`);
     this._inputTwo = this.element.querySelectorAll(`input[name="question2"]`);
 
     this._buttonBack.addEventListener(`mousedown`, this.onMouseDownButtonBack);
-
     this._inputOne[0].addEventListener(`change`, this.onChangeInputOne);
     this._inputOne[1].addEventListener(`change`, this.onChangeInputOne);
-
     this._inputTwo[0].addEventListener(`change`, this.onChangeInputTwo);
     this._inputTwo[1].addEventListener(`change`, this.onChangeInputTwo);
   }
@@ -56,7 +54,7 @@ class gameOneView extends AbstractView {
     if (this._chekedOne && this._chekedTwo) {
       this.removeListeners();
       if (this._gameImages[0].type === this._chekedOne && this._gameImages[1].type === this._chekedTwo) {
-        this.dispatch({status: `succes`, time: this._timeAnswer, isGame: true});
+        this.dispatch({status: `succes`, time: this._timeAnswer.innerText, isGame: true});
       } else {
         this.dispatch({status: `fail`, isGame: true});
       }

@@ -58,11 +58,13 @@ class GameModel {
   get gameData() {
     return {
       currentLevel: this._state.currentLevel,
+      answers: this._state.answers,
       lives: this._state.lives,
       levels: this._state.levels,
       userName: this._state.userName,
       questionStats: this._state.questionStats,
-      timeOver: this._state.timeOver
+      timeOver: this._state.timeOver,
+      time: this._state.time
     };
   }
 
@@ -156,7 +158,7 @@ class GameModel {
   }
 
   _questionStats(time) {
-    return (time < 10) ? `fast` : (time > 20) ? `slow` : `succes`;
+    return (time >= 20) ? `fast` : (time <= 10) ? `slow` : `succes`;
   }
 
   init() {
@@ -175,9 +177,9 @@ class GameModel {
   }
 
   succesAnswer(time) {
+    this._state.answers.push(true);
     this._state.questionStats.push(this._questionStats(time));
     this._state.time.push(time);
-    this._state.currentLevel++;
   }
   restart() {
     this.init();
@@ -193,8 +195,8 @@ class GameModel {
   }
 
   timeOut() {
-    this._state.answers.push(false);
     this._state.timeOver = true;
+    this._state.time.push(30);
     this._state.questionStats.push(`fail`);
     this._state.currentLevel = this._state.levels.length - 1;
   }
