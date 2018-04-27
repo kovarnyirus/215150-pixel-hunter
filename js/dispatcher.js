@@ -23,11 +23,15 @@ const levelScreens = {
 class GameDispatcher {
   constructor() {
     this.run = this.run.bind(this);
+    this._timer = null;
     this._handlerDispatcher = this._handlerDispatcher.bind(this);
     this._data = new GameModel();
   }
 
   _handlerDispatcher({status, time, isGame, name}) {
+    if (isGame) {
+      this._stopTimer();
+    }
     if (status === `succes`) {
       if (name) {
         this._data.writePlayerName(name);
@@ -43,32 +47,43 @@ class GameDispatcher {
     this.run();
   }
 
-
   run() {
     let gameData = this._data.gameData;
     const levelData = gameData.levels[gameData.currentLevel];
     if (gameData.currentLevel === 0) {
       return renderScreen(new IntroView(this._handlerDispatcher).element);
+    } else if (gameData.timeOver) {
+      renderScreen(new statsView(this._handlerDispatcher, `timeOut`, gameData).element);
     } else if (gameData.lives === 0) {
-      renderScreen(new statsView(this._handlerDispatcher, `fail`, this._state).element);
-    } else if (gameData.currentLevel < 14) {
+      renderScreen(new statsView(this._handlerDispatcher, `fail`, gameData).element);
+    } else if (gameData.currentLevel <= 14) {
       const levelScreen = new levelScreens[levelData.type](this._handlerDispatcher, levelData, gameData);
       const element = levelScreen.timer;
       console.log(levelScreen.timer);
       renderScreen(levelScreen.element);
-      this._initTimer(element, 30);
+      this._initTimer(element, 10);
     }
   }
 
   _initTimer(element, sec) {
-    time = 
-    this._timer = setInterval(() => {
-      this._renderTimer(element, this._nextTick(sec).value);
-    }, 1000);
+    let time = sec;
+
+    if (element !== null) {
+      this._timer = setInterval(() => {
+        if (time === 1) {
+          this._stopTimer();
+          this._data.timeOut();
+          this.run();
+        }
+        console.log(time);
+        time = this._nextTick(time);
+        this._renderTimer(element, time);
+      }, 1000);
+    }
+
   }
 
   _nextTick(sec) {
-    console.log(timer(sec).tick())
     return timer(sec).tick();
   }
 

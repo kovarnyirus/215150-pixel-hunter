@@ -38,7 +38,7 @@ class gameThreeView extends AbstractView {
 
   onMouseDownButtonBack() {
     this.removeListeners();
-    this.dispatch({status: `goBack`});
+    this.dispatch({status: `goBack`, isGame: true});
   }
 
   onMouseDownGameCard(evt) {
@@ -46,7 +46,7 @@ class gameThreeView extends AbstractView {
     if (evt.target.attributes[2].value === this._levelData.correctAnswer) {
       this.dispatch({status: `succes`, time: this._timeAnswer, isGame: true});
     } else {
-      this.dispatch({status: `fail`});
+      this.dispatch({status: `fail`, isGame: true});
     }
 
   }

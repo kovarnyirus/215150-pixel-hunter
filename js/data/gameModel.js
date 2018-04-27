@@ -61,7 +61,8 @@ class GameModel {
       lives: this._state.lives,
       levels: this._state.levels,
       userName: this._state.userName,
-      questionStats: this._state.questionStats
+      questionStats: this._state.questionStats,
+      timeOver: this._state.timeOver
     };
   }
 
@@ -168,7 +169,8 @@ class GameModel {
       currentLevel: 0,
       userName: ``,
       questionStats: [],
-      time: []
+      time: [],
+      timeOver: false
     };
   }
 
@@ -189,6 +191,14 @@ class GameModel {
       this._state.currentLevel = this._state.levels.length - 1;
     }
   }
+
+  timeOut() {
+    this._state.answers.push(false);
+    this._state.timeOver = true;
+    this._state.questionStats.push(`fail`);
+    this._state.currentLevel = this._state.levels.length - 1;
+  }
+
   writePlayerName(playerName) {
     this._state.userName = playerName;
   }

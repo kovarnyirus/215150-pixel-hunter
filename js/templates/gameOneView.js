@@ -49,7 +49,7 @@ class gameOneView extends AbstractView {
 
   onMouseDownButtonBack() {
     this.removeListeners();
-    this.dispatch({status: `goBack`});
+    this.dispatch({status: `goBack`, isGame: true});
   }
 
   nextScreen() {
@@ -58,7 +58,7 @@ class gameOneView extends AbstractView {
       if (this._gameImages[0].type === this._chekedOne && this._gameImages[1].type === this._chekedTwo) {
         this.dispatch({status: `succes`, time: this._timeAnswer, isGame: true});
       } else {
-        this.dispatch({status: `fail`});
+        this.dispatch({status: `fail`, isGame: true});
       }
       this._chekedOne = false;
       this._chekedTwo = false;

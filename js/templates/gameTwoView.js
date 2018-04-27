@@ -34,7 +34,7 @@ class gameTwoView extends AbstractView {
 
   onMouseDownButtonBack() {
     this.removeListeners();
-    this.dispatch({status: `goBack`});
+    this.dispatch({status: `goBack`, isGame: true});
   }
 
   onChangeInput(evt) {
@@ -42,7 +42,7 @@ class gameTwoView extends AbstractView {
     if (this._gameImages[0].type === evt.target.value) {
       this.dispatch({status: `succes`, time: this._timeAnswer, isGame: true});
     } else {
-      this.dispatch({status: `fail`});
+      this.dispatch({status: `fail`, isGame: true});
     }
   }
 }
