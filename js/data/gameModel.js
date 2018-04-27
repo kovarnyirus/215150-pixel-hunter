@@ -196,7 +196,7 @@ class GameModel {
 
   timeOut() {
     this._state.timeOver = true;
-    this._state.time.push(30);
+    // this._state.time.push(30);
     this._state.questionStats.push(`fail`);
     this._state.currentLevel = this._state.levels.length - 1;
   }
