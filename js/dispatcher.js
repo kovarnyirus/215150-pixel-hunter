@@ -10,6 +10,7 @@ import gameThreeView from './templates/gameThreeView.js';
 import statsView from './templates/statsView.js';
 
 const REMAINING_SECONDS = 5;
+const MAX_TIMER = 30;
 const levelScreens = {
   'intro': IntroView,
   'greeting': greetingView,
@@ -60,7 +61,7 @@ class GameDispatcher {
       const levelScreen = new levelScreens[levelData.type](this._handlerDispatcher, levelData, gameData);
       const element = levelScreen.timer;
       renderScreen(levelScreen.element);
-      this._initTimer(element, 10);
+      this._initTimer(element, MAX_TIMER);
     }
   }
 
