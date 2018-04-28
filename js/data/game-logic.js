@@ -11,7 +11,7 @@ const countScore = (data, lives) => {
   if (lives < MIN_LIVES) {
     return false;
   }
-  if (data.answers.length !== LENGTH_ARR_ANSWERS && !data.timeOver) {
+  if (data.answers.length !== LENGTH_ARR_ANSWERS) {
     return -1;
   }
 console.log(data)
