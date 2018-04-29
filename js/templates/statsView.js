@@ -16,6 +16,8 @@ class statsView extends AbstractView {
 
     if (this._status === `fail`) {
       this._html = failTemplate(this._stats);
+    } else if(this._status === `timeOut`){
+      this._html = timeOutTemplate(this._stats);
     } else {
       this._html = winTemplate(this._stats);
     }

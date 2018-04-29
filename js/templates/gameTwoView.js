@@ -10,7 +10,6 @@ class gameTwoView extends AbstractView {
     this._headerStatistics = headerStatistics;
     this._templateSecomnd = templateSecomnd;
     this._gameImages = levelData.images;
-    this._timeAnswer = 20;
     this.onMouseDownButtonBack = this.onMouseDownButtonBack.bind(this);
     this.onChangeInput = this.onChangeInput.bind(this);
   }
@@ -21,6 +20,7 @@ class gameTwoView extends AbstractView {
 
   bind() {
     this._buttonBack = this.element.querySelector(`.header__back`);
+    this._timeAnswer = this.element.querySelector(`.game__timer`);
     this._inputQuestion = this.element.querySelectorAll(`input`);
     this._inputQuestion[0].addEventListener(`change`, this.onChangeInput);
     this._inputQuestion[1].addEventListener(`change`, this.onChangeInput);
@@ -34,15 +34,15 @@ class gameTwoView extends AbstractView {
 
   onMouseDownButtonBack() {
     this.removeListeners();
-    this.dispatch({status: `goBack`});
+    this.dispatch({status: `goBack`, isGame: true});
   }
 
   onChangeInput(evt) {
     this.removeListeners();
     if (this._gameImages[0].type === evt.target.value) {
-      this.dispatch({status: `succes`, time: this._timeAnswer, isGame: true});
+      this.dispatch({status: `succes`, time: this._timeAnswer.innerText, isGame: true});
     } else {
-      this.dispatch({status: `fail`});
+      this.dispatch({status: `fail`, isGame: true});
     }
   }
 }

@@ -14,7 +14,7 @@ const countScore = (data, lives) => {
   if (data.answers.length !== LENGTH_ARR_ANSWERS) {
     return -1;
   }
-
+console.log(data)
   let pointsAnswers = data.answers.reduce((previousValue, item) => {
     return item ? previousValue += POINTS_CORRECT_ANSWER : previousValue;
   }, 0);

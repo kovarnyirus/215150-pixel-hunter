@@ -2,6 +2,23 @@
   height: 100px;
 }
 
+.blink {
+  color: red;
+  animation: blink 1s linear infinite
+}
+
+@keyframes blink {
+  0% {
+    color: rgba(255, 0, 0, 1);
+  }
+  50% {
+    color: rgba(255, 0, 0, .5);
+  }
+  100% {
+    color: rgba(255, 0, 0, .1);
+  }
+}
+
 .header__back {
   position: absolute;
 
