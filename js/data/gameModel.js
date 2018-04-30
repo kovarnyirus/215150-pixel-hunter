@@ -51,15 +51,21 @@ const checkStatus = (response) => {
   }
 };
 
+
 class GameModel {
-  constructor() {
+  constructor(handleDataLoad) {
+    this._handleDataLoad = handleDataLoad;
+    this._dataLoaded = false;
     this._getImage = null;
     this._state = null;
-    this._gameDataLoad = null;
     this.restart = this.restart.bind(this);
+    this._loader = this._loader.bind(this);
+    this._onLoad = this._onLoad.bind(this);
+    this._levelsData = [];
     this.init = this.init.bind(this);
     this.restart();
   }
+
 
   get gameData() {
     return {
@@ -90,7 +96,8 @@ class GameModel {
 
   _getIntro() {
     return {
-      type: `intro`
+      type: `intro`,
+      dataLoaded: this._dataLoaded
     };
   }
 
@@ -155,48 +162,64 @@ class GameModel {
     return data;
   }
 
+  _onLoad(data) {
+    this._dataLoaded = true;
+    this._levelsData = data;
+    this._state.levels = this._getGameList();
+    if (typeof this._handleDataLoad === `function`){
+      this._handleDataLoad();
+    }
+  }
+
   _loader() {
-    window.fetch(`https://es.dump.academy/pixel-hunter/questions`).
-        then((response) => {
+    const onLoad = this._onLoad;
+    window.fetch(`https://es.dump.academy/pixel-hunter/questions`)
+        .then((response) => {
           if (response.ok) {
             return response.json();
           } else if (response.status === 404) {
             throw new Error(`файлы не найдены`);
           }
           throw new Error(`Неизвестный статус: ${response.status} ${response.statusText}`);
-        }).
-        then((data) => {
-          this._gameDataLoad = data;
-        }).
-        catch((err) => {
+        })
+        .then((data) => {
+          onLoad(data);
+        })
+        .catch((err) => {
           throw new Error(`${err}`);
         });
   }
 
-  _getGameData() {
-    if (!this._gameDataLoad) {
-      this._loader();
+  // _getGameData() {
+  //   if (!this._levelsData ) {
+  //     this._loader(this._onLoad);
+  //   }
+  //   return this._levelsData ;
+  // }
+
+    _getGameList() {
+    return [this._getIntro(), this._getGreeting(), this._getRules(), ...this._levelsData, this._getStats()]
     }
-    return this._gameDataLoad;
-  }
 
   _questionStats(time) {
     return (time >= 20) ? `fast` : (time <= 10) ? `slow` : `succes`;
   }
 
+
   init() {
-    let gameList = [this._getIntro(), this._getGreeting(), this._getRules(), ...this._getGameData(), this._getStats()];
     this._state = {
       stats: [],
       lives: INITIAL_LIVES,
       answers: [],
-      levels: gameList,
+      levels: this._getGameList(),
       currentLevel: 0,
       userName: ``,
       questionStats: [],
       time: []
     };
-
+    if (!this._state.dataLoaded){
+      this._loader();
+    }
   }
 
   succesAnswer(time) {
