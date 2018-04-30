@@ -43,11 +43,19 @@ const getRandomImageType = () => IMG_TYPE_LIST[getRandom(1)];
 
 const arrayShuffle = (array) => array.sort(() => Math.random() - 0.5);
 
+const checkStatus = (response) => {
+  if (response.status >= 200 && response.status < 300) {
+    return response;
+  } else {
+    throw new Error(`${response.status}: ${response.statusText}`);
+  }
+};
+
 class GameModel {
   constructor() {
     this._getImage = null;
-    this._gameData = null;
     this._state = null;
+    this._gameDataLoad = null;
     this.restart = this.restart.bind(this);
     this.init = this.init.bind(this);
     this.restart();
@@ -72,7 +80,6 @@ class GameModel {
       src: this._getImage[imageType]()
     };
   }
-
 
   _getRandomImage() {
     const randomImageType = getRandomImageType();
@@ -148,11 +155,29 @@ class GameModel {
     return data;
   }
 
+  _loader() {
+    window.fetch(`https://es.dump.academy/pixel-hunter/questions`).
+        then((response) => {
+          if (response.ok) {
+            return response.json();
+          } else if (response.status === 404) {
+            throw new Error(`файлы не найдены`);
+          }
+          throw new Error(`Неизвестный статус: ${response.status} ${response.statusText}`);
+        }).
+        then((data) => {
+          this._gameDataLoad = data;
+        }).
+        catch((err) => {
+          throw new Error(`${err}`);
+        });
+  }
+
   _getGameData() {
-    if (!this._gameData) {
-      this._gameData = this._fillGameData();
+    if (!this._gameDataLoad) {
+      this._loader();
     }
-    return this._gameData;
+    return this._gameDataLoad;
   }
 
   _questionStats(time) {
@@ -171,6 +196,7 @@ class GameModel {
       questionStats: [],
       time: []
     };
+
   }
 
   succesAnswer(time) {
@@ -178,9 +204,11 @@ class GameModel {
     this._state.questionStats.push(this._questionStats(time));
     this._state.time.push(time);
   }
+
   restart() {
     this.init();
   }
+
   wrongAnswer() {
     this._state.answers.push(false);
     this._state.lives--;
@@ -201,9 +229,11 @@ class GameModel {
   writePlayerName(playerName) {
     this._state.userName = playerName;
   }
+
   nextScreen() {
     this._state.currentLevel++;
   }
+
 }
 
 export default GameModel;

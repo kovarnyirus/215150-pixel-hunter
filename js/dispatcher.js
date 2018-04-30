@@ -65,8 +65,8 @@ class GameDispatcher {
 
   _initTimer(element, sec) {
     let time = sec;
-    element.textContent = sec;
     if (element !== null) {
+      element.textContent = sec;
       this._timer = setInterval(() => {
         if (time === 1) {
           this._stopTimer();
