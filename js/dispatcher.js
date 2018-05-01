@@ -26,7 +26,11 @@ class GameDispatcher {
     this.run = this.run.bind(this);
     this._timer = null;
     this._handlerDispatcher = this._handlerDispatcher.bind(this);
-    this._data = new GameModel();
+    this._handleDataLoad = this._handleDataLoad.bind(this);
+    this._data = new GameModel(this._handleDataLoad);
+  }
+  _handleDataLoad(){
+    this.run();
   }
 
   _handlerDispatcher({status, time, isGame, name}) {
@@ -35,7 +39,7 @@ class GameDispatcher {
     }
     if (status === `succes`) {
       if (name) {
-        this._data.writePlayerName(name);
+        this._data.storePlayerName(name);
       } else if (time) {
         this._data.succesAnswer(time);
       }
@@ -52,7 +56,7 @@ class GameDispatcher {
     let gameData = this._data.gameData;
     const levelData = gameData.levels[gameData.currentLevel];
     if (gameData.currentLevel === 0) {
-      return renderScreen(new IntroView(this._handlerDispatcher).element);
+      return renderScreen(new IntroView(this._handlerDispatcher, levelData).element);
     } else if (gameData.lives === 0) {
       renderScreen(new statsView(this._handlerDispatcher, `fail`, gameData).element);
     } else if (gameData.currentLevel <= 14) {
@@ -65,8 +69,8 @@ class GameDispatcher {
 
   _initTimer(element, sec) {
     let time = sec;
-    element.textContent = sec;
     if (element !== null) {
+      element.textContent = sec;
       this._timer = setInterval(() => {
         if (time === 1) {
           this._stopTimer();

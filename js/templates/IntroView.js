@@ -1,15 +1,18 @@
 import AbstractView from '../abstract-view.js';
 
 class IntroView extends AbstractView {
-  constructor(dispatch) {
+  constructor(dispatch, levelData) {
     super(dispatch);
+    this._levelData = levelData;
     this.onMousedownAsterisk = this.onMousedownAsterisk.bind(this);
   }
 
+
   get template() {
-    return `<div id="main" class="central__content">
+    return `<div id="main" class="central__content"> 
       <div id="intro" class="intro">
-        <h1 class="intro__asterisk">*</h1>
+        <h1 class="intro__asterisk">${this._levelData.dataLoaded ? `*` : `загрузка`}</h1>
+        <img src="" alt="" width="50">
         <p class="intro__motto"><sup>*</sup> Это не фото. Это рисунок маслом нидерландского художника-фотореалиста Tjalf Sparnaay.</p>
        </div>
     </div>
