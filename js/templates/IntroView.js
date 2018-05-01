@@ -3,9 +3,7 @@ import AbstractView from '../abstract-view.js';
 class IntroView extends AbstractView {
   constructor(dispatch, levelData) {
     super(dispatch);
-    // this.template = this.template.bind(this);
     this._levelData = levelData;
-    console.log(this._levelData.dataLoaded);
     this.onMousedownAsterisk = this.onMousedownAsterisk.bind(this);
   }
 

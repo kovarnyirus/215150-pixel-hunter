@@ -11,7 +11,6 @@ const typeImage = {
 
 
 const adaptServerData = (data) => {
-  console.log(data);
   return data.map((item) => {
     return {
       type: typeGameScreens[item.type],
