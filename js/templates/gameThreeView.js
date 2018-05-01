@@ -22,6 +22,8 @@ class gameThreeView extends AbstractView {
   bind() {
     this.buttonBack = this.element.querySelector(`.header__back`);
     this.gameCard = this.element.querySelectorAll(`.game__option`);
+    console.log(this.gameCard);
+    console.log(this._levelData);
     this._timeAnswer = this.element.querySelector(`.game__timer`);
     this.buttonBack.addEventListener(`mousedown`, this.onMouseDownButtonBack);
     this.gameCard[0].addEventListener(`mousedown`, this.onMouseDownGameCard);
@@ -43,7 +45,21 @@ class gameThreeView extends AbstractView {
 
   onMouseDownGameCard(evt) {
     this.removeListeners();
-    if (evt.target.attributes[2].value === this._levelData.correctAnswer) {
+    let correctAnswer;
+    let imgTypeCounter = () => {
+      let counterPaint = 0;
+      let counterPhoto = 0;
+      this.gameCard.forEach((item) => {
+        if (item.children[0].attributes[2].value === `paint`) {
+          counterPaint++;
+        } else {
+          counterPhoto++;
+        }
+      });
+      correctAnswer = counterPhoto > counterPaint ? `paint` : `photo`;
+    };
+    imgTypeCounter();
+    if (evt.target.attributes[2].value === correctAnswer) {
       this.dispatch({status: `succes`, time: this._timeAnswer.innerText, isGame: true});
     } else {
       this.dispatch({status: `fail`, isGame: true});

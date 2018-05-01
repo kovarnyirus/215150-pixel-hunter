@@ -30,6 +30,7 @@ class GameDispatcher {
   }
   _handleDataLoad(){
     console.log(`данные загружены`);
+    this._data.init();
     // console.log(levelData.dataLoaded);
   }
 

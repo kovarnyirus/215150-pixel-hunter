@@ -22,6 +22,7 @@ class gameTwoView extends AbstractView {
     this._buttonBack = this.element.querySelector(`.header__back`);
     this._timeAnswer = this.element.querySelector(`.game__timer`);
     this._inputQuestion = this.element.querySelectorAll(`input`);
+    this._buttonBack.addEventListener(`mousedown`, this.onMouseDownButtonBack);
     this._inputQuestion[0].addEventListener(`change`, this.onChangeInput);
     this._inputQuestion[1].addEventListener(`change`, this.onChangeInput);
   }
