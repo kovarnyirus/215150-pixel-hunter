@@ -26,11 +26,7 @@ class GameDispatcher {
     this.run = this.run.bind(this);
     this._timer = null;
     this._handlerDispatcher = this._handlerDispatcher.bind(this);
-    this._handleDataLoad = this._handleDataLoad.bind(this);
-    this._data = new GameModel(this._handleDataLoad);
-  }
-  _handleDataLoad(){
-    this.run();
+    this._data = new GameModel(this.run);
   }
 
   _handlerDispatcher({status, time, isGame, name}) {

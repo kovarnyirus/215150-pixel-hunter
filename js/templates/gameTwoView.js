@@ -1,6 +1,6 @@
 import AbstractView from '../abstract-view.js';
 import {headerStatistics} from './header.js';
-import {templateSecomnd} from './game-tamplates';
+import {templateSecond} from './game-tamplates';
 import modal from './modal.js';
 
 class gameTwoView extends AbstractView {
@@ -9,7 +9,7 @@ class gameTwoView extends AbstractView {
     this._levelData = levelData;
     this._stats = stats;
     this._headerStatistics = headerStatistics;
-    this._templateSecomnd = templateSecomnd;
+    this._templateSecond = templateSecond;
     this._gameImages = levelData.images;
     this.onMouseDownButtonBack = this.onMouseDownButtonBack.bind(this);
     this.onChangeInput = this.onChangeInput.bind(this);
@@ -18,7 +18,7 @@ class gameTwoView extends AbstractView {
   }
 
   get template() {
-    return this._headerStatistics(this._stats) + this._templateSecomnd(this._levelData, this._stats.questionStats) + this._footer + this._modaltemplate;
+    return this._headerStatistics(this._stats) + this._templateSecond(this._levelData, this._stats.questionStats) + this._footer + this._modaltemplate;
   }
 
   bind() {
@@ -45,8 +45,6 @@ class gameTwoView extends AbstractView {
   onMouseDownButtonBack() {
     this._modal.classList.remove(`modal--close`);
     this._modal.addEventListener(`mousedown`, this.onMouseDownModal);
-    // {this.removeListeners();
-    // this.dispatch({status: `goBack`, isGame: true});}
   }
 
   onMouseDownModal(evt) {
