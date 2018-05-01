@@ -1,6 +1,7 @@
 import AbstractView from '../abstract-view.js';
 import {headerStatistics} from './header.js';
 import {templateFirst} from './game-tamplates';
+import modal from './modal.js';
 
 class gameOneView extends AbstractView {
   constructor(dispatch, levelData, stats) {
@@ -12,21 +13,24 @@ class gameOneView extends AbstractView {
     this._chekedOne = false;
     this._chekedTwo = false;
     this._gameImages = levelData.images;
+    this._modalTemplate = modal;
 
     this.onMouseDownButtonBack = this.onMouseDownButtonBack.bind(this);
     this.onChangeInputOne = this.onChangeInputOne.bind(this);
     this.onChangeInputTwo = this.onChangeInputTwo.bind(this);
+    this.onMouseDownModal = this.onMouseDownModal.bind(this);
     this.nextScreen = this.nextScreen.bind(this);
 
   }
 
   get template() {
-    return this._headerStatistics(this._stats) + this._templateFirst(this._levelData, this._stats.questionStats) + this._footer;
+    return this._headerStatistics(this._stats) + this._templateFirst(this._levelData, this._stats.questionStats) + this._footer + this._modalTemplate;
   }
 
   bind() {
     this._buttonBack = this.element.querySelector(`.header__back`);
     this._timeAnswer = this.element.querySelector(`.game__timer`);
+    this._modal = this.element.querySelector(`.modal`);
     this._inputOne = this.element.querySelectorAll(`input[name="question1"]`);
     this._inputTwo = this.element.querySelectorAll(`input[name="question2"]`);
 
@@ -35,19 +39,34 @@ class gameOneView extends AbstractView {
     this._inputOne[1].addEventListener(`change`, this.onChangeInputOne);
     this._inputTwo[0].addEventListener(`change`, this.onChangeInputTwo);
     this._inputTwo[1].addEventListener(`change`, this.onChangeInputTwo);
+    this._modal.classList.add('modal--close');
   }
 
-  removeListeners() {
+  removeListeners(modalListner) {
     this._buttonBack.removeEventListener(`mousedown`, this.onMouseDownButtonBack);
     this._inputOne[0].removeEventListener(`mousedown`, this.onChangeInputOne);
     this._inputOne[1].removeEventListener(`mousedown`, this.onChangeInputOne);
     this._inputTwo[0].removeEventListener(`mousedown`, this.onChangeInputTwo);
     this._inputTwo[1].removeEventListener(`mousedown`, this.onChangeInputTwo);
   }
+  removeModalListener() {
+    this._modal.removeEventListener(`mousedown`, this.onMouseDownModal);
+  }
 
   onMouseDownButtonBack() {
-    this.removeListeners();
-    this.dispatch({status: `goBack`, isGame: true});
+    this._modal.classList.remove(`modal--close`);
+    this._modal.addEventListener(`mousedown`, this.onMouseDownModal);
+  }
+
+  onMouseDownModal(evt) {
+    if (evt.target.className === `back`) {
+      this.removeListeners();
+      this.removeModalListener();
+      this.dispatch({status: `goBack`, isGame: true});
+    } else {
+      this.removeModalListener();
+      this._modal.classList.add(`modal--close`);
+    }
   }
 
   nextScreen() {
