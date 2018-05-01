@@ -39,7 +39,7 @@ class GameDispatcher {
     }
     if (status === `succes`) {
       if (name) {
-        this._data.writePlayerName(name);
+        this._data.storePlayerName(name);
       } else if (time) {
         this._data.succesAnswer(time);
       }

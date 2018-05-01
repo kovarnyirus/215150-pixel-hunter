@@ -162,7 +162,7 @@ class GameModel {
     this._state.lives--;
   }
 
-  writePlayerName(playerName) {
+  storePlayerName(playerName) {
     this._state.userName = playerName;
   }
 
