@@ -150,7 +150,7 @@ class GameModel {
     this._state.lives--;
     this._state.currentLevel++;
     this._state.questionStats.push(`fail`);
-    if (this._state.lives === 0) {
+    if (this._state.lives < 0) {
       this._state.currentLevel = this._state.levels.length - 1;
     }
   }

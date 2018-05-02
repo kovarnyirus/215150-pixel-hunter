@@ -5,14 +5,14 @@ const POINTS_LIVE = 50;
 const TIME_FAST_ANSWER = 5;
 const TIME_SLOW_ANSWER = 20;
 const LENGTH_ARR_ANSWERS = 10;
-const MIN_LIVES = 1;
+const MIN_LIVES = 0;
 
 const countScore = (data, lives) => {
   if (lives < MIN_LIVES) {
     return false;
   }
   if (data.answers.length !== LENGTH_ARR_ANSWERS) {
-    return -1;
+    return false;
   }
   let pointsAnswers = data.answers.reduce((previousValue, item) => {
     return item ? previousValue += POINTS_CORRECT_ANSWER : previousValue;

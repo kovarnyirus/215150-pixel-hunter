@@ -22,7 +22,7 @@ const differentAnswers = [
 
 describe(`Check points`, () => {
   it(`User answers less 10 questions`, () => {
-    assert.equal(countScore(answersLess, LIVES_ONE), -1);
+    assert.equal(countScore(answersLess, LIVES_ONE), false);
   });
 
   it(`10 fast true answers and 3 lives`, () => {

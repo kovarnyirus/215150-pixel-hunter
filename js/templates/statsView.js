@@ -1,7 +1,7 @@
 import AbstractView from '../abstract-view.js';
 import createElement from '../createElement.js';
 import {header} from './header.js';
-import {timeOutTemplate, failTemplate, winTemplate} from './stats-templates.js';
+import {timeOutTemplate, failTemplate, winTemplate, historyTemplate} from './stats-templates.js';
 
 class StatsView extends AbstractView {
   constructor(dispatch, status, stats) {
@@ -10,10 +10,7 @@ class StatsView extends AbstractView {
     this._stats = stats;
     this._header = header;
     this.applicationId = 215150;
-    this.templates = [];
     this._html = ``;
-    this._serverStats = [];
-    this.statThisUser = false;
     this._onLoad = this._onLoad.bind(this);
     this.onMouseDownButtonBack = this.onMouseDownButtonBack.bind(this);
     this.getDataUser();
@@ -26,28 +23,35 @@ class StatsView extends AbstractView {
       body: JSON.stringify({
         'questionStats': this._stats.questionStats,
         'lives': this._stats.lives,
-        'status': this._status
+        'status': `historyGame`,
+        'answers': this._stats.answers,
+        'time': this._stats.time
       }),
       headers: {
         'Content-Type': `application/json`
       }
-    }).
-        then((response) => console.log(response.ok ? `Sent` : `Not sent`)).
-        catch((err) => console.error(err));
+    })
+      .catch((err) => {
+      throw new Error(`${err}`);
+  })
   }
 
   _onLoad(data) {
     let serverData = data;
     let userStatistics = [];
-    serverData.forEach((item) => {
-      userStatistics.push(this._createTemplate(item.status, item));
+    let historyContainer = document.createDocumentFragment();
+    const hystoryTitle = document.createElement(`h2`);
+    hystoryTitle.textContent = `Предыдущие результаты`;
+    historyContainer.appendChild(hystoryTitle);
+
+    serverData.forEach((item, index) => {
+      userStatistics.push(this._createTemplate(item.status, item, index));
     });
-    console.log(serverData);
-    console.log(userStatistics);
+
     userStatistics.forEach((item) => {
-      this.resultContainer.appendChild(createElement(item));
-    })
-    // this._createTemplate()
+      historyContainer.appendChild(createElement(item));
+    });
+    this.resultContainer.appendChild(historyContainer);
   }
 
   getDataUser() {
@@ -64,30 +68,20 @@ class StatsView extends AbstractView {
         })
         .then((data) => {
           serverData = data;
-          console.log(serverData);
           onLoad(serverData);
         })
         .catch((err) => {
-          console.log(err);
-          this.statThisUser = false;
+          throw new Error(`${err}`);
         });
   }
 
-  // _templates() {
-  //   this.templates.push(this._createTemplate(this._status, this._stats));
-  //   console.log(this._serverStats);
-  //   this._serverStats.forEach((item) => {
-  //     this.templates.push(this._createTemplate(item.status, item));
-  //   });
-  //   return this.templates;
-  //
-  // }
-
-  _createTemplate(statusGame, stats) {
+  _createTemplate(statusGame, stats, index) {
     if (statusGame === `fail`) {
       this._html = failTemplate(stats);
     } else if (statusGame === `timeOut`) {
       this._html = timeOutTemplate(stats);
+    } else if (statusGame === `historyGame`) {
+      this._html = historyTemplate(stats, index);
     } else {
       this._html = winTemplate(stats);
     }
