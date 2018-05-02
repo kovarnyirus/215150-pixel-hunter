@@ -1,18 +1,6 @@
 import adaptServerData from './data-adapter.js';
 
-const IMG_TYPE_LIST = [`photo`, `paint`];
-const TILE_LIST = {photo: `фото`, paint: `рисунок`};
 const INITIAL_LIVES = 3;
-const LENGTH_ARR_GAMES = 10;
-
-const checkStatus = (response) => {
-  if (response.status >= 200 && response.status < 300) {
-    return response;
-  } else {
-    throw new Error(`${response.status}: ${response.statusText}`);
-  }
-};
-
 
 class GameModel {
   constructor(handleDataLoad) {
@@ -60,17 +48,6 @@ class GameModel {
     return {
       type: `rules`,
       userName: ``
-    };
-  }
-
-  _getGame3Level() {
-    const getRandomImageTypes = elementGetter(IMG_TYPE_LIST);
-    const [wrongType, correctType] = [getRandomImageTypes(), getRandomImageTypes()];
-    return {
-      type: `game-3`,
-      title: `Найдите ${TILE_LIST[correctType]} среди изображений`,
-      correctAnswer: correctType,
-      images: arrayShuffle([this._getImageByType(wrongType), this._getImageByType(wrongType), this._getImageByType(correctType)])
     };
   }
 

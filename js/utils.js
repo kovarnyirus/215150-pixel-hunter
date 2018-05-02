@@ -18,4 +18,4 @@ const removeListners = (array, listtener) => {
 };
 
 
-export  {renderScreen, addListners, removeListners}
+export {renderScreen, addListners, removeListners};

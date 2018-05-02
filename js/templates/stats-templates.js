@@ -98,7 +98,7 @@ const timeOutTemplate = (gameData) =>
 </div>`;
 
 const historyTemplate = (gameData, index) =>
-`<div class="result">
+  `<div class="result">
 <table class="result__table">
     <tr>
     <td class="result__number">${index + 2}</td>
