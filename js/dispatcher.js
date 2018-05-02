@@ -1,6 +1,6 @@
 import GameModel from './data/gameModel.js';
 import timer from './data/timer.js';
-import renderScreen from './utils.js';
+import {renderScreen} from './utils.js';
 import greetingView from './templates/greetingView';
 import IntroView from './templates/IntroView.js';
 import rulesView from './templates/rulesView.js';

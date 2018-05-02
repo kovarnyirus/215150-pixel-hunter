@@ -5,4 +5,17 @@ const renderScreen = (element) => {
   CONTENT_CONTAINER.appendChild(element);
 };
 
-export default renderScreen;
+const addListners = (array, listtener) => {
+  array.forEach((item) => {
+    item.addEventListener(`mousedown`, listtener);
+  });
+};
+
+const removeListners = (array, listtener) => {
+  array.forEach((item) => {
+    item.removeEventListener(`mousedown`, listtener);
+  });
+};
+
+
+export  {renderScreen, addListners, removeListners}

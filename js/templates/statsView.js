@@ -31,9 +31,9 @@ class StatsView extends AbstractView {
         'Content-Type': `application/json`
       }
     })
-      .catch((err) => {
-      throw new Error(`${err}`);
-  })
+        .catch((err) => {
+          throw new Error(`${err}`);
+        });
   }
 
   _onLoad(data) {
@@ -43,7 +43,6 @@ class StatsView extends AbstractView {
     const hystoryTitle = document.createElement(`h2`);
     hystoryTitle.textContent = `Предыдущие результаты`;
     historyContainer.appendChild(hystoryTitle);
-
     serverData.forEach((item, index) => {
       userStatistics.push(this._createTemplate(item.status, item, index));
     });
@@ -61,14 +60,13 @@ class StatsView extends AbstractView {
         .then((response) => {
           if (response.ok) {
             return response.json();
-          } else if (response.status === 404) {
-            throw new Error(`файлы не найдены`);
           }
-          throw new Error(`Неизвестный статус: ${response.status} ${response.statusText}`);
         })
         .then((data) => {
-          serverData = data;
-          onLoad(serverData);
+          if (data) {
+            serverData = data;
+            onLoad(serverData);
+          }
         })
         .catch((err) => {
           throw new Error(`${err}`);
