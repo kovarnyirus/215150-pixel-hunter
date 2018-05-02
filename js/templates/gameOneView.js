@@ -39,10 +39,10 @@ class gameOneView extends AbstractView {
     this._inputOne[1].addEventListener(`change`, this.onChangeInputOne);
     this._inputTwo[0].addEventListener(`change`, this.onChangeInputTwo);
     this._inputTwo[1].addEventListener(`change`, this.onChangeInputTwo);
-    this._modal.classList.add('modal--close');
+    this._modal.classList.add(`modal--close`);
   }
 
-  removeListeners(modalListner) {
+  removeListeners() {
     this._buttonBack.removeEventListener(`mousedown`, this.onMouseDownButtonBack);
     this._inputOne[0].removeEventListener(`mousedown`, this.onChangeInputOne);
     this._inputOne[1].removeEventListener(`mousedown`, this.onChangeInputOne);

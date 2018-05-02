@@ -27,7 +27,7 @@ export default class AbstractView {
     }
   }
 
-  get timer(){
+  get timer() {
     return this.element.querySelector(`.game__timer`);
   }
 
@@ -41,4 +41,4 @@ export default class AbstractView {
 
   bind(element) {
   }
-};
+}

@@ -6,13 +6,12 @@ const SLOW = `slow`;
 const SUCCES_ANSWER = `succes`;
 
 
-
 const countStat = (array, searchElement) => {
   let counter = 0;
   array.forEach((item) => {
-    if (item === searchElement){
-      counter++
-    };
+    if (item === searchElement) {
+      counter++;
+    }
   });
   return counter;
 };
@@ -48,7 +47,7 @@ const winTemplate = (gameData) =>
         <td class="result__extra">Штраф за медлительность:</td>
         <td class="result__extra">${countStat(gameData.questionStats, SLOW)}&nbsp;<span class="stats__result stats__result--slow"></span></td>
         <td class="result__points">×&nbsp;${POINTS_SLOW_ANSWER}</td>
-        <td class="result__total">-${countStat(gameData.questionStats, SLOW)* POINTS_SLOW_ANSWER}</td>
+        <td class="result__total">-${countStat(gameData.questionStats, SLOW) * POINTS_SLOW_ANSWER}</td>
       </tr>
       <tr>
         <td colspan="5" class="result__total  result__total--final">${countScore(gameData, gameData.lives)}</td>

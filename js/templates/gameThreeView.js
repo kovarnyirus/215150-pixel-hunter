@@ -26,7 +26,6 @@ class gameThreeView extends AbstractView {
     this.buttonBack = this.element.querySelector(`.header__back`);
     this.gameCard = this.element.querySelectorAll(`.game__option`);
     this._modal = this.element.querySelector(`.modal`);
-    console.log(this._modal);
     this._timeAnswer = this.element.querySelector(`.game__timer`);
     this.buttonBack.addEventListener(`mousedown`, this.onMouseDownButtonBack);
     this.gameCard[0].addEventListener(`mousedown`, this.onMouseDownGameCard);

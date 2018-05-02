@@ -91,7 +91,7 @@ class GameModel {
 
   _loader() {
     const onLoad = this._onLoad;
-   let formatData;
+    let formatData;
     window.fetch(`https://es.dump.academy/pixel-hunter/questions`)
         .then((response) => {
           if (response.ok) {
@@ -102,7 +102,7 @@ class GameModel {
           throw new Error(`Неизвестный статус: ${response.status} ${response.statusText}`);
         })
         .then((data) => {
-           formatData = adaptServerData(data);
+          formatData = adaptServerData(data);
           onLoad(formatData);
         })
         .catch((err) => {

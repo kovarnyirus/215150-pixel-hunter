@@ -45,8 +45,6 @@ class gameTwoView extends AbstractView {
   onMouseDownButtonBack() {
     this._modal.classList.remove(`modal--close`);
     this._modal.addEventListener(`mousedown`, this.onMouseDownModal);
-    // {this.removeListeners();
-    // this.dispatch({status: `goBack`, isGame: true});}
   }
 
   onMouseDownModal(evt) {
