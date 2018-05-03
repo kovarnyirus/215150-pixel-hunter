@@ -60,6 +60,7 @@ class GameModel {
   _onLoad(data) {
     this._dataLoaded = true;
     this._levelsData = data;
+    console.log(this._levelsData);
     this._state.levels = this._getGameList();
     if (typeof this._handleDataLoad === `function`) {
       return this._handleDataLoad();

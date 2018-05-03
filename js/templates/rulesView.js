@@ -24,7 +24,7 @@ class rulesView extends AbstractView {
       Готовы?
     </p>
     <form class="rules__form">
-      <input class="rules__input" type="text" placeholder="Ваше Имя">
+      <input class="rules__input" autofocus type="text" placeholder="Ваше Имя">
       <button class="rules__button  continue" type="submit" disabled>Go!</button>
     </form>
   </div>

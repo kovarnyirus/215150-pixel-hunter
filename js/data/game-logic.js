@@ -2,8 +2,8 @@ const POINTS_CORRECT_ANSWER = 100;
 const POINTS_FAST_ANSWER = 50;
 const POINTS_SLOW_ANSWER = 50;
 const POINTS_LIVE = 50;
-const TIME_FAST_ANSWER = 5;
-const TIME_SLOW_ANSWER = 20;
+const TIME_FAST_ANSWER = 20;
+const TIME_SLOW_ANSWER = 10;
 const LENGTH_ARR_ANSWERS = 10;
 const MIN_LIVES = 0;
 
@@ -19,9 +19,9 @@ const countScore = (data, lives) => {
   }, 0);
 
   let pointTime = data.time.reduce((previousValue, item) => {
-    if (item <= TIME_FAST_ANSWER) {
+    if (item >= TIME_FAST_ANSWER) {
       previousValue += POINTS_FAST_ANSWER;
-    } else if (item.time > TIME_SLOW_ANSWER) {
+    } else if (item < TIME_SLOW_ANSWER) {
       previousValue -= POINTS_SLOW_ANSWER;
     }
     return previousValue;
