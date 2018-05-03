@@ -4,7 +4,6 @@ import {countScore, POINTS_FAST_ANSWER, POINTS_CORRECT_ANSWER, POINTS_SLOW_ANSWE
 const FAST = `fast`;
 const SLOW = `slow`;
 const SUCCES_ANSWER = `succes`;
-const FAIL = `fail`;
 
 
 const countStat = (array) => {
@@ -27,7 +26,7 @@ const countStat = (array) => {
 
 const winTemplate = (gameData) => {
   let countedStats = countStat(gameData.questionStats);
- return `<div class="result">
+  return `<div class="result">
 <h1>Победа!</h1>
   <table class="result__table">
       <tr>
@@ -64,7 +63,7 @@ const winTemplate = (gameData) => {
       </tr>
     </table>
 </div>`;
-}
+};
 
 
 const failTemplate = (gameData) =>

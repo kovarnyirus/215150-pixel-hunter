@@ -60,7 +60,6 @@ class GameModel {
   _onLoad(data) {
     this._dataLoaded = true;
     this._levelsData = data;
-    console.log(this._levelsData);
     this._state.levels = this._getGameList();
     if (typeof this._handleDataLoad === `function`) {
       return this._handleDataLoad();
@@ -93,7 +92,12 @@ class GameModel {
   }
 
   _questionStats(time) {
-    return (time >= 20) ? `fast` : (time <= 10) ? `slow` : `succes`;
+    if (time >= 20) {
+      return `fast`;
+    } else if (time <= 10) {
+      return `slow`;
+    }
+    return `succes`;
   }
 
 

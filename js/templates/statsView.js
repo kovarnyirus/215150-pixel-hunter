@@ -38,7 +38,6 @@ class StatsView extends AbstractView {
 
   _onLoad(data) {
     let serverData = data;
-    console.log(serverData);
     let userStatistics = [];
     let historyContainer = document.createDocumentFragment();
     const hystoryTitle = document.createElement(`h2`);
