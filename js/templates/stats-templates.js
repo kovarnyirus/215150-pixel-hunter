@@ -111,7 +111,7 @@ const historyTemplate = (gameData, index) =>
   `<div class="result">
 <table class="result__table">
     <tr>
-    <td class="result__number">${index + 2}</td>
+    <td class="result__number">${index + 1}</td>
     <td>
     ${stats(gameData.questionStats)}
     </td>
