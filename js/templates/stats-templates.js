@@ -15,11 +15,10 @@ const countStat = (array) => {
   array.forEach((item) => {
     if (item === FAST) {
       counter.fast++;
-      counter.total++;
     } else if (item === SLOW) {
       counter.slow++;
-      counter.total++;
     }
+    counter.total++;
   });
   return counter;
 };

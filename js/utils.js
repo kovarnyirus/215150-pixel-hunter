@@ -5,17 +5,17 @@ const renderScreen = (element) => {
   CONTENT_CONTAINER.appendChild(element);
 };
 
-const addListners = (array, event, listtener) => {
+const addHandler = (array, event, listtener) => {
   array.forEach((item) => {
     item.addEventListener(event, listtener);
   });
 };
 
-const removeListners = (array, event, listtener) => {
+const removeHandler = (array, event, listtener) => {
   array.forEach((item) => {
     item.removeEventListener(event, listtener);
   });
 };
 
 
-export {renderScreen, addListners, removeListners};
+export {renderScreen, addHandler, removeHandler};

@@ -37,9 +37,9 @@ class StatsView extends AbstractView {
         'Content-Type': `application/json`
       }
     })
-        .catch((err) => {
-          throw new Error(`${err}`);
-        });
+    .catch((err) => {
+      throw new Error(`${err}`);
+    });
   }
 
   _onLoad(data) {
@@ -53,7 +53,7 @@ class StatsView extends AbstractView {
     historyTitle.textContent = `Предыдущие результаты`;
     historyContainer.appendChild(historyTitle);
 
-    countingUserStatistics = serverData.map((item, index) => {
+    countingUserStatistics = serverData.map((item) => {
       let score = this._countScore(item, item.lives);
       item.totalPoints = score;
       return item;
@@ -83,20 +83,18 @@ class StatsView extends AbstractView {
     const onLoad = this._onLoad;
     let serverData;
     window.fetch(`https://es.dump.academy/pixel-hunter/stats/:${this.applicationId}-:${this._stats.userName}`)
-        .then((response) => {
-          if (response.ok) {
-            return response.json();
-          }
-        })
-        .then((data) => {
-          if (data) {
-            serverData = data;
-            onLoad(serverData);
-          }
-        })
-        .catch((err) => {
-          throw new Error(`${err}`);
-        });
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+    }})
+    .then((data) => {
+      if(data) {
+        serverData = data;
+        onLoad(serverData);
+    }})
+    .catch((err) => {
+      throw new Error(`${err}`);
+    });
   }
 
   _createTemplate(statusGame, stats, index) {
