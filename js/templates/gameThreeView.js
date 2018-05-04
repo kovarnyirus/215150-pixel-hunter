@@ -31,12 +31,12 @@ class gameThreeView extends AbstractView {
     this._modal = this.element.querySelector(`.modal`);
     this._timeAnswer = this.element.querySelector(`.game__timer`);
     this.buttonBack.addEventListener(`mousedown`, this.onMouseDownButtonBack);
-    this._addListners(this.gameCard, this.onMouseDownGameCard);
+    this._addListners(this.gameCard, `mousedown`, this.onMouseDownGameCard);
     this._modal.classList.add(`modal--close`);
   }
 
   removeListeners() {
-    this._removeListners(this.gameCard, this.onMouseDownGameCard);
+    this._removeListners(this.gameCard, `mousedown`,this.onMouseDownGameCard);
     this.buttonBack.removeEventListener(`mousedown`, this.onMouseDownButtonBack);
   }
 

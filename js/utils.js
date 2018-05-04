@@ -5,15 +5,15 @@ const renderScreen = (element) => {
   CONTENT_CONTAINER.appendChild(element);
 };
 
-const addListners = (array, listtener) => {
+const addListners = (array, event, listtener) => {
   array.forEach((item) => {
-    item.addEventListener(`mousedown`, listtener);
+    item.addEventListener(event, listtener);
   });
 };
 
-const removeListners = (array, listtener) => {
+const removeListners = (array, event, listtener) => {
   array.forEach((item) => {
-    item.removeEventListener(`mousedown`, listtener);
+    item.removeEventListener(event, listtener);
   });
 };
 
