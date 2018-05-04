@@ -6,19 +6,27 @@ const SLOW = `slow`;
 const SUCCES_ANSWER = `succes`;
 
 
-
-const countStat = (array, searchElement) => {
-  let counter = 0;
+const countStat = (array) => {
+  let counter = {
+    fast: 0,
+    slow: 0,
+    total: 0
+  };
   array.forEach((item) => {
-    if (item === searchElement){
-      counter++
-    };
+    if (item === FAST) {
+      counter.fast++;
+      counter.total++;
+    } else if (item === SLOW) {
+      counter.slow++;
+      counter.total++;
+    }
   });
   return counter;
 };
 
-const winTemplate = (gameData) =>
-  `<div class="result">
+const winTemplate = (gameData) => {
+  let countedStats = countStat(gameData.questionStats);
+  return `<div class="result">
 <h1>Победа!</h1>
   <table class="result__table">
       <tr>
@@ -27,14 +35,14 @@ const winTemplate = (gameData) =>
           ${stats(gameData.questionStats)}
         </td>
         <td class="result__points">×&nbsp;${POINTS_CORRECT_ANSWER}</td>
-        <td class="result__total">${countStat(gameData.questionStats, SUCCES_ANSWER) * POINTS_CORRECT_ANSWER}</td>
+        <td class="result__total">${countedStats.total * POINTS_CORRECT_ANSWER}</td>
       </tr>
       <tr>
         <td></td>
         <td class="result__extra">Бонус за скорость:</td>
-        <td class="result__extra">${countStat(gameData.questionStats, FAST)}&nbsp;<span class="stats__result stats__result--fast"></span></td>
+        <td class="result__extra">${countedStats.fast}&nbsp;<span class="stats__result stats__result--fast"></span></td>
         <td class="result__points">×&nbsp;${POINTS_FAST_ANSWER}</td>
-        <td class="result__total">${countStat(gameData.questionStats, FAST) * POINTS_FAST_ANSWER}</td>
+        <td class="result__total">${countedStats.fast * POINTS_FAST_ANSWER}</td>
       </tr>
       <tr>
         <td></td>
@@ -46,22 +54,24 @@ const winTemplate = (gameData) =>
       <tr>
         <td></td>
         <td class="result__extra">Штраф за медлительность:</td>
-        <td class="result__extra">${countStat(gameData.questionStats, SLOW)}&nbsp;<span class="stats__result stats__result--slow"></span></td>
+        <td class="result__extra">${countedStats.slow}&nbsp;<span class="stats__result stats__result--slow"></span></td>
         <td class="result__points">×&nbsp;${POINTS_SLOW_ANSWER}</td>
-        <td class="result__total">-${countStat(gameData.questionStats, SLOW)* POINTS_SLOW_ANSWER}</td>
+        <td class="result__total">-${countedStats.slow * POINTS_SLOW_ANSWER}</td>
       </tr>
       <tr>
         <td colspan="5" class="result__total  result__total--final">${countScore(gameData, gameData.lives)}</td>
       </tr>
     </table>
 </div>`;
+};
+
 
 const failTemplate = (gameData) =>
   `<div class="result">
 <h1>Поражение!</h1>
 <table class="result__table">
     <tr>
-    <td class="result__number">2.</td>
+    <td class="result__number">1.</td>
     <td>
     ${stats(gameData.questionStats)}
     </td>
@@ -77,7 +87,7 @@ const timeOutTemplate = (gameData) =>
 <h1>Время вышло</h1>
 <table class="result__table">
     <tr>
-    <td class="result__number">3.</td>
+    <td class="result__number">1.</td>
     <td colspan="2">
    ${stats(gameData.questionStats)}
     </td>
@@ -97,4 +107,18 @@ const timeOutTemplate = (gameData) =>
     </table>
 </div>`;
 
-export {timeOutTemplate, failTemplate, winTemplate};
+const historyTemplate = (gameData, index) =>
+  `<div class="result">
+<table class="result__table">
+    <tr>
+    <td class="result__number">${index + 1}</td>
+    <td>
+    ${stats(gameData.questionStats)}
+    </td>
+    <td class="result__total"></td>
+    <td class="result__total  result__total--final">${countScore(gameData, gameData.lives) ? countScore(gameData, gameData.lives) : `FAIL` }</td>
+    </tr>
+    </table>
+</div>`;
+
+export {timeOutTemplate, failTemplate, winTemplate, historyTemplate};

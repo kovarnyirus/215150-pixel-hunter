@@ -2,6 +2,7 @@ import AbstractView from '../abstract-view.js';
 import {headerStatistics} from './header.js';
 import {templateFirst} from './game-tamplates';
 import modal from './modal.js';
+import {addListners, removeListners} from '../utils.js';
 
 class gameOneView extends AbstractView {
   constructor(dispatch, levelData, stats) {
@@ -14,6 +15,8 @@ class gameOneView extends AbstractView {
     this._chekedTwo = false;
     this._gameImages = levelData.images;
     this._modalTemplate = modal;
+    this._addListners = addListners;
+    this._removeListners = removeListners;
 
     this.onMouseDownButtonBack = this.onMouseDownButtonBack.bind(this);
     this.onChangeInputOne = this.onChangeInputOne.bind(this);
@@ -35,19 +38,16 @@ class gameOneView extends AbstractView {
     this._inputTwo = this.element.querySelectorAll(`input[name="question2"]`);
 
     this._buttonBack.addEventListener(`mousedown`, this.onMouseDownButtonBack);
-    this._inputOne[0].addEventListener(`change`, this.onChangeInputOne);
-    this._inputOne[1].addEventListener(`change`, this.onChangeInputOne);
-    this._inputTwo[0].addEventListener(`change`, this.onChangeInputTwo);
-    this._inputTwo[1].addEventListener(`change`, this.onChangeInputTwo);
-    this._modal.classList.add('modal--close');
+    this._addListners(this._inputOne, `change`, this.onChangeInputOne);
+    this._addListners(this._inputTwo, `change`, this.onChangeInputTwo);
+    this._modal.classList.add(`modal--close`);
   }
 
-  removeListeners(modalListner) {
+  removeListeners() {
     this._buttonBack.removeEventListener(`mousedown`, this.onMouseDownButtonBack);
-    this._inputOne[0].removeEventListener(`mousedown`, this.onChangeInputOne);
-    this._inputOne[1].removeEventListener(`mousedown`, this.onChangeInputOne);
-    this._inputTwo[0].removeEventListener(`mousedown`, this.onChangeInputTwo);
-    this._inputTwo[1].removeEventListener(`mousedown`, this.onChangeInputTwo);
+    this._removeListners(this._inputOne, `change`, this.onChangeInputOne);
+    this._removeListners(this._inputTwo, `change`, this.onChangeInputTwo);
+
   }
   removeModalListener() {
     this._modal.removeEventListener(`mousedown`, this.onMouseDownModal);

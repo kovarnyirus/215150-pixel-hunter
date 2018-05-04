@@ -1,18 +1,6 @@
 import adaptServerData from './data-adapter.js';
 
-const IMG_TYPE_LIST = [`photo`, `paint`];
-const TILE_LIST = {photo: `фото`, paint: `рисунок`};
 const INITIAL_LIVES = 3;
-const LENGTH_ARR_GAMES = 10;
-
-const checkStatus = (response) => {
-  if (response.status >= 200 && response.status < 300) {
-    return response;
-  } else {
-    throw new Error(`${response.status}: ${response.statusText}`);
-  }
-};
-
 
 class GameModel {
   constructor(handleDataLoad) {
@@ -63,17 +51,6 @@ class GameModel {
     };
   }
 
-  _getGame3Level() {
-    const getRandomImageTypes = elementGetter(IMG_TYPE_LIST);
-    const [wrongType, correctType] = [getRandomImageTypes(), getRandomImageTypes()];
-    return {
-      type: `game-3`,
-      title: `Найдите ${TILE_LIST[correctType]} среди изображений`,
-      correctAnswer: correctType,
-      images: arrayShuffle([this._getImageByType(wrongType), this._getImageByType(wrongType), this._getImageByType(correctType)])
-    };
-  }
-
   _getStats() {
     return {
       type: `stats`
@@ -91,7 +68,7 @@ class GameModel {
 
   _loader() {
     const onLoad = this._onLoad;
-   let formatData;
+    let formatData;
     window.fetch(`https://es.dump.academy/pixel-hunter/questions`)
         .then((response) => {
           if (response.ok) {
@@ -102,7 +79,7 @@ class GameModel {
           throw new Error(`Неизвестный статус: ${response.status} ${response.statusText}`);
         })
         .then((data) => {
-           formatData = adaptServerData(data);
+          formatData = adaptServerData(data);
           onLoad(formatData);
         })
         .catch((err) => {
@@ -115,7 +92,12 @@ class GameModel {
   }
 
   _questionStats(time) {
-    return (time >= 20) ? `fast` : (time <= 10) ? `slow` : `succes`;
+    if (time >= 20) {
+      return `fast`;
+    } else if (time <= 10) {
+      return `slow`;
+    }
+    return `succes`;
   }
 
 
@@ -150,7 +132,7 @@ class GameModel {
     this._state.lives--;
     this._state.currentLevel++;
     this._state.questionStats.push(`fail`);
-    if (this._state.lives === 0) {
+    if (this._state.lives < 0) {
       this._state.currentLevel = this._state.levels.length - 1;
     }
   }

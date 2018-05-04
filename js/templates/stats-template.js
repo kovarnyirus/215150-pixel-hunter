@@ -2,7 +2,7 @@ const lengthStats = 10;
 
 const drawStats = (stats) => {
   const arr = new Array(lengthStats).fill(`<li class="stats__result stats__result--unknown"></li>`);
-  let resultArr = stats.forEach((item, i) =>{
+  stats.forEach((item, i) =>{
     if (item === `succes`) {
       arr[i] = `<li class="stats__result stats__result--correct"></li>`;
     } else if (item === `fail`) {

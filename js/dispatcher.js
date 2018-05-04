@@ -1,13 +1,13 @@
 import GameModel from './data/gameModel.js';
 import timer from './data/timer.js';
-import renderScreen from './utils.js';
+import {renderScreen} from './utils.js';
 import greetingView from './templates/greetingView';
 import IntroView from './templates/IntroView.js';
 import rulesView from './templates/rulesView.js';
 import gameTwoView from './templates/gameTwoView.js';
 import gameOneView from './templates/gameOneView.js';
 import gameThreeView from './templates/gameThreeView.js';
-import statsView from './templates/statsView.js';
+import StatsView from './templates/statsView.js';
 
 const REMAINING_SECONDS = 5;
 const MAX_TIMER = 30;
@@ -18,7 +18,7 @@ const levelScreens = {
   'game-1': gameOneView,
   'game-2': gameTwoView,
   'game-3': gameThreeView,
-  'stats': statsView
+  'stats': StatsView
 };
 
 class GameDispatcher {
@@ -29,7 +29,7 @@ class GameDispatcher {
     this._handleDataLoad = this._handleDataLoad.bind(this);
     this._data = new GameModel(this._handleDataLoad);
   }
-  _handleDataLoad(){
+  _handleDataLoad() {
     this.run();
   }
 
@@ -57,8 +57,8 @@ class GameDispatcher {
     const levelData = gameData.levels[gameData.currentLevel];
     if (gameData.currentLevel === 0) {
       return renderScreen(new IntroView(this._handlerDispatcher, levelData).element);
-    } else if (gameData.lives === 0) {
-      renderScreen(new statsView(this._handlerDispatcher, `fail`, gameData).element);
+    } else if (gameData.lives < 0) {
+      renderScreen(new StatsView(this._handlerDispatcher, `fail`, gameData).element);
     } else if (gameData.currentLevel <= 14) {
       const levelScreen = new levelScreens[levelData.type](this._handlerDispatcher, levelData, gameData);
       const element = levelScreen.timer;
