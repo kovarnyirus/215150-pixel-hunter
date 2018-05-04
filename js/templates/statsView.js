@@ -4,6 +4,10 @@ import {header} from './header.js';
 import {countScore} from '../data/game-logic.js';
 import {timeOutTemplate, failTemplate, winTemplate, historyTemplate} from './stats-templates.js';
 
+const compareTotalPoints = (itemOne, itemTwo) => {
+  return itemTwo.totalPoints - itemOne.totalPoints;
+};
+
 class StatsView extends AbstractView {
   constructor(dispatch, status, stats) {
     super(dispatch);
@@ -38,25 +42,30 @@ class StatsView extends AbstractView {
         });
   }
 
+
+
+
   _onLoad(data) {
     let serverData = data;
     let userStatistics = [];
-    let countingUserStatistics = []
+    let countingUserStatistics = [];
     let historyContainer = document.createDocumentFragment();
 
     const historyTitle = document.createElement(`h2`);
     historyTitle.textContent = `Предыдущие результаты`;
     historyContainer.appendChild(historyTitle);
 
-    countingUserStatistics =  serverData.map((item, index) => {
-      let score =  this._countScore(item, item.lives);
+    countingUserStatistics = serverData.map((item, index) => {
+      let score = this._countScore(item, item.lives);
       item.totalPoints = score;
       return item;
-  });
-    console.log(serverData);
+    });
+
+    countingUserStatistics.sort(compareTotalPoints);
+
     console.log(countingUserStatistics);
 
-    serverData.forEach((item, index) => {
+    countingUserStatistics.forEach((item, index) => {
       userStatistics.push(this._createTemplate(item.status, item, index));
     });
 
