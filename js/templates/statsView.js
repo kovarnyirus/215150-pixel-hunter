@@ -79,31 +79,20 @@ class StatsView extends AbstractView {
     this.resultContainer.appendChild(historyContainer);
   }
 
-  _checkResponse(response) {
-    if (response.ok) {
-      return response.json();
-    }
-    return false;
-  }
-
-  _checkData(data) {
+  getDataUser() {
     const onLoad = this._onLoad;
     let serverData;
-    if (data) {
-      serverData = data;
-      return onLoad(serverData);
-    }
-    return false;
-  }
-
-
-  getDataUser() {
     window.fetch(`https://es.dump.academy/pixel-hunter/stats/:${this.applicationId}-:${this._stats.userName}`)
         .then((response) => {
-          this._checkResponse(response);
+          if (response.ok) {
+            return response.json();
+          }
         })
         .then((data) => {
-          this._checkData(data);
+          if (data) {
+            serverData = data;
+            return onLoad(serverData);
+          }
         });
   }
 
