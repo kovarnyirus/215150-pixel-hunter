@@ -2,7 +2,7 @@ import AbstractView from '../abstract-view.js';
 import {headerStatistics} from './header.js';
 import {templateFirst} from './game-tamplates';
 import modal from './modal.js';
-import {addListners, removeListners} from '../utils.js';
+import {addHandler, removeHandler} from '../utils.js';
 
 class gameOneView extends AbstractView {
   constructor(dispatch, levelData, stats) {
@@ -15,8 +15,8 @@ class gameOneView extends AbstractView {
     this._chekedTwo = false;
     this._gameImages = levelData.images;
     this._modalTemplate = modal;
-    this._addListners = addListners;
-    this._removeListners = removeListners;
+    this._addHandler = addHandler;
+    this._removeHandler = removeHandler;
 
     this.onMouseDownButtonBack = this.onMouseDownButtonBack.bind(this);
     this.onChangeInputOne = this.onChangeInputOne.bind(this);
@@ -38,15 +38,15 @@ class gameOneView extends AbstractView {
     this._inputTwo = this.element.querySelectorAll(`input[name="question2"]`);
 
     this._buttonBack.addEventListener(`mousedown`, this.onMouseDownButtonBack);
-    this._addListners(this._inputOne, `change`, this.onChangeInputOne);
-    this._addListners(this._inputTwo, `change`, this.onChangeInputTwo);
+    this._addHandler(this._inputOne, `change`, this.onChangeInputOne);
+    this._addHandler(this._inputTwo, `change`, this.onChangeInputTwo);
     this._modal.classList.add(`modal--close`);
   }
 
   removeListeners() {
     this._buttonBack.removeEventListener(`mousedown`, this.onMouseDownButtonBack);
-    this._removeListners(this._inputOne, `change`, this.onChangeInputOne);
-    this._removeListners(this._inputTwo, `change`, this.onChangeInputTwo);
+    this._removeHandler(this._inputOne, `change`, this.onChangeInputOne);
+    this._removeHandler(this._inputTwo, `change`, this.onChangeInputTwo);
 
   }
   removeModalListener() {
