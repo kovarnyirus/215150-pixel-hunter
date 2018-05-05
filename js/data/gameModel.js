@@ -64,6 +64,7 @@ class GameModel {
     if (typeof this._handleDataLoad === `function`) {
       return this._handleDataLoad();
     }
+    return false;
   }
 
   _loader() {
@@ -80,7 +81,7 @@ class GameModel {
         })
         .then((data) => {
           formatData = adaptServerData(data);
-          onLoad(formatData);
+          return onLoad(formatData);
         })
         .catch((err) => {
           throw new Error(`${err}`);

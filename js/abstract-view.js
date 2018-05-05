@@ -39,6 +39,6 @@ export default class AbstractView {
     return this._dispach(data);
   }
 
-  bind(element) {
+  bind() {
   }
 }
