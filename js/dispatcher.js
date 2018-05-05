@@ -56,7 +56,7 @@ class GameDispatcher {
     let gameData = this._data.gameData;
     const levelData = gameData.levels[gameData.currentLevel];
     if (gameData.currentLevel === 0) {
-      return renderScreen(new IntroView(this._handlerDispatcher, levelData).element);
+      renderScreen(new IntroView(this._handlerDispatcher, levelData).element);
     } else if (gameData.lives < 0) {
       renderScreen(new StatsView(this._handlerDispatcher, `fail`, gameData).element);
     } else if (gameData.currentLevel <= 14) {

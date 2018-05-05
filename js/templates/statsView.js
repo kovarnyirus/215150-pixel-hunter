@@ -37,9 +37,9 @@ class StatsView extends AbstractView {
         'Content-Type': `application/json`
       }
     })
-    .catch((err) => {
-      throw new Error(`${err}`);
-    });
+        .catch((err) => {
+          throw new Error(`${err}`);
+        });
   }
 
   _onLoad(data) {
@@ -61,7 +61,7 @@ class StatsView extends AbstractView {
 
     countingUserStatistics.sort(compareTotalPoints);
 
-    let getResultNumber = countingUserStatistics.forEach((item, index) => {
+    countingUserStatistics.forEach((item, index) => {
       if (item.totalPoints > scoreLastGame) {
         positionLastGame = index + 2;
       }
@@ -79,22 +79,32 @@ class StatsView extends AbstractView {
     this.resultContainer.appendChild(historyContainer);
   }
 
-  getDataUser() {
+  _checkResponse(response) {
+    if (response.ok) {
+      return response.json();
+    }
+    return false;
+  }
+
+  _checkData(data) {
     const onLoad = this._onLoad;
     let serverData;
+    if (data) {
+      serverData = data;
+      return onLoad(serverData);
+    }
+    return false;
+  }
+
+
+  getDataUser() {
     window.fetch(`https://es.dump.academy/pixel-hunter/stats/:${this.applicationId}-:${this._stats.userName}`)
-    .then((response) => {
-      if (response.ok) {
-        return response.json();
-    }})
-    .then((data) => {
-      if(data) {
-        serverData = data;
-        onLoad(serverData);
-    }})
-    .catch((err) => {
-      throw new Error(`${err}`);
-    });
+        .then((response) => {
+          this._checkResponse(response);
+        })
+        .then((data) => {
+          this._checkData(data);
+        });
   }
 
   _createTemplate(statusGame, stats, index) {
