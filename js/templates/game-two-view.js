@@ -21,7 +21,7 @@ class GameTwoView extends AbstractView {
   }
 
   get template() {
-    return this._headerStatistics(this._stats) + this._templateSecomnd(this._levelData, this._stats.questionStats) + this._footer + this._modaltemplate;
+    return `${this._headerStatistics(this._stats)} ${this._templateSecomnd(this._levelData, this._stats.questionStats)} ${this._footer} ${this._modaltemplate}`;
   }
 
   bind() {

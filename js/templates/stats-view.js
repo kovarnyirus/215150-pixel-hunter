@@ -123,7 +123,7 @@ class StatsView extends AbstractView {
   }
 
   get template() {
-    return this._header + this._createTemplate(this._status, this._stats) + this._footer;
+    return `${this._header} ${this._createTemplate(this._status, this._stats)} ${this._footer}`;
   }
 
   bind() {

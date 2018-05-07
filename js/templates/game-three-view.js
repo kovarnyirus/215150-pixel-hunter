@@ -22,7 +22,7 @@ class GameThreeView extends AbstractView {
   }
 
   get template() {
-    return this._headerStatistics(this._stats) + this._templateThird(this._levelData, this._stats.questionStats) + this._footer + this._modalTemplate;
+    return `${this._headerStatistics(this._stats)} ${this._templateThird(this._levelData, this._stats.questionStats)} ${this._footer} ${this._modalTemplate}`;
   }
 
   bind() {
