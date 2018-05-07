@@ -1,10 +1,10 @@
 import AbstractView from '../abstract-view.js';
 import {headerStatistics} from './header.js';
-import {templateSecomnd} from './game-tamplates';
-import modal from './modal.js';
+import {templateSecomnd} from './game-templates';
+import MODAL from './modal.js';
 import {addHandler, removeHandler} from '../utils.js';
 
-class gameTwoView extends AbstractView {
+class GameTwoView extends AbstractView {
   constructor(dispatch, levelData, stats) {
     super(dispatch);
     this._levelData = levelData;
@@ -17,7 +17,7 @@ class gameTwoView extends AbstractView {
     this.onMouseDownButtonBack = this.onMouseDownButtonBack.bind(this);
     this.onChangeInput = this.onChangeInput.bind(this);
     this.onMouseDownModal = this.onMouseDownModal.bind(this);
-    this._modaltemplate = modal;
+    this._modaltemplate = MODAL;
   }
 
   get template() {
@@ -69,4 +69,4 @@ class gameTwoView extends AbstractView {
   }
 }
 
-export default gameTwoView;
+export default GameTwoView;

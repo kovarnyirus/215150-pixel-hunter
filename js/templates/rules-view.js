@@ -1,13 +1,13 @@
 import AbstractView from '../abstract-view.js';
-import {header} from './header.js';
+import {HEADER} from './header.js';
 
-class rulesView extends AbstractView {
+class RulesView extends AbstractView {
   constructor(dispatch) {
     super(dispatch);
     this.onMouseDownButtonGo = this.onMouseDownButtonGo.bind(this);
     this.onMouseDownButtonBack = this.onMouseDownButtonBack.bind(this);
     this.onKeyupInputName = this.onKeyupInputName.bind(this);
-    this.header = header;
+    this.header = HEADER;
   }
 
   get template() {
@@ -68,4 +68,4 @@ class rulesView extends AbstractView {
 
 }
 
-export default rulesView;
+export default RulesView;

@@ -1,10 +1,10 @@
 import AbstractView from '../abstract-view.js';
 import {headerStatistics} from './header.js';
-import {templateThird} from './game-tamplates';
-import modal from './modal.js';
+import {templateThird} from './game-templates';
+import MODAL from './modal.js';
 import {addHandler, removeHandler} from '../utils.js';
 
-class gameThreeView extends AbstractView {
+class GameThreeView extends AbstractView {
   constructor(dispatch, levelData, stats) {
     super(dispatch);
     this._levelData = levelData;
@@ -13,7 +13,7 @@ class gameThreeView extends AbstractView {
     this._templateThird = templateThird;
     this._addHandler = addHandler;
     this._removeHandler = removeHandler;
-    this._modalTemplate = modal;
+    this._modalTemplate = MODAL;
 
     this.onMouseDownButtonBack = this.onMouseDownButtonBack.bind(this);
     this.onMouseDownModal = this.onMouseDownModal.bind(this);
@@ -66,13 +66,14 @@ class gameThreeView extends AbstractView {
     let imgTypeCounter = () => {
       let counterPaint = 0;
       let counterPhoto = 0;
-      this.gameCard.forEach((item) => {
+
+      for (let item of this.gameCard) {
         if (item.children[0].attributes[2].value === `paint`) {
           counterPaint++;
         } else {
           counterPhoto++;
         }
-      });
+      }
       correctAnswer = counterPhoto > counterPaint ? `paint` : `photo`;
     };
     imgTypeCounter();
@@ -86,4 +87,4 @@ class gameThreeView extends AbstractView {
 
 }
 
-export default gameThreeView;
+export default GameThreeView;

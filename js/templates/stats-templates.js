@@ -1,8 +1,8 @@
 import {stats} from './stats-template.js';
 import {countScore, POINTS_FAST_ANSWER, POINTS_CORRECT_ANSWER, POINTS_SLOW_ANSWER, POINTS_LIVE} from '../data/game-logic';
 
-const FAST = `fast`;
-const SLOW = `slow`;
+const FAST_ANSWER = `fast`;
+const SLOW_ANSWER = `slow`;
 const SUCCES_ANSWER = `succes`;
 
 
@@ -12,15 +12,16 @@ const countStat = (array) => {
     slow: 0,
     total: 0
   };
-  array.forEach((item) => {
-    if (item === FAST) {
+
+  for (let item of array) {
+    if (item === FAST_ANSWER) {
       counter.fast++;
       counter.total++;
-    } else if (item === SLOW) {
+    } else if (item === SLOW_ANSWER) {
       counter.slow++;
       counter.total++;
     }
-  });
+  }
   return counter;
 };
 

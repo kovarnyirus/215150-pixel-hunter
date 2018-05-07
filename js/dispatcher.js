@@ -1,23 +1,23 @@
-import GameModel from './data/gameModel.js';
+import GameModel from './data/game-model.js';
 import timer from './data/timer.js';
 import {renderScreen} from './utils.js';
-import greetingView from './templates/greetingView';
-import IntroView from './templates/IntroView.js';
-import rulesView from './templates/rulesView.js';
-import gameTwoView from './templates/gameTwoView.js';
-import gameOneView from './templates/gameOneView.js';
-import gameThreeView from './templates/gameThreeView.js';
-import StatsView from './templates/statsView.js';
+import GreetingView from './templates/greeting-view';
+import IntroView from './templates/intro-view.js';
+import RulesView from './templates/rules-view.js';
+import GameTwoView from './templates/game-two-view.js';
+import GameOneView from './templates/game-one-view.js';
+import GameThreeView from './templates/game-three-view.js';
+import StatsView from './templates/stats-view.js';
 
 const REMAINING_SECONDS = 5;
 const MAX_TIMER = 30;
 const levelScreens = {
   'intro': IntroView,
-  'greeting': greetingView,
-  'rules': rulesView,
-  'game-1': gameOneView,
-  'game-2': gameTwoView,
-  'game-3': gameThreeView,
+  'greeting': GreetingView,
+  'rules': RulesView,
+  'game-1': GameOneView,
+  'game-2': GameTwoView,
+  'game-3': GameThreeView,
   'stats': StatsView
 };
 

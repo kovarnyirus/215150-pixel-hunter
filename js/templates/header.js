@@ -13,7 +13,7 @@ const headerStatistics = (state) =>
     </div>
   </header>`;
 
-const header = `<header class="header">
+const HEADER = `<header class="header">
     <div class="header__back">
       <button class="back">
         <img src="img/arrow_left.svg" alt="Back" width="45" height="45">
@@ -22,4 +22,4 @@ const header = `<header class="header">
     </div>
   </header>`;
 
-export {headerStatistics, header};
+export {headerStatistics, HEADER};

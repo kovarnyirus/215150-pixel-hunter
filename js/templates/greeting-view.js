@@ -1,6 +1,6 @@
 import AbstractView from '../abstract-view.js';
 
-class greetingView extends AbstractView {
+class GreetingView extends AbstractView {
   constructor(dispatch) {
     super(dispatch);
     this.onMouseDownGreeting = this.onMouseDownGreeting.bind(this);
@@ -34,4 +34,4 @@ class greetingView extends AbstractView {
   }
 }
 
-export default greetingView;
+export default GreetingView;

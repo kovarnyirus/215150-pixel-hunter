@@ -1,6 +1,6 @@
 import AbstractView from '../abstract-view.js';
-import createElement from '../createElement.js';
-import {header} from './header.js';
+import createElement from '../create-element.js';
+import {HEADER} from './header.js';
 import {countScore} from '../data/game-logic.js';
 import {timeOutTemplate, failTemplate, winTemplate, historyTemplate} from './stats-templates.js';
 
@@ -13,7 +13,7 @@ class StatsView extends AbstractView {
     super(dispatch);
     this._status = status;
     this._stats = stats;
-    this._header = header;
+    this._header = HEADER;
     this.applicationId = 215150;
     this._html = ``;
     this._countScore = countScore;
@@ -73,9 +73,9 @@ class StatsView extends AbstractView {
       userStatistics.push(this._createTemplate(item.status, item, index));
     });
 
-    userStatistics.forEach((item) => {
+    for (let item of userStatistics) {
       historyContainer.appendChild(createElement(item));
-    });
+    }
     this.resultContainer.appendChild(historyContainer);
   }
 

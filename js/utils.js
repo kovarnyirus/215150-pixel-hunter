@@ -6,15 +6,15 @@ const renderScreen = (element) => {
 };
 
 const addHandler = (array, event, listtener) => {
-  array.forEach((item) => {
+  for (let item of array){
     item.addEventListener(event, listtener);
-  });
+  }
 };
 
 const removeHandler = (array, event, listtener) => {
-  array.forEach((item) => {
+  for (let item of array){
     item.removeEventListener(event, listtener);
-  });
+  }
 };
 
 
