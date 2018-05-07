@@ -1,7 +1,7 @@
-const TypeGameScreens = {
-  'ONE-OF-THREE': `game-3`,
-  'TINDER-LIKE': `game-2`,
-  'TWO-OF-TWO': `game-1`
+const GameScreenTypes = {
+  'ONE-OF-THREE': `GAME-3`,
+  'TINDER-LIKE': `GAME-2`,
+  'TWO-OF-TWO': `GAME-1`
 };
 
 const TypeImage = {
@@ -13,7 +13,7 @@ const TypeImage = {
 const adaptServerData = (data) => {
   return data.map((item) => {
     return {
-      type: TypeGameScreens[item.type.toUpperCase()],
+      type: GameScreenTypes[item.type.toUpperCase()],
       question: item.question,
       images: item.answers.map((answer) => {
         return {

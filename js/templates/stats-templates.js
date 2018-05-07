@@ -7,7 +7,7 @@ const SUCCES_ANSWER = `succes`;
 
 
 const countStat = (array) => {
-  let counter = {
+  const counter = {
     fast: 0,
     slow: 0,
     total: 0
@@ -26,7 +26,7 @@ const countStat = (array) => {
 };
 
 const winTemplate = (gameData) => {
-  let countedStats = countStat(gameData.questionStats);
+  const countedStats = countStat(gameData.questionStats);
   return `<div class="result">
 <h1>Победа!</h1>
   <table class="result__table">

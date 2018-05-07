@@ -1,7 +1,7 @@
-const lengthStats = 10;
+const LENGTHSTATS = 10;
 
 const drawStats = (stats) => {
-  const arr = new Array(lengthStats).fill(`<li class="stats__result stats__result--unknown"></li>`);
+  const arr = new Array(LENGTHSTATS).fill(`<li class="stats__result stats__result--unknown"></li>`);
 
   stats.forEach((item, index) =>{
     if (item === `succes`) {

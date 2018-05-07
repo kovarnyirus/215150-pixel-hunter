@@ -11,14 +11,14 @@ import StatsView from './templates/stats-view.js';
 
 const REMAINING_SECONDS = 5;
 const MAX_TIMER = 30;
-const levelScreens = {
-  'intro': IntroView,
-  'greeting': GreetingView,
-  'rules': RulesView,
-  'game-1': GameOneView,
-  'game-2': GameTwoView,
-  'game-3': GameThreeView,
-  'stats': StatsView
+const LEVELSCREENS = {
+  'INTRO': IntroView,
+  'GREETING': GreetingView,
+  'RULES': RulesView,
+  'GAME-1': GameOneView,
+  'GAME-2': GameTwoView,
+  'GAME-3': GameThreeView,
+  'STATS': StatsView
 };
 
 class GameDispatcher {
@@ -53,14 +53,14 @@ class GameDispatcher {
   }
 
   run() {
-    let gameData = this._data.gameData;
+    const gameData = this._data.gameData;
     const levelData = gameData.levels[gameData.currentLevel];
     if (gameData.currentLevel === 0) {
       renderScreen(new IntroView(this._handlerDispatcher, levelData).element);
     } else if (gameData.lives < 0) {
       renderScreen(new StatsView(this._handlerDispatcher, `fail`, gameData).element);
     } else if (gameData.currentLevel <= 14) {
-      const levelScreen = new levelScreens[levelData.type](this._handlerDispatcher, levelData, gameData);
+      const levelScreen = new LEVELSCREENS[levelData.type](this._handlerDispatcher, levelData, gameData);
       const element = levelScreen.timer;
       renderScreen(levelScreen.element);
       this._initTimer(element, MAX_TIMER);
@@ -84,11 +84,11 @@ class GameDispatcher {
 
   }
 
-  _nextTick(sec) {
+  static _nextTick(sec) {
     return timer(sec).tick();
   }
 
-  _renderTimer(element, value) {
+  static _renderTimer(element, value) {
     element.textContent = value;
     if (value === REMAINING_SECONDS) {
       element.classList.add(`blink`);

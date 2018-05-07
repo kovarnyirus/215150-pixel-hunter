@@ -38,20 +38,20 @@ class GameModel {
     };
   }
 
-  _getGreeting() {
+  static _getGreeting() {
     return {
       type: `greeting`
     };
   }
 
-  _getRules() {
+  static _getRules() {
     return {
       type: `rules`,
       userName: ``
     };
   }
 
-  _getStats() {
+  static _getStats() {
     return {
       type: `stats`
     };

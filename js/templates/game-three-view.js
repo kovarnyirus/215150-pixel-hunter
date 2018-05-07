@@ -63,7 +63,7 @@ class GameThreeView extends AbstractView {
   onMouseDownGameCard(evt) {
     this.removeListeners();
     let correctAnswer;
-    let imgTypeCounter = () => {
+    const imgTypeCounter = () => {
       let counterPaint = 0;
       let counterPhoto = 0;
 

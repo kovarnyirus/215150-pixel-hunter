@@ -43,12 +43,12 @@ class StatsView extends AbstractView {
   }
 
   _onLoad(data) {
-    let serverData = data;
-    let userStatistics = [];
-    let countingUserStatistics = [];
-    let historyContainer = document.createDocumentFragment();
-    let scoreLastGame = this._countScore(this._stats, this._stats.lives);
-    let positionLastGame = 1;
+    const serverData = data;
+    const userStatistics = [];
+    const countingUserStatistics = [];
+    const historyContainer = document.createDocumentFragment();
+    const scoreLastGame = this._countScore(this._stats, this._stats.lives);
+    const positionLastGame = 1;
     const historyTitle = document.createElement(`h2`);
     historyTitle.textContent = `Предыдущие результаты`;
     historyContainer.appendChild(historyTitle);
