@@ -2,7 +2,6 @@ import AbstractView from '../abstract-view.js';
 import {headerStatistics} from './header.js';
 import {templateSecomnd} from './game-templates';
 import MODAL from './modal.js';
-import {addHandler, removeHandler} from '../utils.js';
 
 class GameTwoView extends AbstractView {
   constructor(dispatch, levelData, stats) {
@@ -12,8 +11,6 @@ class GameTwoView extends AbstractView {
     this._headerStatistics = headerStatistics;
     this._templateSecomnd = templateSecomnd;
     this._gameImages = levelData.images;
-    this._addHandler = addHandler;
-    this._removeHandler = removeHandler;
     this.onMouseDownButtonBack = this.onMouseDownButtonBack.bind(this);
     this.onChangeInput = this.onChangeInput.bind(this);
     this.onMouseDownModal = this.onMouseDownModal.bind(this);
@@ -27,16 +24,16 @@ class GameTwoView extends AbstractView {
   bind() {
     this._buttonBack = this.element.querySelector(`.header__back`);
     this._timeAnswer = this.element.querySelector(`.game__timer`);
-    this._inputQuestion = this.element.querySelectorAll(`input`);
+    this._gameContent = this.element.querySelector(`.game__content`);
     this._modal = this.element.querySelector(`.modal`);
     this._buttonBack.addEventListener(`mousedown`, this.onMouseDownButtonBack);
-    this._addHandler(this._inputQuestion, `change`, this.onChangeInput);
+    this._gameContent.addEventListener(`change`, this.onChangeInput);
     this._modal.classList.add(`modal--close`);
   }
 
   removeListeners() {
     this._buttonBack.removeEventListener(`mousedown`, this.onMouseDownButtonBack);
-    this._removeHandler(this._inputQuestion, `change`, this.onChangeInput);
+    this._gameContent.removeEventListener(`change`, this.onChangeInput);
   }
 
   removeModalListener() {
@@ -60,6 +57,7 @@ class GameTwoView extends AbstractView {
   }
 
   onChangeInput(evt) {
+    console.log(evt);
     this.removeListeners();
     if (this._gameImages[0].type === evt.target.value) {
       this.dispatch({status: `succes`, time: this._timeAnswer.innerText, isGame: true});
