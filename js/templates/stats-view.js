@@ -46,7 +46,6 @@ class StatsView extends AbstractView {
 
   _onLoad(data) {
     const serverData = data;
-    const userStatistics = [];
     const historyContainer = document.createDocumentFragment();
     const scoreLastGame = this._countScore(this._stats, this._stats.lives);
     const historyTitle = document.createElement(`h2`);
@@ -64,24 +63,19 @@ class StatsView extends AbstractView {
     countingUserStatistics.sort(compareTotalPoints);
 
     countingUserStatistics.forEach((item, index) => {
+      let element;
       if (item.totalPoints > scoreLastGame) {
         positionLastGame = index + 2;
       }
+      element = this._createTemplate(item.status, item, index);
+      historyContainer.appendChild(createElement(element));
     });
 
     this.resultNumber.textContent = `${positionLastGame}`;
-
-    countingUserStatistics.forEach((item, index) => {
-      userStatistics.push(this._createTemplate(item.status, item, index));
-    });
-
-    for (let item of userStatistics) {
-      historyContainer.appendChild(createElement(item));
-    }
     this.resultContainer.appendChild(historyContainer);
   }
 
-  _checkResponse(response) {
+  static _checkResponse(response) {
     if (response.ok) {
       return response.json();
     }
@@ -102,7 +96,7 @@ class StatsView extends AbstractView {
   getDataUser() {
     window.fetch(`https://es.dump.academy/pixel-hunter/stats/:${this.applicationId}-:${this._stats.userName}`)
         .then((response) => {
-          return this._checkResponse(response);
+          return StatsView._checkResponse(response);
         })
         .then((data) => {
           return this._checkData(data);
