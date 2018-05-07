@@ -2,7 +2,6 @@ import AbstractView from '../abstract-view.js';
 import {headerStatistics} from './header.js';
 import {templateFirst} from './game-templates';
 import MODAL from './modal.js';
-import {addHandler, removeHandler} from '../utils.js';
 
 class GameOneView extends AbstractView {
   constructor(dispatch, levelData, stats) {
@@ -15,12 +14,8 @@ class GameOneView extends AbstractView {
     this._chekedTwo = false;
     this._gameImages = levelData.images;
     this._modalTemplate = MODAL;
-    this._addHandler = addHandler;
-    this._removeHandler = removeHandler;
-
     this.onMouseDownButtonBack = this.onMouseDownButtonBack.bind(this);
-    this.onChangeInputOne = this.onChangeInputOne.bind(this);
-    this.onChangeInputTwo = this.onChangeInputTwo.bind(this);
+    this.onChangeInput = this.onChangeInput.bind(this);
     this.onMouseDownModal = this.onMouseDownModal.bind(this);
     this.nextScreen = this.nextScreen.bind(this);
 
@@ -34,20 +29,16 @@ class GameOneView extends AbstractView {
     this._buttonBack = this.element.querySelector(`.header__back`);
     this._timeAnswer = this.element.querySelector(`.game__timer`);
     this._modal = this.element.querySelector(`.modal`);
-    this._inputOne = this.element.querySelectorAll(`input[name="question1"]`);
-    this._inputTwo = this.element.querySelectorAll(`input[name="question2"]`);
+    this._gameContent = this.element.querySelector(`.game__content`);
 
     this._buttonBack.addEventListener(`mousedown`, this.onMouseDownButtonBack);
-    this._addHandler(this._inputOne, `change`, this.onChangeInputOne);
-    this._addHandler(this._inputTwo, `change`, this.onChangeInputTwo);
+    this._gameContent.addEventListener(`change`, this.onChangeInput);
     this._modal.classList.add(`modal--close`);
   }
 
   removeListeners() {
     this._buttonBack.removeEventListener(`mousedown`, this.onMouseDownButtonBack);
-    this._removeHandler(this._inputOne, `change`, this.onChangeInputOne);
-    this._removeHandler(this._inputTwo, `change`, this.onChangeInputTwo);
-
+    this._gameContent.removeEventListener(`change`, this.onChangeInput);
   }
   removeModalListener() {
     this._modal.removeEventListener(`mousedown`, this.onMouseDownModal);
@@ -82,13 +73,12 @@ class GameOneView extends AbstractView {
     }
   }
 
-  onChangeInputOne(evt) {
-    this._chekedOne = evt.target.value;
-    this.nextScreen();
-  }
-
-  onChangeInputTwo(evt) {
-    this._chekedTwo = evt.target.value;
+  onChangeInput(evt) {
+    if (evt.target.name === `question1`) {
+      this._chekedOne = evt.target.value;
+    } else if (evt.target.name === `question2`) {
+      this._chekedTwo = evt.target.value;
+    }
     this.nextScreen();
   }
 
