@@ -2,7 +2,6 @@ import AbstractView from '../abstract-view.js';
 import {headerStatistics} from './header.js';
 import {templateThird} from './game-templates';
 import MODAL from './modal.js';
-import {addHandler, removeHandler} from '../utils.js';
 
 class GameThreeView extends AbstractView {
   constructor(dispatch, levelData, stats) {
@@ -11,8 +10,6 @@ class GameThreeView extends AbstractView {
     this._stats = stats;
     this._headerStatistics = headerStatistics;
     this._templateThird = templateThird;
-    this._addHandler = addHandler;
-    this._removeHandler = removeHandler;
     this._modalTemplate = MODAL;
 
     this.onMouseDownButtonBack = this.onMouseDownButtonBack.bind(this);
@@ -28,15 +25,16 @@ class GameThreeView extends AbstractView {
   bind() {
     this.buttonBack = this.element.querySelector(`.header__back`);
     this.gameCard = this.element.querySelectorAll(`.game__option`);
+    this._gameContent = this.element.querySelector(`.game__content`);
     this._modal = this.element.querySelector(`.modal`);
     this._timeAnswer = this.element.querySelector(`.game__timer`);
     this.buttonBack.addEventListener(`mousedown`, this.onMouseDownButtonBack);
-    this._addHandler(this.gameCard, `mousedown`, this.onMouseDownGameCard);
+    this._gameContent.addEventListener(`mousedown`, this.onMouseDownGameCard);
     this._modal.classList.add(`modal--close`);
   }
 
   removeListeners() {
-    this._removeHandler(this.gameCard, `mousedown`, this.onMouseDownGameCard);
+    this._gameContent.removeEventListener(`mousedown`, this.onMouseDownGameCard);
     this.buttonBack.removeEventListener(`mousedown`, this.onMouseDownButtonBack);
   }
 

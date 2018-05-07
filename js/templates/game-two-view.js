@@ -57,7 +57,6 @@ class GameTwoView extends AbstractView {
   }
 
   onChangeInput(evt) {
-    console.log(evt);
     this.removeListeners();
     if (this._gameImages[0].type === evt.target.value) {
       this.dispatch({status: `succes`, time: this._timeAnswer.innerText, isGame: true});
