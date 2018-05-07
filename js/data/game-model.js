@@ -6,7 +6,7 @@ class GameModel {
   constructor(handleDataLoad) {
     this._handleDataLoad = handleDataLoad;
     this._dataLoaded = false;
-    this._getImage = null;
+    // this._getImage = null;
     this._state = null;
     this.restart = this.restart.bind(this);
     this._loader = this._loader.bind(this);
@@ -33,27 +33,27 @@ class GameModel {
 
   _getIntro() {
     return {
-      type: `intro`,
+      type: `INTRO`,
       dataLoaded: this._dataLoaded
     };
   }
 
   static _getGreeting() {
     return {
-      type: `greeting`
+      type: `GREETING`
     };
   }
 
   static _getRules() {
     return {
-      type: `rules`,
+      type: `RULES`,
       userName: ``
     };
   }
 
   static _getStats() {
     return {
-      type: `stats`
+      type: `STATS`
     };
   }
 
@@ -89,7 +89,7 @@ class GameModel {
   }
 
   _getGameList() {
-    return [this._getIntro(), this._getGreeting(), this._getRules(), ...this._levelsData, this._getStats()];
+    return [this._getIntro(), GameModel._getGreeting(), GameModel._getRules(), ...this._levelsData, GameModel._getStats()];
   }
 
   _questionStats(time) {
