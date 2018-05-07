@@ -75,14 +75,14 @@ class StatsView extends AbstractView {
     this.resultContainer.appendChild(historyContainer);
   }
 
-  static _checkResponse(response) {
+  static _getCheckResponse(response) {
     if (response.ok) {
       return response.json();
     }
     return false;
   }
 
-  _checkData(data) {
+  _getCheckData(data) {
     const onLoad = this._onLoad;
     let serverData;
     if (data) {
@@ -96,10 +96,10 @@ class StatsView extends AbstractView {
   getDataUser() {
     window.fetch(`https://es.dump.academy/pixel-hunter/stats/:${this.applicationId}-:${this._stats.userName}`)
         .then((response) => {
-          return StatsView._checkResponse(response);
+          return StatsView._getCheckResponse(response);
         })
         .then((data) => {
-          return this._checkData(data);
+          return this._getCheckData(data);
         })
         .catch((err) => {
           if (err.stack === `TypeError: Failed to fetch`) {

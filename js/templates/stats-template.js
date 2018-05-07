@@ -1,7 +1,7 @@
 const LENGTHSTATS = 10;
 
 const drawStats = (stats) => {
-  const arr = new Array(LENGTHSTATS).fill(`<li class="stats__result stats__result--unknown"></li>`);
+  const arrayStats = new Array(LENGTHSTATS).fill(`<li class="stats__result stats__result--unknown"></li>`);
 
   stats.forEach((item, index) =>{
     if (item === `succes`) {
@@ -14,7 +14,7 @@ const drawStats = (stats) => {
       arr[index] = `<li class="stats__result stats__result--fast"></li>`;
     }
   });
-  return arr.join(``);
+  return arrayStats.join(``);
 };
 
 const stats = (statsList) => `

@@ -1,6 +1,6 @@
 import AbstractView from '../abstract-view.js';
 import {headerStatistics} from './header.js';
-import {templateSecomnd} from './game-templates';
+import {templateSecond} from './game-templates';
 import MODAL from './modal.js';
 
 class GameTwoView extends AbstractView {
@@ -9,7 +9,7 @@ class GameTwoView extends AbstractView {
     this._levelData = levelData;
     this._stats = stats;
     this._headerStatistics = headerStatistics;
-    this._templateSecomnd = templateSecomnd;
+    this._templateSecomnd = templateSecond;
     this._gameImages = levelData.images;
     this.onMouseDownButtonBack = this.onMouseDownButtonBack.bind(this);
     this.onChangeInput = this.onChangeInput.bind(this);

@@ -96,7 +96,7 @@ class GameModel {
     return [this._getIntro(), GameModel._getGreeting(), GameModel._getRules(), ...this._levelsData, GameModel._getStats()];
   }
 
-  _questionStats(time) {
+  static _getQuestionStats(time) {
     if (time >= 20) {
       return `fast`;
     } else if (time <= 10) {
@@ -124,7 +124,7 @@ class GameModel {
 
   succesAnswer(time) {
     this._state.answers.push(true);
-    this._state.questionStats.push(this._questionStats(time));
+    this._state.questionStats.push(GameModel._getQuestionStats(time));
     this._state.time.push(time);
   }
 
@@ -132,7 +132,7 @@ class GameModel {
     this.init();
   }
 
-  wrongAnswer() {
+  setWrongAnswer() {
     this._state.answers.push(false);
     this._state.lives--;
     this._state.currentLevel++;
@@ -142,18 +142,18 @@ class GameModel {
     }
   }
 
-  timeOut() {
+  setTimeOut() {
     this._state.time.push(30);
     this._state.questionStats.push(`fail`);
     this._state.currentLevel++;
     this._state.lives--;
   }
 
-  storePlayerName(playerName) {
+  savePlayerName(playerName) {
     this._state.userName = playerName;
   }
 
-  nextScreen() {
+  setNextScreen() {
     this._state.currentLevel++;
   }
 }

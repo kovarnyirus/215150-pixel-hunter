@@ -3,7 +3,7 @@ import {countScore, POINTS_FAST_ANSWER, POINTS_CORRECT_ANSWER, POINTS_SLOW_ANSWE
 
 const FAST_ANSWER = `fast`;
 const SLOW_ANSWER = `slow`;
-const SUCCES_ANSWER = `succes`;
+const SUCCESS_ANSWER = `succes`;
 
 
 const countStat = (array) => {
@@ -93,7 +93,7 @@ const timeOutTemplate = (gameData) =>
    ${stats(gameData.questionStats)}
     </td>
     <td class="result__points">×&nbsp;${POINTS_CORRECT_ANSWER}</td>
-  <td class="result__total">${countStat(gameData.questionStats, SUCCES_ANSWER) * POINTS_CORRECT_ANSWER}</td>
+  <td class="result__total">${countStat(gameData.questionStats, SUCCESS_ANSWER) * POINTS_CORRECT_ANSWER}</td>
     </tr>
     <tr>
     <td></td>

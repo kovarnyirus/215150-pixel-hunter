@@ -6,7 +6,7 @@ class RulesView extends AbstractView {
     super(dispatch);
     this.onMouseDownButtonGo = this.onMouseDownButtonGo.bind(this);
     this.onMouseDownButtonBack = this.onMouseDownButtonBack.bind(this);
-    this.onKeyupInputName = this.onKeyupInputName.bind(this);
+    this.onKeyUpInputName = this.onKeyUpInputName.bind(this);
     this.header = HEADER;
   }
 
@@ -38,10 +38,10 @@ class RulesView extends AbstractView {
 
     this.buttonGo.addEventListener(`mousedown`, this.onMouseDownButtonGo);
     this.buttonBack.addEventListener(`mousedown`, this.onMouseDownButtonBack);
-    this.inputName.addEventListener(`keyup`, this.onKeyupInputName);
+    this.inputName.addEventListener(`keyup`, this.onKeyUpInputName);
   }
 
-  onKeyupInputName() {
+  onKeyUpInputName() {
     if (this.inputName.value.length) {
       this.buttonGo.removeAttribute(`disabled`);
     } else {
@@ -52,7 +52,7 @@ class RulesView extends AbstractView {
   removeListeners() {
     this.buttonGo.removeEventListener(`mousedown`, this.onMouseDownButtonGo);
     this.buttonBack.removeEventListener(`mousedown`, this.onMouseDownButtonBack);
-    this.inputName.removeEventListener(`keyup`, this.onKeyupInputName);
+    this.inputName.removeEventListener(`keyup`, this.onKeyUpInputName);
   }
 
   onMouseDownButtonGo(evt) {

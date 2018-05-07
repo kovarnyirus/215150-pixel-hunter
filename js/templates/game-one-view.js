@@ -17,7 +17,7 @@ class GameOneView extends AbstractView {
     this.onMouseDownButtonBack = this.onMouseDownButtonBack.bind(this);
     this.onChangeInput = this.onChangeInput.bind(this);
     this.onMouseDownModal = this.onMouseDownModal.bind(this);
-    this.nextScreen = this.nextScreen.bind(this);
+    this.setNextScreen = this.setNextScreen.bind(this);
 
   }
 
@@ -60,7 +60,7 @@ class GameOneView extends AbstractView {
     }
   }
 
-  nextScreen() {
+  setNextScreen() {
     if (this._chekedOne && this._chekedTwo) {
       this.removeListeners();
       if (this._gameImages[0].type === this._chekedOne && this._gameImages[1].type === this._chekedTwo) {
@@ -79,7 +79,7 @@ class GameOneView extends AbstractView {
     } else if (evt.target.name === `question2`) {
       this._chekedTwo = evt.target.value;
     }
-    this.nextScreen();
+    this.setNextScreen();
   }
 
 }

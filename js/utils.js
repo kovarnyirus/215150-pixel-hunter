@@ -7,15 +7,6 @@ const renderScreen = (element) => {
 
 const onLoadError = (errorMessage) => {
   const node = document.createElement(`div`);
-  node.style.border = `1px solid`;
-  node.style.textAlign = `center`;
-  node.style.width = `40%`;
-  node.style.padding = `20`;
-  node.style.zIndex = `100`;
-  node.style.position = `fixed`;
-  node.style.color = `#3a000b`;
-  node.style.background = `#cccccc`;
-  node.style.fontSize = `26px`;
   node.textContent = errorMessage;
   node.setAttribute(`class`, `error-message`);
   document.body.insertAdjacentElement(`afterbegin`, node);
@@ -26,4 +17,4 @@ const onLoadError = (errorMessage) => {
 };
 
 
-export {renderScreen, addHandler, removeHandler, onLoadError};
+export {renderScreen, onLoadError};

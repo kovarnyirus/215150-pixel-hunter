@@ -24,7 +24,7 @@ class GameThreeView extends AbstractView {
 
   bind() {
     this.buttonBack = this.element.querySelector(`.header__back`);
-    this.gameCard = this.element.querySelectorAll(`.game__option`);
+    this.gameCards = this.element.querySelectorAll(`.game__option`);
     this._gameContent = this.element.querySelector(`.game__content`);
     this._modal = this.element.querySelector(`.modal`);
     this._timeAnswer = this.element.querySelector(`.game__timer`);
@@ -61,12 +61,12 @@ class GameThreeView extends AbstractView {
   onMouseDownGameCard(evt) {
     this.removeListeners();
     let correctAnswer;
-    const imgTypeCounter = () => {
+    const getImageTypes = () => {
       let counterPaint = 0;
       let counterPhoto = 0;
 
-      for (let item of this.gameCard) {
-        if (item.children[0].attributes[2].value === `paint`) {
+      for (let gameCard of this.gameCards) {
+        if (gameCard.children[0].attributes[2].value === `paint`) {
           counterPaint++;
         } else {
           counterPhoto++;
@@ -74,7 +74,7 @@ class GameThreeView extends AbstractView {
       }
       correctAnswer = counterPhoto > counterPaint ? `paint` : `photo`;
     };
-    imgTypeCounter();
+    getImageTypes();
     if (evt.target.attributes[2].value === correctAnswer) {
       this.dispatch({status: `succes`, time: this._timeAnswer.innerText, isGame: true});
     } else {

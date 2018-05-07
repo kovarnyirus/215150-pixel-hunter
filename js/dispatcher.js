@@ -39,15 +39,15 @@ class GameDispatcher {
     }
     if (status === `succes`) {
       if (name) {
-        this._data.storePlayerName(name);
+        this._data.savePlayerName(name);
       } else if (time) {
         this._data.succesAnswer(time);
       }
-      this._data.nextScreen();
+      this._data.setNextScreen();
     } else if (status === `goBack`) {
       this._data.restart();
     } else if (status === `fail`) {
-      this._data.wrongAnswer();
+      this._data.setWrongAnswer();
     }
     this.run();
   }
@@ -74,17 +74,17 @@ class GameDispatcher {
       this._timer = setInterval(() => {
         if (time === 1) {
           this._stopTimer();
-          this._data.timeOut();
+          this._data.setTimeOut();
           this.run();
         }
-        time = GameDispatcher._nextTick(time);
+        time = GameDispatcher._getNextTick(time);
         GameDispatcher._renderTimer(element, time);
       }, 1000);
     }
 
   }
 
-  static _nextTick(sec) {
+  static _getNextTick(sec) {
     return timer(sec).tick();
   }
 
