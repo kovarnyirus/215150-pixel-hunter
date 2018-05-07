@@ -1,4 +1,5 @@
 import adaptServerData from './data-adapter.js';
+import {onLoadError} from '../utils.js';
 
 const INITIAL_LIVES = 3;
 
@@ -6,7 +7,7 @@ class GameModel {
   constructor(handleDataLoad) {
     this._handleDataLoad = handleDataLoad;
     this._dataLoaded = false;
-    // this._getImage = null;
+    this._onLoadError = onLoadError;
     this._state = null;
     this.restart = this.restart.bind(this);
     this._loader = this._loader.bind(this);
@@ -75,16 +76,19 @@ class GameModel {
           if (response.ok) {
             return response.json();
           } else if (response.status === 404) {
-            throw new Error(`файлы не найдены`);
+            return this._onLoadError(`Файлы на сервере не найдены`);
           }
-          throw new Error(`Неизвестный статус: ${response.status} ${response.statusText}`);
+          return this._onLoadError(`Неизвестный статус: ${response.status} ${response.statusText}`);
         })
         .then((data) => {
           formatData = adaptServerData(data);
           return onLoad(formatData);
         })
         .catch((err) => {
-          throw new Error(`${err}`);
+          if (err.stack === `TypeError: Failed to fetch`) {
+            return this._onLoadError(`Сервер недоступен`);
+          }
+          return this._onLoadError(`Неизвестная ошибка: ${err} свяжитесь с администратором`);
         });
   }
 

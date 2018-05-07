@@ -3,6 +3,7 @@ import createElement from '../create-element.js';
 import {HEADER} from './header.js';
 import {countScore} from '../data/game-logic.js';
 import {timeOutTemplate, failTemplate, winTemplate, historyTemplate} from './stats-templates.js';
+import {onLoadError} from '../utils.js';
 
 const compareTotalPoints = (itemOne, itemTwo) => {
   return itemTwo.totalPoints - itemOne.totalPoints;
@@ -17,6 +18,7 @@ class StatsView extends AbstractView {
     this.applicationId = 215150;
     this._html = ``;
     this._countScore = countScore;
+    this._onLoadError = onLoadError;
     this._onLoad = this._onLoad.bind(this);
     this.onMouseDownButtonBack = this.onMouseDownButtonBack.bind(this);
     this.getDataUser();
@@ -104,6 +106,12 @@ class StatsView extends AbstractView {
         })
         .then((data) => {
           return this._checkData(data);
+        })
+        .catch((err) => {
+          if (err.stack === `TypeError: Failed to fetch`) {
+            return this._onLoadError(`Сервер со статистикой недоступен`);
+          }
+          return this._onLoadError(`Неизвестная ошибка: ${err} свяжитесь с администратором`);
         });
   }
 

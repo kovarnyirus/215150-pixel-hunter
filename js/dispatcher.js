@@ -78,7 +78,7 @@ class GameDispatcher {
           this.run();
         }
         time = GameDispatcher._nextTick(time);
-      GameDispatcher._renderTimer(element, time);
+        GameDispatcher._renderTimer(element, time);
       }, 1000);
     }
 
