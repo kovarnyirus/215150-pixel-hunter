@@ -1,16 +1,17 @@
-const LENGTHSTATS = 10;
+import {AnswerTypes} from '../data/game-model';
+const LENGTH_STATS = 10;
 
 const drawStats = (stats) => {
-  const arrayStats = new Array(LENGTHSTATS).fill(`<li class="stats__result stats__result--unknown"></li>`);
+  const arrayStats = new Array(LENGTH_STATS).fill(`<li class="stats__result stats__result--unknown"></li>`);
 
   stats.forEach((item, index) =>{
-    if (item === `succes`) {
+    if (item === AnswerTypes.SUCCESS_ANSWER) {
       arrayStats[index] = `<li class="stats__result stats__result--correct"></li>`;
-    } else if (item === `fail`) {
+    } else if (item === AnswerTypes.FAIL_ANSWER) {
       arrayStats[index] = `<li class="stats__result stats__result--wrong"></li>`;
-    } else if (item === `slow`) {
+    } else if (item === AnswerTypes.SLOW_ANSWER) {
       arrayStats[index] = `<li class="stats__result stats__result--slow"></li>`;
-    } else if (item === `fast`) {
+    } else if (item === AnswerTypes.FAST_ANSWER) {
       arrayStats[index] = `<li class="stats__result stats__result--fast"></li>`;
     }
   });

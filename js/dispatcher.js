@@ -106,4 +106,4 @@ class GameDispatcher {
   }
 }
 
-export {GameDispatcher, GameStatuses}
+export {GameDispatcher, GameStatuses};
