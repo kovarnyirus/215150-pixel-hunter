@@ -92,4 +92,4 @@ const historyTemplate = (gameData, index) =>
     </table>
 </div>`;
 
-export {timeOutTemplate, failTemplate, winTemplate, historyTemplate};
+export {failTemplate, winTemplate, historyTemplate};

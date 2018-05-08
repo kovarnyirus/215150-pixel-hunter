@@ -20,7 +20,7 @@ const countScore = (data, lives) => {
   if (data.answers && data.answers.length !== LENGTH_ARR_ANSWERS) {
     return false;
   }
-  let pointsAnswers = data.answers.reduce((previousValue, item) => {
+  const pointsAnswers = data.answers.reduce((previousValue, item) => {
     if (item) {
       previousValue += StatPoints.CORRECT_ANSWER;
     }

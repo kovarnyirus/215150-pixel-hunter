@@ -134,7 +134,7 @@ class GameModel {
     }
   }
 
-  setSuccesAnswer(time) {
+  setSuccessAnswer(time) {
     this._state.answers.push(true);
     this._state.questionStats.push(GameModel._getQuestionStats(time));
     this._state.time.push(time);

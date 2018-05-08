@@ -1,10 +1,10 @@
 const timer = function (time) {
   if (typeof time !== `number`) {
-    throw new Error(`time must be a number`);
+    throw new Error(`Значение не числового типа`);
   }
 
   if (time < 0) {
-    throw new Error(`time cannot be negative`);
+    throw new Error(`Время не может быть отрицательным`);
   }
 
   return {

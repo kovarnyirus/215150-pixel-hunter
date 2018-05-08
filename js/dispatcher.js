@@ -49,7 +49,7 @@ class GameDispatcher {
       if (name) {
         this._data.savePlayerName(name);
       } else if (time) {
-        this._data.setSuccesAnswer(time);
+        this._data.setSuccessAnswer(time);
       }
       this._data.setNextScreen();
     } else if (status === GameStatuses.GO_BACK) {

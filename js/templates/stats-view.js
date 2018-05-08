@@ -55,20 +55,18 @@ class StatsView extends AbstractView {
     historyContainer.appendChild(historyTitle);
 
     const countingUserStatistics = serverData.map((item) => {
-      let score = this._countScore(item, item.lives);
-      item.totalPoints = score;
+      item.totalPoints = this._countScore(item, item.lives);
       return item;
     });
 
     countingUserStatistics.sort(compareTotalPoints);
 
     countingUserStatistics.forEach((item, index) => {
-      let element;
       if (item.totalPoints > scoreLastGame) {
         positionLastGame = index + 2;
       }
-      element = this._createTemplate(item.status, item, index);
-      historyContainer.appendChild(createElement(element));
+      const templateElement = this._createTemplate(item.status, item, index);
+      historyContainer.appendChild(createElement(templateElement));
     });
 
     this.resultNumber.textContent = `${positionLastGame}`;
