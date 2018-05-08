@@ -22,9 +22,9 @@ const LEVELSCREENS = {
 };
 
 const GameStatuses = {
-  SUCCES_STATUSE: `succes`,
-  FAIL_STATUSE: `fail`,
-  GO_BACK_STATUSE: `goBack`
+  SUCCES: `succes`,
+  FAIL: `fail`,
+  GO_BACK: `goBack`
 };
 
 class GameDispatcher {
@@ -43,16 +43,16 @@ class GameDispatcher {
     if (isGame) {
       this._stopTimer();
     }
-    if (status === GameStatuses.SUCCES_STATUSE) {
+    if (status === GameStatuses.SUCCES) {
       if (name) {
         this._data.savePlayerName(name);
       } else if (time) {
         this._data.setSuccesAnswer(time);
       }
       this._data.setNextScreen();
-    } else if (status === GameStatuses.GO_BACK_STATUSE) {
+    } else if (status === GameStatuses.GO_BACK) {
       this._data.restart();
-    } else if (status === GameStatuses.FAIL_STATUSE) {
+    } else if (status === GameStatuses.FAIL) {
       this._data.setWrongAnswer();
     }
     this.run();
@@ -64,7 +64,7 @@ class GameDispatcher {
     if (gameData.currentLevel === 0) {
       renderScreen(new IntroView(this._handlerDispatcher, levelData).element);
     } else if (gameData.lives < 0) {
-      renderScreen(new StatsView(this._handlerDispatcher, GameStatuses.FAIL_STATUSE, gameData).element);
+      renderScreen(new StatsView(this._handlerDispatcher, GameStatuses.FAIL, gameData).element);
     } else if (gameData.currentLevel <= 14) {
       const levelScreen = new LEVELSCREENS[levelData.type](this._handlerDispatcher, levelData, gameData);
       const element = levelScreen.timer;

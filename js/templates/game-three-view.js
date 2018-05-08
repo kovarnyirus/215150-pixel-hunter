@@ -5,8 +5,8 @@ import MODAL from './modal.js';
 import {GameStatuses} from '../dispatcher.js';
 
 const AnswerTypes = {
-  PAINT_TYPE: `paint`,
-  PHOTO_TYPE: `photo`
+  PAINT: `paint`,
+  PHOTO: `photo`
 };
 
 class GameThreeView extends AbstractView {
@@ -57,7 +57,7 @@ class GameThreeView extends AbstractView {
     if (evt.target.className === `back`) {
       this.removeListeners();
       this.removeModalListener();
-      this.dispatch({status: GameStatuses.GO_BACK_STATUSE, isGame: true});
+      this.dispatch({status: GameStatuses.GO_BACK, isGame: true});
     } else {
       this.removeModalListener();
       this._modal.classList.add(`modal--close`);
@@ -72,19 +72,19 @@ class GameThreeView extends AbstractView {
       let counterPhoto = 0;
 
       for (let gameCard of this.gameCards) {
-        if (gameCard.children[0].attributes[2].value === AnswerTypes.PAINT_TYPE) {
+        if (gameCard.children[0].attributes[2].value === AnswerTypes) {
           counterPaint++;
         } else {
           counterPhoto++;
         }
       }
-      correctAnswer = counterPhoto > counterPaint ? AnswerTypes.PAINT_TYPE : AnswerTypes.PHOTO_TYPE;
+      correctAnswer = counterPhoto > counterPaint ? AnswerTypes.PAINT : AnswerTypes.PHOTO;
     };
     getImageTypes();
     if (evt.target.attributes[2].value === correctAnswer) {
-      this.dispatch({status: GameStatuses.SUCCES_STATUSE, time: this._timeAnswer.innerText, isGame: true});
+      this.dispatch({status: GameStatuses.SUCCES, time: this._timeAnswer.innerText, isGame: true});
     } else {
-      this.dispatch({status: GameStatuses.FAIL_STATUSE, isGame: true});
+      this.dispatch({status: GameStatuses.FAIL, isGame: true});
     }
 
   }

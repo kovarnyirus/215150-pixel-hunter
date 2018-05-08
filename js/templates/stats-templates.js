@@ -10,10 +10,10 @@ const countStat = (array) => {
   };
 
   for (let item of array) {
-    if (item === AnswerTypes.FAST_ANSWER) {
+    if (item === AnswerTypes.FAST) {
       counter.fast++;
       counter.total++;
-    } else if (item === AnswerTypes.SLOW_ANSWER) {
+    } else if (item === AnswerTypes.SLOW) {
       counter.slow++;
       counter.total++;
     }
@@ -89,7 +89,7 @@ const timeOutTemplate = (gameData) =>
    ${stats(gameData.questionStats)}
     </td>
     <td class="result__points">×&nbsp;${POINTS_CORRECT_ANSWER}</td>
-  <td class="result__total">${countStat(gameData.questionStats, AnswerTypes.SUCCESS_ANSWER) * POINTS_CORRECT_ANSWER}</td>
+  <td class="result__total">${countStat(gameData.questionStats, AnswerTypes.SUCCESS) * POINTS_CORRECT_ANSWER}</td>
     </tr>
     <tr>
     <td></td>

@@ -31,7 +31,7 @@ class GreetingView extends AbstractView {
 
   onMouseDownGreeting() {
     this._nextBtn.removeEventListener(`mousedown`, this.onMouseDownGreeting);
-    this.dispatch({status: GameStatuses.SUCCES_STATUSE, isGame: false});
+    this.dispatch({status: GameStatuses.SUCCES, isGame: false});
   }
 }
 

@@ -136,7 +136,7 @@ class StatsView extends AbstractView {
 
   onMouseDownButtonBack() {
     this.buttonBack.removeEventListener(`mousedown`, this.onMouseDownButtonBack);
-    this.dispatch({status: GameStatuses.GO_BACK_STATUSE, isGame: false});
+    this.dispatch({status: GameStatuses.GO_BACK, isGame: false});
   }
 
 }

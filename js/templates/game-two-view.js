@@ -50,7 +50,7 @@ class GameTwoView extends AbstractView {
     if (evt.target.className === `back`) {
       this.removeListeners();
       this.removeModalListener();
-      this.dispatch({status: GameStatuses.GO_BACK_STATUSE, isGame: true});
+      this.dispatch({status: GameStatuses.GO_BACK, isGame: true});
     } else {
       this.removeModalListener();
       this._modal.classList.add(`modal--close`);
@@ -60,9 +60,9 @@ class GameTwoView extends AbstractView {
   onChangeInput(evt) {
     this.removeListeners();
     if (this._gameImages[0].type === evt.target.value) {
-      this.dispatch({status: GameStatuses.SUCCES_STATUSE, time: this._timeAnswer.innerText, isGame: true});
+      this.dispatch({status: GameStatuses.SUCCES, time: this._timeAnswer.innerText, isGame: true});
     } else {
-      this.dispatch({status: GameStatuses.FAIL_STATUSE, isGame: true});
+      this.dispatch({status: GameStatuses.FAIL, isGame: true});
     }
   }
 }

@@ -59,12 +59,12 @@ class RulesView extends AbstractView {
   onMouseDownButtonGo(evt) {
     evt.preventDefault();
     this.removeListeners();
-    this.dispatch({status: GameStatuses.SUCCES_STATUSE, isGame: false, name: this.inputName.value});
+    this.dispatch({status: GameStatuses.SUCCES, isGame: false, name: this.inputName.value});
   }
 
   onMouseDownButtonBack() {
     this.removeListeners();
-    this.dispatch({status: GameStatuses.GO_BACK_STATUSE});
+    this.dispatch({status: GameStatuses.GO_BACK});
   }
 
 }

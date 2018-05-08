@@ -5,8 +5,8 @@ import MODAL from './modal.js';
 import {GameStatuses} from '../dispatcher.js';
 
 const Questions = {
-  QUESTION_ONE: `question1`,
-  QUESTION_TWO: `question2`
+  FIRST: `question1`,
+  SECOND: `question2`
 };
 
 class GameOneView extends AbstractView {
@@ -58,7 +58,7 @@ class GameOneView extends AbstractView {
     if (evt.target.className === `back`) {
       this.removeListeners();
       this.removeModalListener();
-      this.dispatch({status: GameStatuses.GO_BACK_STATUSE, isGame: true});
+      this.dispatch({status: GameStatuses.GO_BACK, isGame: true});
     } else {
       this.removeModalListener();
       this._modal.classList.add(`modal--close`);
@@ -69,9 +69,9 @@ class GameOneView extends AbstractView {
     if (this._chekedOne && this._chekedTwo) {
       this.removeListeners();
       if (this._gameImages[0].type === this._chekedOne && this._gameImages[1].type === this._chekedTwo) {
-        this.dispatch({status: GameStatuses.SUCCES_STATUSE, time: this._timeAnswer.innerText, isGame: true});
+        this.dispatch({status: GameStatuses.SUCCES, time: this._timeAnswer.innerText, isGame: true});
       } else {
-        this.dispatch({status: GameStatuses.FAIL_STATUSE, isGame: true});
+        this.dispatch({status: GameStatuses.FAIL, isGame: true});
       }
       this._chekedOne = false;
       this._chekedTwo = false;
@@ -79,9 +79,9 @@ class GameOneView extends AbstractView {
   }
 
   onChangeInput(evt) {
-    if (evt.target.name === Questions.QUESTION_ONE) {
+    if (evt.target.name === Questions.FIRST) {
       this._chekedOne = evt.target.value;
-    } else if (evt.target.name === Questions.QUESTION_TWO) {
+    } else if (evt.target.name === Questions.SECOND) {
       this._chekedTwo = evt.target.value;
     }
     this.setNextScreen();

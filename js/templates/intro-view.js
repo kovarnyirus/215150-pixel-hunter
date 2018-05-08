@@ -27,7 +27,7 @@ class IntroView extends AbstractView {
 
   onMousedownAsterisk() {
     this._ASTERISK.removeEventListener(`mousedown`, this.onMousedownAsterisk);
-    this.dispatch({status: GameStatuses.SUCCES_STATUSE, isGame: false});
+    this.dispatch({status: GameStatuses.SUCCES, isGame: false});
   }
 }
 

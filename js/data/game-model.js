@@ -9,10 +9,10 @@ const ScreenTypes = {
   STATS: `STATS`
 };
 const AnswerTypes = {
-  FAST_ANSWER: `fast`,
-  SLOW_ANSWER: `slow`,
-  SUCCESS_ANSWER: `succes`,
-  FAIL_ANSWER: `fail`
+  FAST: `fast`,
+  SLOW: `slow`,
+  SUCCESS: `succes`,
+  FAIL: `fail`
 };
 
 class GameModel {
@@ -110,11 +110,11 @@ class GameModel {
 
   static _getQuestionStats(time) {
     if (time >= 20) {
-      return AnswerTypes.FAST_ANSWER;
+      return AnswerTypes.FAST;
     } else if (time <= 10) {
-      return AnswerTypes.SLOW_ANSWER;
+      return AnswerTypes.SLOW;
     }
-    return AnswerTypes.SUCCESS_ANSWER;
+    return AnswerTypes.SUCCESS;
   }
 
 
@@ -148,7 +148,7 @@ class GameModel {
     this._state.answers.push(false);
     this._state.lives--;
     this._state.currentLevel++;
-    this._state.questionStats.push(AnswerTypes.FAIL_ANSWER);
+    this._state.questionStats.push(AnswerTypes.FAIL);
     if (this._state.lives < 0) {
       this._state.currentLevel = this._state.levels.length - 1;
     }
@@ -156,7 +156,7 @@ class GameModel {
 
   setTimeOut() {
     this._state.time.push(30);
-    this._state.questionStats.push(AnswerTypes.FAIL_ANSWER);
+    this._state.questionStats.push(AnswerTypes.FAIL);
     this._state.currentLevel++;
     this._state.lives--;
   }
