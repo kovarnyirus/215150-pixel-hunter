@@ -1,4 +1,4 @@
-import createElement from './createElement.js';
+import createElement from './create-element.js';
 import FOOTER from './templates/footer.js';
 
 export default class AbstractView {

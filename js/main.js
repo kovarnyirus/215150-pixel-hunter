@@ -1,4 +1,4 @@
-import GameDispatcher from './dispatcher.js';
+import {GameDispatcher} from './dispatcher.js';
 
 const game = new GameDispatcher();
 game.run();

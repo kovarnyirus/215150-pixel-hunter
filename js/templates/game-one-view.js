@@ -1,10 +1,15 @@
 import AbstractView from '../abstract-view.js';
 import {headerStatistics} from './header.js';
-import {templateFirst} from './game-tamplates';
-import modal from './modal.js';
-import {addHandler, removeHandler} from '../utils.js';
+import {templateFirst} from './game-templates';
+import MODAL from './modal.js';
+import {GameStatuses} from '../dispatcher.js';
 
-class gameOneView extends AbstractView {
+const Questions = {
+  FIRST: `question1`,
+  SECOND: `question2`
+};
+
+class GameOneView extends AbstractView {
   constructor(dispatch, levelData, stats) {
     super(dispatch);
     this._levelData = levelData;
@@ -14,40 +19,31 @@ class gameOneView extends AbstractView {
     this._chekedOne = false;
     this._chekedTwo = false;
     this._gameImages = levelData.images;
-    this._modalTemplate = modal;
-    this._addHandler = addHandler;
-    this._removeHandler = removeHandler;
-
+    this._modalTemplate = MODAL;
     this.onMouseDownButtonBack = this.onMouseDownButtonBack.bind(this);
-    this.onChangeInputOne = this.onChangeInputOne.bind(this);
-    this.onChangeInputTwo = this.onChangeInputTwo.bind(this);
+    this.onChangeInput = this.onChangeInput.bind(this);
     this.onMouseDownModal = this.onMouseDownModal.bind(this);
-    this.nextScreen = this.nextScreen.bind(this);
-
+    this.setNextScreen = this.setNextScreen.bind(this);
   }
 
   get template() {
-    return this._headerStatistics(this._stats) + this._templateFirst(this._levelData, this._stats.questionStats) + this._footer + this._modalTemplate;
+    return `${this._headerStatistics(this._stats)} ${this._templateFirst(this._levelData, this._stats.questionStats)} ${this._footer} ${this._modalTemplate}`;
   }
 
   bind() {
     this._buttonBack = this.element.querySelector(`.header__back`);
     this._timeAnswer = this.element.querySelector(`.game__timer`);
     this._modal = this.element.querySelector(`.modal`);
-    this._inputOne = this.element.querySelectorAll(`input[name="question1"]`);
-    this._inputTwo = this.element.querySelectorAll(`input[name="question2"]`);
+    this._gameContent = this.element.querySelector(`.game__content`);
 
     this._buttonBack.addEventListener(`mousedown`, this.onMouseDownButtonBack);
-    this._addHandler(this._inputOne, `change`, this.onChangeInputOne);
-    this._addHandler(this._inputTwo, `change`, this.onChangeInputTwo);
+    this._gameContent.addEventListener(`change`, this.onChangeInput);
     this._modal.classList.add(`modal--close`);
   }
 
   removeListeners() {
     this._buttonBack.removeEventListener(`mousedown`, this.onMouseDownButtonBack);
-    this._removeHandler(this._inputOne, `change`, this.onChangeInputOne);
-    this._removeHandler(this._inputTwo, `change`, this.onChangeInputTwo);
-
+    this._gameContent.removeEventListener(`change`, this.onChangeInput);
   }
   removeModalListener() {
     this._modal.removeEventListener(`mousedown`, this.onMouseDownModal);
@@ -62,36 +58,35 @@ class gameOneView extends AbstractView {
     if (evt.target.className === `back`) {
       this.removeListeners();
       this.removeModalListener();
-      this.dispatch({status: `goBack`, isGame: true});
+      this.dispatch({status: GameStatuses.GO_BACK, isGame: true});
     } else {
       this.removeModalListener();
       this._modal.classList.add(`modal--close`);
     }
   }
 
-  nextScreen() {
+  setNextScreen() {
     if (this._chekedOne && this._chekedTwo) {
       this.removeListeners();
       if (this._gameImages[0].type === this._chekedOne && this._gameImages[1].type === this._chekedTwo) {
-        this.dispatch({status: `succes`, time: this._timeAnswer.innerText, isGame: true});
+        this.dispatch({status: GameStatuses.SUCCES, time: this._timeAnswer.innerText, isGame: true});
       } else {
-        this.dispatch({status: `fail`, isGame: true});
+        this.dispatch({status: GameStatuses.FAIL, isGame: true});
       }
       this._chekedOne = false;
       this._chekedTwo = false;
     }
   }
 
-  onChangeInputOne(evt) {
-    this._chekedOne = evt.target.value;
-    this.nextScreen();
-  }
-
-  onChangeInputTwo(evt) {
-    this._chekedTwo = evt.target.value;
-    this.nextScreen();
+  onChangeInput(evt) {
+    if (evt.target.name === Questions.FIRST) {
+      this._chekedOne = evt.target.value;
+    } else if (evt.target.name === Questions.SECOND) {
+      this._chekedTwo = evt.target.value;
+    }
+    this.setNextScreen();
   }
 
 }
 
-export default gameOneView;
+export default GameOneView;

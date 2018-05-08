@@ -21,7 +21,7 @@ const countScore = (data, lives) => {
     return previousValue;
   }, 0);
 
-  let pointTime = data.time.reduce((previousValue, item) => {
+  const pointTime = data.time.reduce((previousValue, item) => {
     if (item >= TIME_FAST_ANSWER) {
       previousValue += POINTS_FAST_ANSWER;
     } else if (item < TIME_SLOW_ANSWER) {
@@ -30,7 +30,7 @@ const countScore = (data, lives) => {
     return previousValue;
   }, 0);
 
-  let totalPoints = (lives * POINTS_LIVE) + pointsAnswers + pointTime;
+  const totalPoints = (lives * POINTS_LIVE) + pointsAnswers + pointTime;
 
   return totalPoints;
 };

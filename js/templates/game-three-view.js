@@ -1,19 +1,22 @@
 import AbstractView from '../abstract-view.js';
 import {headerStatistics} from './header.js';
-import {templateThird} from './game-tamplates';
-import modal from './modal.js';
-import {addHandler, removeHandler} from '../utils.js';
+import {templateThird} from './game-templates';
+import MODAL from './modal.js';
+import {GameStatuses} from '../dispatcher.js';
 
-class gameThreeView extends AbstractView {
+const AnswerTypes = {
+  PAINT: `paint`,
+  PHOTO: `photo`
+};
+
+class GameThreeView extends AbstractView {
   constructor(dispatch, levelData, stats) {
     super(dispatch);
     this._levelData = levelData;
     this._stats = stats;
     this._headerStatistics = headerStatistics;
     this._templateThird = templateThird;
-    this._addHandler = addHandler;
-    this._removeHandler = removeHandler;
-    this._modalTemplate = modal;
+    this._modalTemplate = MODAL;
 
     this.onMouseDownButtonBack = this.onMouseDownButtonBack.bind(this);
     this.onMouseDownModal = this.onMouseDownModal.bind(this);
@@ -22,21 +25,22 @@ class gameThreeView extends AbstractView {
   }
 
   get template() {
-    return this._headerStatistics(this._stats) + this._templateThird(this._levelData, this._stats.questionStats) + this._footer + this._modalTemplate;
+    return `${this._headerStatistics(this._stats)} ${this._templateThird(this._levelData, this._stats.questionStats)} ${this._footer} ${this._modalTemplate}`;
   }
 
   bind() {
     this.buttonBack = this.element.querySelector(`.header__back`);
-    this.gameCard = this.element.querySelectorAll(`.game__option`);
+    this.gameCards = this.element.querySelectorAll(`.game__option`);
+    this._gameContent = this.element.querySelector(`.game__content`);
     this._modal = this.element.querySelector(`.modal`);
     this._timeAnswer = this.element.querySelector(`.game__timer`);
     this.buttonBack.addEventListener(`mousedown`, this.onMouseDownButtonBack);
-    this._addHandler(this.gameCard, `mousedown`, this.onMouseDownGameCard);
+    this._gameContent.addEventListener(`mousedown`, this.onMouseDownGameCard);
     this._modal.classList.add(`modal--close`);
   }
 
   removeListeners() {
-    this._removeHandler(this.gameCard, `mousedown`, this.onMouseDownGameCard);
+    this._gameContent.removeEventListener(`mousedown`, this.onMouseDownGameCard);
     this.buttonBack.removeEventListener(`mousedown`, this.onMouseDownButtonBack);
   }
 
@@ -53,7 +57,7 @@ class gameThreeView extends AbstractView {
     if (evt.target.className === `back`) {
       this.removeListeners();
       this.removeModalListener();
-      this.dispatch({status: `goBack`, isGame: true});
+      this.dispatch({status: GameStatuses.GO_BACK, isGame: true});
     } else {
       this.removeModalListener();
       this._modal.classList.add(`modal--close`);
@@ -63,27 +67,28 @@ class gameThreeView extends AbstractView {
   onMouseDownGameCard(evt) {
     this.removeListeners();
     let correctAnswer;
-    let imgTypeCounter = () => {
+    const getImageTypes = () => {
       let counterPaint = 0;
       let counterPhoto = 0;
-      this.gameCard.forEach((item) => {
-        if (item.children[0].attributes[2].value === `paint`) {
+
+      for (let gameCard of this.gameCards) {
+        if (gameCard.children[0].attributes[2].value === AnswerTypes) {
           counterPaint++;
         } else {
           counterPhoto++;
         }
-      });
-      correctAnswer = counterPhoto > counterPaint ? `paint` : `photo`;
+      }
+      correctAnswer = counterPhoto > counterPaint ? AnswerTypes.PAINT : AnswerTypes.PHOTO;
     };
-    imgTypeCounter();
+    getImageTypes();
     if (evt.target.attributes[2].value === correctAnswer) {
-      this.dispatch({status: `succes`, time: this._timeAnswer.innerText, isGame: true});
+      this.dispatch({status: GameStatuses.SUCCES, time: this._timeAnswer.innerText, isGame: true});
     } else {
-      this.dispatch({status: `fail`, isGame: true});
+      this.dispatch({status: GameStatuses.FAIL, isGame: true});
     }
 
   }
 
 }
 
-export default gameThreeView;
+export default GameThreeView;

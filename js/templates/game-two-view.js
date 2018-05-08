@@ -1,42 +1,40 @@
 import AbstractView from '../abstract-view.js';
 import {headerStatistics} from './header.js';
-import {templateSecomnd} from './game-tamplates';
-import modal from './modal.js';
-import {addHandler, removeHandler} from '../utils.js';
+import {templateSecond} from './game-templates';
+import MODAL from './modal.js';
+import {GameStatuses} from '../dispatcher.js';
 
-class gameTwoView extends AbstractView {
+class GameTwoView extends AbstractView {
   constructor(dispatch, levelData, stats) {
     super(dispatch);
     this._levelData = levelData;
     this._stats = stats;
     this._headerStatistics = headerStatistics;
-    this._templateSecomnd = templateSecomnd;
+    this._templateSecomnd = templateSecond;
     this._gameImages = levelData.images;
-    this._addHandler = addHandler;
-    this._removeHandler = removeHandler;
     this.onMouseDownButtonBack = this.onMouseDownButtonBack.bind(this);
     this.onChangeInput = this.onChangeInput.bind(this);
     this.onMouseDownModal = this.onMouseDownModal.bind(this);
-    this._modaltemplate = modal;
+    this._modaltemplate = MODAL;
   }
 
   get template() {
-    return this._headerStatistics(this._stats) + this._templateSecomnd(this._levelData, this._stats.questionStats) + this._footer + this._modaltemplate;
+    return `${this._headerStatistics(this._stats)} ${this._templateSecomnd(this._levelData, this._stats.questionStats)} ${this._footer} ${this._modaltemplate}`;
   }
 
   bind() {
     this._buttonBack = this.element.querySelector(`.header__back`);
     this._timeAnswer = this.element.querySelector(`.game__timer`);
-    this._inputQuestion = this.element.querySelectorAll(`input`);
+    this._gameContent = this.element.querySelector(`.game__content`);
     this._modal = this.element.querySelector(`.modal`);
     this._buttonBack.addEventListener(`mousedown`, this.onMouseDownButtonBack);
-    this._addHandler(this._inputQuestion, `change`, this.onChangeInput);
+    this._gameContent.addEventListener(`change`, this.onChangeInput);
     this._modal.classList.add(`modal--close`);
   }
 
   removeListeners() {
     this._buttonBack.removeEventListener(`mousedown`, this.onMouseDownButtonBack);
-    this._removeHandler(this._inputQuestion, `change`, this.onChangeInput);
+    this._gameContent.removeEventListener(`change`, this.onChangeInput);
   }
 
   removeModalListener() {
@@ -52,7 +50,7 @@ class gameTwoView extends AbstractView {
     if (evt.target.className === `back`) {
       this.removeListeners();
       this.removeModalListener();
-      this.dispatch({status: `goBack`, isGame: true});
+      this.dispatch({status: GameStatuses.GO_BACK, isGame: true});
     } else {
       this.removeModalListener();
       this._modal.classList.add(`modal--close`);
@@ -62,11 +60,11 @@ class gameTwoView extends AbstractView {
   onChangeInput(evt) {
     this.removeListeners();
     if (this._gameImages[0].type === evt.target.value) {
-      this.dispatch({status: `succes`, time: this._timeAnswer.innerText, isGame: true});
+      this.dispatch({status: GameStatuses.SUCCES, time: this._timeAnswer.innerText, isGame: true});
     } else {
-      this.dispatch({status: `fail`, isGame: true});
+      this.dispatch({status: GameStatuses.FAIL, isGame: true});
     }
   }
 }
 
-export default gameTwoView;
+export default GameTwoView;

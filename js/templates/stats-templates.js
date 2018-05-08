@@ -1,31 +1,28 @@
 import {stats} from './stats-template.js';
 import {countScore, POINTS_FAST_ANSWER, POINTS_CORRECT_ANSWER, POINTS_SLOW_ANSWER, POINTS_LIVE} from '../data/game-logic';
-
-const FAST = `fast`;
-const SLOW = `slow`;
-const SUCCES_ANSWER = `succes`;
-
+import {AnswerTypes} from '../data/game-model.js';
 
 const countStat = (array) => {
-  let counter = {
+  const counter = {
     fast: 0,
     slow: 0,
     total: 0
   };
-  array.forEach((item) => {
-    if (item === FAST) {
+
+  for (let item of array) {
+    if (item === AnswerTypes.FAST) {
       counter.fast++;
       counter.total++;
-    } else if (item === SLOW) {
+    } else if (item === AnswerTypes.SLOW) {
       counter.slow++;
       counter.total++;
     }
-  });
+  }
   return counter;
 };
 
 const winTemplate = (gameData) => {
-  let countedStats = countStat(gameData.questionStats);
+  const countedStats = countStat(gameData.questionStats);
   return `<div class="result">
 <h1>Победа!</h1>
   <table class="result__table">
@@ -92,7 +89,7 @@ const timeOutTemplate = (gameData) =>
    ${stats(gameData.questionStats)}
     </td>
     <td class="result__points">×&nbsp;${POINTS_CORRECT_ANSWER}</td>
-  <td class="result__total">${countStat(gameData.questionStats, SUCCES_ANSWER) * POINTS_CORRECT_ANSWER}</td>
+  <td class="result__total">${countStat(gameData.questionStats, AnswerTypes.SUCCESS) * POINTS_CORRECT_ANSWER}</td>
     </tr>
     <tr>
     <td></td>

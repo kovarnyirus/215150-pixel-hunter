@@ -1,4 +1,5 @@
 import AbstractView from '../abstract-view.js';
+import {GameStatuses} from '../dispatcher.js';
 
 class IntroView extends AbstractView {
   constructor(dispatch, levelData) {
@@ -26,7 +27,7 @@ class IntroView extends AbstractView {
 
   onMousedownAsterisk() {
     this._ASTERISK.removeEventListener(`mousedown`, this.onMousedownAsterisk);
-    this.dispatch({status: `succes`, isGame: false});
+    this.dispatch({status: GameStatuses.SUCCES, isGame: false});
   }
 }
 

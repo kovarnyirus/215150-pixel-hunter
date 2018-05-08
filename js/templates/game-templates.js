@@ -35,7 +35,7 @@ const templateFirst = (data, statsData) => {
 };
 
 
-const templateSecomnd = (data, statsData) => `<div class="game">
+const templateSecond = (data, statsData) => `<div class="game">
     <p class="game__task">${data.question}</p>
     <form class="game__content  game__content--wide">
       <div class="game__option">
@@ -76,4 +76,4 @@ const templateThird = (data, statsData) => `
   </div>
   `;
 
-export {templateFirst, templateSecomnd, templateThird};
+export {templateFirst, templateSecond, templateThird};

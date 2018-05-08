@@ -1,12 +1,25 @@
 import adaptServerData from './data-adapter.js';
+import {onLoadError} from '../utils.js';
 
 const INITIAL_LIVES = 3;
+const ScreenTypes = {
+  INTRO: `INTRO`,
+  GREETING: `GREETING`,
+  RULES: `RULES`,
+  STATS: `STATS`
+};
+const AnswerTypes = {
+  FAST: `fast`,
+  SLOW: `slow`,
+  SUCCESS: `succes`,
+  FAIL: `fail`
+};
 
 class GameModel {
   constructor(handleDataLoad) {
     this._handleDataLoad = handleDataLoad;
     this._dataLoaded = false;
-    this._getImage = null;
+    this._onLoadError = onLoadError;
     this._state = null;
     this.restart = this.restart.bind(this);
     this._loader = this._loader.bind(this);
@@ -33,27 +46,27 @@ class GameModel {
 
   _getIntro() {
     return {
-      type: `intro`,
+      type: ScreenTypes.INTRO,
       dataLoaded: this._dataLoaded
     };
   }
 
-  _getGreeting() {
+  static _getGreeting() {
     return {
-      type: `greeting`
+      type: ScreenTypes.GREETING
     };
   }
 
-  _getRules() {
+  static _getRules() {
     return {
-      type: `rules`,
+      type: ScreenTypes.RULES,
       userName: ``
     };
   }
 
-  _getStats() {
+  static _getStats() {
     return {
-      type: `stats`
+      type: ScreenTypes.STATS
     };
   }
 
@@ -75,30 +88,33 @@ class GameModel {
           if (response.ok) {
             return response.json();
           } else if (response.status === 404) {
-            throw new Error(`файлы не найдены`);
+            return this._onLoadError(`Файлы на сервере не найдены`);
           }
-          throw new Error(`Неизвестный статус: ${response.status} ${response.statusText}`);
+          return this._onLoadError(`Неизвестный статус: ${response.status} ${response.statusText}`);
         })
         .then((data) => {
           formatData = adaptServerData(data);
           return onLoad(formatData);
         })
         .catch((err) => {
-          throw new Error(`${err}`);
+          if (err.stack === `TypeError: Failed to fetch`) {
+            return this._onLoadError(`Сервер недоступен`);
+          }
+          return this._onLoadError(`Неизвестная ошибка: ${err} свяжитесь с администратором`);
         });
   }
 
   _getGameList() {
-    return [this._getIntro(), this._getGreeting(), this._getRules(), ...this._levelsData, this._getStats()];
+    return [this._getIntro(), GameModel._getGreeting(), GameModel._getRules(), ...this._levelsData, GameModel._getStats()];
   }
 
-  _questionStats(time) {
+  static _getQuestionStats(time) {
     if (time >= 20) {
-      return `fast`;
+      return AnswerTypes.FAST;
     } else if (time <= 10) {
-      return `slow`;
+      return AnswerTypes.SLOW;
     }
-    return `succes`;
+    return AnswerTypes.SUCCESS;
   }
 
 
@@ -118,9 +134,9 @@ class GameModel {
     }
   }
 
-  succesAnswer(time) {
+  setSuccesAnswer(time) {
     this._state.answers.push(true);
-    this._state.questionStats.push(this._questionStats(time));
+    this._state.questionStats.push(GameModel._getQuestionStats(time));
     this._state.time.push(time);
   }
 
@@ -128,30 +144,30 @@ class GameModel {
     this.init();
   }
 
-  wrongAnswer() {
+  setWrongAnswer() {
     this._state.answers.push(false);
     this._state.lives--;
     this._state.currentLevel++;
-    this._state.questionStats.push(`fail`);
+    this._state.questionStats.push(AnswerTypes.FAIL);
     if (this._state.lives < 0) {
       this._state.currentLevel = this._state.levels.length - 1;
     }
   }
 
-  timeOut() {
+  setTimeOut() {
     this._state.time.push(30);
-    this._state.questionStats.push(`fail`);
+    this._state.questionStats.push(AnswerTypes.FAIL);
     this._state.currentLevel++;
     this._state.lives--;
   }
 
-  storePlayerName(playerName) {
+  savePlayerName(playerName) {
     this._state.userName = playerName;
   }
 
-  nextScreen() {
+  setNextScreen() {
     this._state.currentLevel++;
   }
 }
 
-export default GameModel;
+export {GameModel, AnswerTypes};

@@ -1,24 +1,30 @@
-import GameModel from './data/gameModel.js';
+import {GameModel} from './data/game-model.js';
 import timer from './data/timer.js';
 import {renderScreen} from './utils.js';
-import greetingView from './templates/greetingView';
-import IntroView from './templates/IntroView.js';
-import rulesView from './templates/rulesView.js';
-import gameTwoView from './templates/gameTwoView.js';
-import gameOneView from './templates/gameOneView.js';
-import gameThreeView from './templates/gameThreeView.js';
-import StatsView from './templates/statsView.js';
+import GreetingView from './templates/greeting-view';
+import IntroView from './templates/intro-view.js';
+import RulesView from './templates/rules-view.js';
+import GameTwoView from './templates/game-two-view.js';
+import GameOneView from './templates/game-one-view.js';
+import GameThreeView from './templates/game-three-view.js';
+import StatsView from './templates/stats-view.js';
 
 const REMAINING_SECONDS = 5;
 const MAX_TIMER = 30;
-const levelScreens = {
-  'intro': IntroView,
-  'greeting': greetingView,
-  'rules': rulesView,
-  'game-1': gameOneView,
-  'game-2': gameTwoView,
-  'game-3': gameThreeView,
-  'stats': StatsView
+const LEVELSCREENS = {
+  'INTRO': IntroView,
+  'GREETING': GreetingView,
+  'RULES': RulesView,
+  'GAME-1': GameOneView,
+  'GAME-2': GameTwoView,
+  'GAME-3': GameThreeView,
+  'STATS': StatsView
+};
+
+const GameStatuses = {
+  SUCCES: `succes`,
+  FAIL: `fail`,
+  GO_BACK: `goBack`
 };
 
 class GameDispatcher {
@@ -37,30 +43,30 @@ class GameDispatcher {
     if (isGame) {
       this._stopTimer();
     }
-    if (status === `succes`) {
+    if (status === GameStatuses.SUCCES) {
       if (name) {
-        this._data.storePlayerName(name);
+        this._data.savePlayerName(name);
       } else if (time) {
-        this._data.succesAnswer(time);
+        this._data.setSuccesAnswer(time);
       }
-      this._data.nextScreen();
-    } else if (status === `goBack`) {
+      this._data.setNextScreen();
+    } else if (status === GameStatuses.GO_BACK) {
       this._data.restart();
-    } else if (status === `fail`) {
-      this._data.wrongAnswer();
+    } else if (status === GameStatuses.FAIL) {
+      this._data.setWrongAnswer();
     }
     this.run();
   }
 
   run() {
-    let gameData = this._data.gameData;
+    const gameData = this._data.gameData;
     const levelData = gameData.levels[gameData.currentLevel];
     if (gameData.currentLevel === 0) {
       renderScreen(new IntroView(this._handlerDispatcher, levelData).element);
     } else if (gameData.lives < 0) {
-      renderScreen(new StatsView(this._handlerDispatcher, `fail`, gameData).element);
+      renderScreen(new StatsView(this._handlerDispatcher, GameStatuses.FAIL, gameData).element);
     } else if (gameData.currentLevel <= 14) {
-      const levelScreen = new levelScreens[levelData.type](this._handlerDispatcher, levelData, gameData);
+      const levelScreen = new LEVELSCREENS[levelData.type](this._handlerDispatcher, levelData, gameData);
       const element = levelScreen.timer;
       renderScreen(levelScreen.element);
       this._initTimer(element, MAX_TIMER);
@@ -74,21 +80,21 @@ class GameDispatcher {
       this._timer = setInterval(() => {
         if (time === 1) {
           this._stopTimer();
-          this._data.timeOut();
+          this._data.setTimeOut();
           this.run();
         }
-        time = this._nextTick(time);
-        this._renderTimer(element, time);
+        time = GameDispatcher._getNextTick(time);
+        GameDispatcher._renderTimer(element, time);
       }, 1000);
     }
 
   }
 
-  _nextTick(sec) {
+  static _getNextTick(sec) {
     return timer(sec).tick();
   }
 
-  _renderTimer(element, value) {
+  static _renderTimer(element, value) {
     element.textContent = value;
     if (value === REMAINING_SECONDS) {
       element.classList.add(`blink`);
@@ -100,4 +106,4 @@ class GameDispatcher {
   }
 }
 
-export default GameDispatcher;
+export {GameDispatcher, GameStatuses};

@@ -1,13 +1,14 @@
 import AbstractView from '../abstract-view.js';
-import {header} from './header.js';
+import {HEADER} from './header.js';
+import {GameStatuses} from '../dispatcher.js';
 
-class rulesView extends AbstractView {
+class RulesView extends AbstractView {
   constructor(dispatch) {
     super(dispatch);
     this.onMouseDownButtonGo = this.onMouseDownButtonGo.bind(this);
     this.onMouseDownButtonBack = this.onMouseDownButtonBack.bind(this);
-    this.onKeyupInputName = this.onKeyupInputName.bind(this);
-    this.header = header;
+    this.onKeyUpInputName = this.onKeyUpInputName.bind(this);
+    this.header = HEADER;
   }
 
   get template() {
@@ -38,10 +39,10 @@ class rulesView extends AbstractView {
 
     this.buttonGo.addEventListener(`mousedown`, this.onMouseDownButtonGo);
     this.buttonBack.addEventListener(`mousedown`, this.onMouseDownButtonBack);
-    this.inputName.addEventListener(`keyup`, this.onKeyupInputName);
+    this.inputName.addEventListener(`keyup`, this.onKeyUpInputName);
   }
 
-  onKeyupInputName() {
+  onKeyUpInputName() {
     if (this.inputName.value.length) {
       this.buttonGo.removeAttribute(`disabled`);
     } else {
@@ -52,20 +53,20 @@ class rulesView extends AbstractView {
   removeListeners() {
     this.buttonGo.removeEventListener(`mousedown`, this.onMouseDownButtonGo);
     this.buttonBack.removeEventListener(`mousedown`, this.onMouseDownButtonBack);
-    this.inputName.removeEventListener(`keyup`, this.onKeyupInputName);
+    this.inputName.removeEventListener(`keyup`, this.onKeyUpInputName);
   }
 
   onMouseDownButtonGo(evt) {
     evt.preventDefault();
     this.removeListeners();
-    this.dispatch({status: `succes`, isGame: false, name: this.inputName.value});
+    this.dispatch({status: GameStatuses.SUCCES, isGame: false, name: this.inputName.value});
   }
 
   onMouseDownButtonBack() {
     this.removeListeners();
-    this.dispatch({status: `goBack`});
+    this.dispatch({status: GameStatuses.GO_BACK});
   }
 
 }
 
-export default rulesView;
+export default RulesView;
