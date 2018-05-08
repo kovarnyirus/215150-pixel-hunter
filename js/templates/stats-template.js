@@ -5,13 +5,13 @@ const drawStats = (stats) => {
 
   stats.forEach((item, index) =>{
     if (item === `succes`) {
-      arr[index] = `<li class="stats__result stats__result--correct"></li>`;
+    arrayStats[index] = `<li class="stats__result stats__result--correct"></li>`;
     } else if (item === `fail`) {
-      arr[index] = `<li class="stats__result stats__result--wrong"></li>`;
+    arrayStats[index] = `<li class="stats__result stats__result--wrong"></li>`;
     } else if (item === `slow`) {
-      arr[index] = `<li class="stats__result stats__result--slow"></li>`;
+    arrayStats[index] = `<li class="stats__result stats__result--slow"></li>`;
     } else if (item === `fast`) {
-      arr[index] = `<li class="stats__result stats__result--fast"></li>`;
+    arrayStats[index] = `<li class="stats__result stats__result--fast"></li>`;
     }
   });
   return arrayStats.join(``);
