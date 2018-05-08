@@ -40,8 +40,13 @@ class StatsView extends AbstractView {
         'Content-Type': `application/json`
       }
     })
+        .then((response) => {
+          if (!response.ok) {
+            this._onLoadError(`Произошла ошибка, при отправлении данных.`);
+          }
+        })
         .catch((err) => {
-          return this._onLoadError(`ошибка при отправлении данных: ${err}`);
+          this._onLoadError(`ошибка при отправлении данных: ${err}`);
         });
   }
 
@@ -87,7 +92,6 @@ class StatsView extends AbstractView {
   getUserData() {
     window.fetch(`https://es.dump.academy/pixel-hunter/stats/:${this.applicationId}-:${this._stats.userName}`)
         .then((response) => {
-          console.log(response);
           if (response.ok) {
             return response.json();
           } else if (response.status === 404) {
