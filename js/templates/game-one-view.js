@@ -4,6 +4,10 @@ import {templateFirst} from './game-templates';
 import MODAL from './modal.js';
 import {GameStatuses} from '../dispatcher.js';
 
+const Questions = {
+  QUESTION_ONE: `question1`,
+  QUESTION_TWO: `question2`
+};
 
 class GameOneView extends AbstractView {
   constructor(dispatch, levelData, stats) {
@@ -75,9 +79,9 @@ class GameOneView extends AbstractView {
   }
 
   onChangeInput(evt) {
-    if (evt.target.name === `question1`) {
+    if (evt.target.name === Questions.QUESTION_ONE) {
       this._chekedOne = evt.target.value;
-    } else if (evt.target.name === `question2`) {
+    } else if (evt.target.name === Questions.QUESTION_TWO) {
       this._chekedTwo = evt.target.value;
     }
     this.setNextScreen();

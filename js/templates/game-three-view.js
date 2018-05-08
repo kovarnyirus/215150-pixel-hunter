@@ -4,6 +4,11 @@ import {templateThird} from './game-templates';
 import MODAL from './modal.js';
 import {GameStatuses} from '../dispatcher.js';
 
+const AnswerTypes = {
+  PAINT_TYPE: `paint`,
+  PHOTO_TYPE: `photo`
+};
+
 class GameThreeView extends AbstractView {
   constructor(dispatch, levelData, stats) {
     super(dispatch);
@@ -67,13 +72,13 @@ class GameThreeView extends AbstractView {
       let counterPhoto = 0;
 
       for (let gameCard of this.gameCards) {
-        if (gameCard.children[0].attributes[2].value === `paint`) {
+        if (gameCard.children[0].attributes[2].value === AnswerTypes.PAINT_TYPE) {
           counterPaint++;
         } else {
           counterPhoto++;
         }
       }
-      correctAnswer = counterPhoto > counterPaint ? `paint` : `photo`;
+      correctAnswer = counterPhoto > counterPaint ? AnswerTypes.PAINT_TYPE : AnswerTypes.PHOTO_TYPE;
     };
     getImageTypes();
     if (evt.target.attributes[2].value === correctAnswer) {
