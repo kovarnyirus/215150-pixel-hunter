@@ -2,6 +2,18 @@ import adaptServerData from './data-adapter.js';
 import {onLoadError} from '../utils.js';
 
 const INITIAL_LIVES = 3;
+const ScreenTypes = {
+  INTRO: `INTRO`,
+  GREETING: `GREETING`,
+  RULES: `RULES`,
+  STATS: `STATS`
+};
+const AnswerTypes = {
+  FAST_ANSWER: `fast`,
+  SLOW_ANSWER: `slow`,
+  SUCCESS_ANSWER: `succes`,
+  FAIL_ANSWER: `fail`
+};
 
 class GameModel {
   constructor(handleDataLoad) {
@@ -34,27 +46,27 @@ class GameModel {
 
   _getIntro() {
     return {
-      type: `INTRO`,
+      type: ScreenTypes.INTRO,
       dataLoaded: this._dataLoaded
     };
   }
 
   static _getGreeting() {
     return {
-      type: `GREETING`
+      type: ScreenTypes.GREETING
     };
   }
 
   static _getRules() {
     return {
-      type: `RULES`,
+      type: ScreenTypes.RULES,
       userName: ``
     };
   }
 
   static _getStats() {
     return {
-      type: `STATS`
+      type: ScreenTypes.STATS
     };
   }
 
@@ -98,11 +110,11 @@ class GameModel {
 
   static _getQuestionStats(time) {
     if (time >= 20) {
-      return `fast`;
+      return AnswerTypes.FAST_ANSWER;
     } else if (time <= 10) {
-      return `slow`;
+      return AnswerTypes.SLOW_ANSWER;
     }
-    return `succes`;
+    return AnswerTypes.SUCCESS_ANSWER;
   }
 
 
@@ -122,7 +134,7 @@ class GameModel {
     }
   }
 
-  succesAnswer(time) {
+  setSuccesAnswer(time) {
     this._state.answers.push(true);
     this._state.questionStats.push(GameModel._getQuestionStats(time));
     this._state.time.push(time);
@@ -136,7 +148,7 @@ class GameModel {
     this._state.answers.push(false);
     this._state.lives--;
     this._state.currentLevel++;
-    this._state.questionStats.push(`fail`);
+    this._state.questionStats.push(AnswerTypes.FAIL_ANSWER);
     if (this._state.lives < 0) {
       this._state.currentLevel = this._state.levels.length - 1;
     }
@@ -144,7 +156,7 @@ class GameModel {
 
   setTimeOut() {
     this._state.time.push(30);
-    this._state.questionStats.push(`fail`);
+    this._state.questionStats.push(AnswerTypes.FAIL_ANSWER);
     this._state.currentLevel++;
     this._state.lives--;
   }
@@ -158,4 +170,4 @@ class GameModel {
   }
 }
 
-export default GameModel;
+export {GameModel, AnswerTypes};

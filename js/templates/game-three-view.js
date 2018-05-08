@@ -2,6 +2,7 @@ import AbstractView from '../abstract-view.js';
 import {headerStatistics} from './header.js';
 import {templateThird} from './game-templates';
 import MODAL from './modal.js';
+import {GameStatuses} from '../dispatcher.js';
 
 class GameThreeView extends AbstractView {
   constructor(dispatch, levelData, stats) {
@@ -51,7 +52,7 @@ class GameThreeView extends AbstractView {
     if (evt.target.className === `back`) {
       this.removeListeners();
       this.removeModalListener();
-      this.dispatch({status: `goBack`, isGame: true});
+      this.dispatch({status: GameStatuses.GO_BACK_STATUSE, isGame: true});
     } else {
       this.removeModalListener();
       this._modal.classList.add(`modal--close`);
@@ -76,9 +77,9 @@ class GameThreeView extends AbstractView {
     };
     getImageTypes();
     if (evt.target.attributes[2].value === correctAnswer) {
-      this.dispatch({status: `succes`, time: this._timeAnswer.innerText, isGame: true});
+      this.dispatch({status: GameStatuses.SUCCES_STATUSE, time: this._timeAnswer.innerText, isGame: true});
     } else {
-      this.dispatch({status: `fail`, isGame: true});
+      this.dispatch({status: GameStatuses.FAIL_STATUSE, isGame: true});
     }
 
   }

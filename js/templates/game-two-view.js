@@ -2,6 +2,7 @@ import AbstractView from '../abstract-view.js';
 import {headerStatistics} from './header.js';
 import {templateSecond} from './game-templates';
 import MODAL from './modal.js';
+import {GameStatuses} from '../dispatcher.js';
 
 class GameTwoView extends AbstractView {
   constructor(dispatch, levelData, stats) {
@@ -49,7 +50,7 @@ class GameTwoView extends AbstractView {
     if (evt.target.className === `back`) {
       this.removeListeners();
       this.removeModalListener();
-      this.dispatch({status: `goBack`, isGame: true});
+      this.dispatch({status: GameStatuses.GO_BACK_STATUSE, isGame: true});
     } else {
       this.removeModalListener();
       this._modal.classList.add(`modal--close`);
@@ -59,9 +60,9 @@ class GameTwoView extends AbstractView {
   onChangeInput(evt) {
     this.removeListeners();
     if (this._gameImages[0].type === evt.target.value) {
-      this.dispatch({status: `succes`, time: this._timeAnswer.innerText, isGame: true});
+      this.dispatch({status: GameStatuses.SUCCES_STATUSE, time: this._timeAnswer.innerText, isGame: true});
     } else {
-      this.dispatch({status: `fail`, isGame: true});
+      this.dispatch({status: GameStatuses.FAIL_STATUSE, isGame: true});
     }
   }
 }

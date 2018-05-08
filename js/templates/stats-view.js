@@ -4,6 +4,7 @@ import {HEADER} from './header.js';
 import {countScore} from '../data/game-logic.js';
 import {timeOutTemplate, failTemplate, winTemplate, historyTemplate} from './stats-templates.js';
 import {onLoadError} from '../utils.js';
+import {GameStatuses} from '../dispatcher.js';
 
 const compareTotalPoints = (itemOne, itemTwo) => {
   return itemTwo.totalPoints - itemOne.totalPoints;
@@ -135,7 +136,7 @@ class StatsView extends AbstractView {
 
   onMouseDownButtonBack() {
     this.buttonBack.removeEventListener(`mousedown`, this.onMouseDownButtonBack);
-    this.dispatch({status: `goBack`, isGame: false});
+    this.dispatch({status: GameStatuses.GO_BACK_STATUSE, isGame: false});
   }
 
 }

@@ -1,4 +1,4 @@
-import GameModel from './data/game-model.js';
+import {GameModel} from './data/game-model.js';
 import timer from './data/timer.js';
 import {renderScreen} from './utils.js';
 import GreetingView from './templates/greeting-view';
@@ -21,6 +21,12 @@ const LEVELSCREENS = {
   'STATS': StatsView
 };
 
+const GameStatuses = {
+  SUCCES_STATUSE: `succes`,
+  FAIL_STATUSE: `fail`,
+  GO_BACK_STATUSE: `goBack`
+};
+
 class GameDispatcher {
   constructor() {
     this.run = this.run.bind(this);
@@ -37,16 +43,16 @@ class GameDispatcher {
     if (isGame) {
       this._stopTimer();
     }
-    if (status === `succes`) {
+    if (status === GameStatuses.SUCCES_STATUSE) {
       if (name) {
         this._data.savePlayerName(name);
       } else if (time) {
-        this._data.succesAnswer(time);
+        this._data.setSuccesAnswer(time);
       }
       this._data.setNextScreen();
-    } else if (status === `goBack`) {
+    } else if (status === GameStatuses.GO_BACK_STATUSE) {
       this._data.restart();
-    } else if (status === `fail`) {
+    } else if (status === GameStatuses.FAIL_STATUSE) {
       this._data.setWrongAnswer();
     }
     this.run();
@@ -58,7 +64,7 @@ class GameDispatcher {
     if (gameData.currentLevel === 0) {
       renderScreen(new IntroView(this._handlerDispatcher, levelData).element);
     } else if (gameData.lives < 0) {
-      renderScreen(new StatsView(this._handlerDispatcher, `fail`, gameData).element);
+      renderScreen(new StatsView(this._handlerDispatcher, GameStatuses.FAIL_STATUSE, gameData).element);
     } else if (gameData.currentLevel <= 14) {
       const levelScreen = new LEVELSCREENS[levelData.type](this._handlerDispatcher, levelData, gameData);
       const element = levelScreen.timer;
@@ -100,4 +106,4 @@ class GameDispatcher {
   }
 }
 
-export default GameDispatcher;
+export {GameDispatcher, GameStatuses}

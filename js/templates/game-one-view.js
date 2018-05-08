@@ -2,6 +2,8 @@ import AbstractView from '../abstract-view.js';
 import {headerStatistics} from './header.js';
 import {templateFirst} from './game-templates';
 import MODAL from './modal.js';
+import {GameStatuses} from '../dispatcher.js';
+
 
 class GameOneView extends AbstractView {
   constructor(dispatch, levelData, stats) {
@@ -18,7 +20,6 @@ class GameOneView extends AbstractView {
     this.onChangeInput = this.onChangeInput.bind(this);
     this.onMouseDownModal = this.onMouseDownModal.bind(this);
     this.setNextScreen = this.setNextScreen.bind(this);
-
   }
 
   get template() {
@@ -53,7 +54,7 @@ class GameOneView extends AbstractView {
     if (evt.target.className === `back`) {
       this.removeListeners();
       this.removeModalListener();
-      this.dispatch({status: `goBack`, isGame: true});
+      this.dispatch({status: GameStatuses.GO_BACK_STATUSE, isGame: true});
     } else {
       this.removeModalListener();
       this._modal.classList.add(`modal--close`);
@@ -64,9 +65,9 @@ class GameOneView extends AbstractView {
     if (this._chekedOne && this._chekedTwo) {
       this.removeListeners();
       if (this._gameImages[0].type === this._chekedOne && this._gameImages[1].type === this._chekedTwo) {
-        this.dispatch({status: `succes`, time: this._timeAnswer.innerText, isGame: true});
+        this.dispatch({status: GameStatuses.SUCCES_STATUSE, time: this._timeAnswer.innerText, isGame: true});
       } else {
-        this.dispatch({status: `fail`, isGame: true});
+        this.dispatch({status: GameStatuses.FAIL_STATUSE, isGame: true});
       }
       this._chekedOne = false;
       this._chekedTwo = false;

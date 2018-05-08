@@ -1,4 +1,5 @@
 import AbstractView from '../abstract-view.js';
+import {GameStatuses} from '../dispatcher.js';
 
 class GreetingView extends AbstractView {
   constructor(dispatch) {
@@ -30,7 +31,7 @@ class GreetingView extends AbstractView {
 
   onMouseDownGreeting() {
     this._nextBtn.removeEventListener(`mousedown`, this.onMouseDownGreeting);
-    this.dispatch({status: `succes`, isGame: false});
+    this.dispatch({status: GameStatuses.SUCCES_STATUSE, isGame: false});
   }
 }
 

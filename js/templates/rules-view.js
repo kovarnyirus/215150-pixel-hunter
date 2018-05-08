@@ -1,5 +1,6 @@
 import AbstractView from '../abstract-view.js';
 import {HEADER} from './header.js';
+import {GameStatuses} from '../dispatcher.js';
 
 class RulesView extends AbstractView {
   constructor(dispatch) {
@@ -58,12 +59,12 @@ class RulesView extends AbstractView {
   onMouseDownButtonGo(evt) {
     evt.preventDefault();
     this.removeListeners();
-    this.dispatch({status: `succes`, isGame: false, name: this.inputName.value});
+    this.dispatch({status: GameStatuses.SUCCES_STATUSE, isGame: false, name: this.inputName.value});
   }
 
   onMouseDownButtonBack() {
     this.removeListeners();
-    this.dispatch({status: `goBack`});
+    this.dispatch({status: GameStatuses.GO_BACK_STATUSE});
   }
 
 }
