@@ -1,11 +1,17 @@
-const POINTS_CORRECT_ANSWER = 100;
-const POINTS_FAST_ANSWER = 50;
-const POINTS_SLOW_ANSWER = 50;
-const POINTS_LIVE = 50;
-const TIME_FAST_ANSWER = 20;
-const TIME_SLOW_ANSWER = 10;
 const LENGTH_ARR_ANSWERS = 10;
 const MIN_LIVES = 0;
+
+const StatPoints = {
+  CORRECT_ANSWER: 100,
+  FAST_ANSWER: 50,
+  SLOW_ANSWER: 50,
+  LIVE: 50
+};
+
+const TimeAnswers = {
+  FAST: 20,
+  SLOW: 10
+};
 
 const countScore = (data, lives) => {
   if (lives < MIN_LIVES) {
@@ -16,22 +22,22 @@ const countScore = (data, lives) => {
   }
   let pointsAnswers = data.answers.reduce((previousValue, item) => {
     if (item) {
-      previousValue += POINTS_CORRECT_ANSWER;
+      previousValue += StatPoints.CORRECT_ANSWER;
     }
     return previousValue;
   }, 0);
 
   const pointTime = data.time.reduce((previousValue, item) => {
-    if (item >= TIME_FAST_ANSWER) {
-      previousValue += POINTS_FAST_ANSWER;
-    } else if (item < TIME_SLOW_ANSWER) {
-      previousValue -= POINTS_SLOW_ANSWER;
+    if (item >= TimeAnswers.FAST) {
+      previousValue += StatPoints.FAST_ANSWER;
+    } else if (item < TimeAnswers.SLOW) {
+      previousValue -= StatPoints.SLOW_ANSWER;
     }
     return previousValue;
   }, 0);
 
-  const totalPoints = (lives * POINTS_LIVE) + pointsAnswers + pointTime;
+  const totalPoints = (lives * StatPoints.LIVE) + pointsAnswers + pointTime;
 
   return totalPoints;
 };
-export {countScore, POINTS_FAST_ANSWER, POINTS_CORRECT_ANSWER, POINTS_SLOW_ANSWER, POINTS_LIVE};
+export {countScore, StatPoints};

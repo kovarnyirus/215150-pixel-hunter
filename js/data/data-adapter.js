@@ -4,7 +4,7 @@ const GameScreenTypes = {
   'TWO-OF-TWO': `GAME-1`
 };
 
-const TypeImage = {
+const TypeImages = {
   'PAINTING': `paint`,
   'PHOTO': `photo`
 };
@@ -20,7 +20,7 @@ const adaptServerData = (data) => {
           src: answer.image.url,
           width: answer.image.width,
           height: answer.image.height,
-          type: TypeImage[answer.type.toUpperCase()]
+          type: TypeImages[answer.type.toUpperCase()]
         };
       }),
     };

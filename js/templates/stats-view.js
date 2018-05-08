@@ -2,7 +2,7 @@ import AbstractView from '../abstract-view.js';
 import createElement from '../create-element.js';
 import {HEADER} from './header.js';
 import {countScore} from '../data/game-logic.js';
-import {timeOutTemplate, failTemplate, winTemplate, historyTemplate} from './stats-templates.js';
+import {failTemplate, winTemplate, historyTemplate} from './stats-templates.js';
 import {onLoadError} from '../utils.js';
 import {GameStatuses} from '../dispatcher.js';
 
@@ -22,7 +22,7 @@ class StatsView extends AbstractView {
     this._onLoadError = onLoadError;
     this._onLoad = this._onLoad.bind(this);
     this.onMouseDownButtonBack = this.onMouseDownButtonBack.bind(this);
-    this.getDataUser();
+    this.getUserData();
     this.postData();
   }
 
@@ -41,7 +41,7 @@ class StatsView extends AbstractView {
       }
     })
         .catch((err) => {
-          throw new Error(`${err}`);
+          return this._onLoadError(`ошибка при отправлении данных: ${err}`);
         });
   }
 
@@ -51,11 +51,10 @@ class StatsView extends AbstractView {
     const scoreLastGame = this._countScore(this._stats, this._stats.lives);
     const historyTitle = document.createElement(`h2`);
     let positionLastGame = 1;
-    let countingUserStatistics = [];
     historyTitle.textContent = `Предыдущие результаты`;
     historyContainer.appendChild(historyTitle);
 
-    countingUserStatistics = serverData.map((item) => {
+    const countingUserStatistics = serverData.map((item) => {
       let score = this._countScore(item, item.lives);
       item.totalPoints = score;
       return item;
@@ -76,13 +75,6 @@ class StatsView extends AbstractView {
     this.resultContainer.appendChild(historyContainer);
   }
 
-  static _getCheckResponse(response) {
-    if (response.ok) {
-      return response.json();
-    }
-    return false;
-  }
-
   _getCheckData(data) {
     const onLoad = this._onLoad;
     let serverData;
@@ -94,10 +86,16 @@ class StatsView extends AbstractView {
   }
 
 
-  getDataUser() {
+  getUserData() {
     window.fetch(`https://es.dump.academy/pixel-hunter/stats/:${this.applicationId}-:${this._stats.userName}`)
         .then((response) => {
-          return StatsView._getCheckResponse(response);
+          console.log(response);
+          if (response.ok) {
+            return response.json();
+          } else if (response.status === 404) {
+            return this._onLoadError(`Результаты прошлых игр не найдены`);
+          }
+          return this._onLoadError(`Неизвестный статус: ${response.status} ${response.statusText}`);
         })
         .then((data) => {
           return this._getCheckData(data);
@@ -111,11 +109,9 @@ class StatsView extends AbstractView {
   }
 
   _createTemplate(statusGame, stats, index) {
-    if (statusGame === `fail`) {
+    if (statusGame === GameStatuses.FAIL) {
       this._html = failTemplate(stats);
-    } else if (statusGame === `timeOut`) {
-      this._html = timeOutTemplate(stats);
-    } else if (statusGame === `historyGame`) {
+    } else if (statusGame === GameStatuses.HISTORY) {
       this._html = historyTemplate(stats, index);
     } else {
       this._html = winTemplate(stats);

@@ -11,7 +11,7 @@ import StatsView from './templates/stats-view.js';
 
 const REMAINING_SECONDS = 5;
 const MAX_TIMER = 30;
-const LEVELSCREENS = {
+const LevelScreens = {
   'INTRO': IntroView,
   'GREETING': GreetingView,
   'RULES': RulesView,
@@ -24,6 +24,8 @@ const LEVELSCREENS = {
 const GameStatuses = {
   SUCCES: `succes`,
   FAIL: `fail`,
+  TIMEOUT: `timeOut`,
+  HISTORY: `historyGame`,
   GO_BACK: `goBack`
 };
 
@@ -66,7 +68,7 @@ class GameDispatcher {
     } else if (gameData.lives < 0) {
       renderScreen(new StatsView(this._handlerDispatcher, GameStatuses.FAIL, gameData).element);
     } else if (gameData.currentLevel <= 14) {
-      const levelScreen = new LEVELSCREENS[levelData.type](this._handlerDispatcher, levelData, gameData);
+      const levelScreen = new LevelScreens[levelData.type](this._handlerDispatcher, levelData, gameData);
       const element = levelScreen.timer;
       renderScreen(levelScreen.element);
       this._initTimer(element, MAX_TIMER);
