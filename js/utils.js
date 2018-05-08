@@ -1,8 +1,8 @@
-const CONTENT_CONTAINER = document.querySelector(`.central`);
+const contentContainer = document.querySelector(`.central`);
 
 const renderScreen = (element) => {
-  CONTENT_CONTAINER.innerHTML = ``;
-  CONTENT_CONTAINER.appendChild(element);
+  contentContainer.innerHTML = ``;
+  contentContainer.appendChild(element);
 };
 
 const onLoadError = (errorMessage) => {
