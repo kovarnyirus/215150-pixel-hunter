@@ -68,7 +68,7 @@ class StatsView extends AbstractView {
 
     countingUserStatistics.forEach((item, index) => {
       if (item.totalPoints > lastGameScore) {
-      lastGamePosition = index + 2;
+        lastGamePosition = index + 2;
       }
       const templateElement = this._createTemplate(item.status, item, index);
       historyContainer.appendChild(createElement(templateElement));
@@ -89,9 +89,9 @@ class StatsView extends AbstractView {
           if (response.ok) {
             return response.json();
           } else if (response.status === 404) {
-            return this._onLoadError(`Результаты прошлых игр не найдены`);
+            throw `Результаты прошлых игр не найдены`;
           }
-          return this._onLoadError(`Неизвестный статус: ${response.status} ${response.statusText}`);
+          throw `Неизвестный статус: ${response.status} ${response.statusText}`;
         })
         .then((data) => {
           return this._getCheckData(data);
@@ -99,6 +99,8 @@ class StatsView extends AbstractView {
         .catch((err) => {
           if (err.stack === `TypeError: Failed to fetch`) {
             return this._onLoadError(`Сервер со статистикой недоступен`);
+          } else if (err === `Результаты прошлых игр не найдены`) {
+            return this._onLoadError(err);
           }
           return this._onLoadError(`Неизвестная ошибка: ${err} свяжитесь с администратором`);
         });

@@ -11,26 +11,16 @@ const ImageTypes = {
 
 
 const adaptServerData = (data) => {
-  return data.map((item) => {
+  return data.map((item) => {S
     return {
       type: GameScreenTypes[item.type.toUpperCase()],
       question: item.question,
-      images: item.answers.map(({url, width, height, type}) => {
-        return {
+      images: item.answers.map(({ image: { url, width, height}}, index) => ({
           src: url,
-          width: width,
-          height: height,
-          type: ImageTypes[type.toUpperCase()]
-        };
-      }),
-      // images: item.answers.map((answer) => {
-      //   return {
-      //     src: answer.image.url,
-      //     width: answer.image.width,
-      //     height: answer.image.height,
-      //     type: ImageTypes[answer.type.toUpperCase()]
-      //   };
-      // }),
+          width,
+          height,
+          type: ImageTypes[item.answers[index].type.toUpperCase()]
+      }))
     };
   });
 };
