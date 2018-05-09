@@ -42,7 +42,7 @@ class StatsView extends AbstractView {
     })
         .then((response) => {
           if (!response.ok) {
-            this._onLoadError(`Произошла ошибка, при отправлении данных.`);
+            Promise.reject(`Произошла ошибка, при отправлении данных.`);
           }
         })
         .catch((err) => {
@@ -89,7 +89,7 @@ class StatsView extends AbstractView {
           if (response.ok) {
             return response.json();
           } else if (response.status === 404) {
-            throw new Error(`Результаты прошлых игр не найдены`);
+            return Promise.reject(`Cтатистики прошлых игр нет`);
           }
           throw new Error(`Неизвестный статус: ${response.status} ${response.statusText}`);
         })
@@ -99,7 +99,7 @@ class StatsView extends AbstractView {
         .catch((err) => {
           if (err.stack === `TypeError: Failed to fetch`) {
             return this._onLoadError(`Сервер со статистикой недоступен`);
-          } else if (err === `Результаты прошлых игр не найдены`) {
+          } else if (err === `Cтатистики прошлых игр нет`) {
             return this._onLoadError(err);
           }
           return this._onLoadError(`Неизвестная ошибка: ${err} свяжитесь с администратором`);

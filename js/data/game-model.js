@@ -90,9 +90,9 @@ class GameModel {
           if (response.ok) {
             return response.json();
           } else if (response.status === 404) {
-            return this._onLoadError(`Файлы на сервере не найдены`);
+            return Promise.reject(`Файлы на сервере не найдены`);;
           }
-          return this._onLoadError(`Неизвестный статус: ${response.status} ${response.statusText}`);
+          return Promise.reject(`Неизвестный статус: ${response.status} ${response.statusText}`);
         })
         .then((data) => {
           formatData = adaptServerData(data);
@@ -102,7 +102,7 @@ class GameModel {
           if (err.stack === `TypeError: Failed to fetch`) {
             return this._onLoadError(`Сервер недоступен`);
           }
-          return this._onLoadError(`Неизвестная ошибка: ${err} свяжитесь с администратором`);
+          return this._onLoadError(`Ошибка: ${err}`);
         });
   }
 
