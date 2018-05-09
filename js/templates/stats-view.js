@@ -89,9 +89,9 @@ class StatsView extends AbstractView {
           if (response.ok) {
             return response.json();
           } else if (response.status === 404) {
-            throw `Результаты прошлых игр не найдены`;
+            throw new Error(`Результаты прошлых игр не найдены`);
           }
-          throw `Неизвестный статус: ${response.status} ${response.statusText}`;
+          throw new Error(`Неизвестный статус: ${response.status} ${response.statusText}`);
         })
         .then((data) => {
           return this._getCheckData(data);

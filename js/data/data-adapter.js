@@ -11,18 +11,17 @@ const ImageTypes = {
 
 
 const adaptServerData = (data) => {
-  return data.map((item) => {S
+  return data.map((item) => {
     return {
       type: GameScreenTypes[item.type.toUpperCase()],
       question: item.question,
-      images: item.answers.map(({ image: { url, width, height}}, index) => ({
-          src: url,
-          width,
-          height,
-          type: ImageTypes[item.answers[index].type.toUpperCase()]
+      images: item.answers.map(({type, image: {url, width, height}}) => ({
+        src: url,
+        width,
+        height,
+        type: ImageTypes[type.toUpperCase()]
       }))
     };
   });
 };
-
 export default adaptServerData;
