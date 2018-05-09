@@ -2,19 +2,20 @@ import {stats} from './stats-template.js';
 import {countScore, StatPoints} from '../data/game-logic';
 import {AnswerTypes} from '../data/game-model.js';
 
-const countStat = (array) => {
+const countStat = (arrayAnswers) => {
   const counter = {
     fast: 0,
     slow: 0,
     total: 0
   };
 
-  for (let item of array) {
-    if (item === AnswerTypes.FAST) {
+  for (let answer of arrayAnswers) {
+    if (answer === AnswerTypes.FAST) {
       counter.fast++;
-      counter.total++;
-    } else if (item === AnswerTypes.SLOW) {
+    } else if (answer === AnswerTypes.SLOW) {
       counter.slow++;
+    }
+    if (answer !== AnswerTypes.FAIL) {
       counter.total++;
     }
   }
@@ -78,8 +79,9 @@ const failTemplate = (gameData) =>
     </table>
 </div>`;
 
-const historyTemplate = (gameData, index) =>
-  `<div class="result">
+const historyTemplate = (gameData, index) =>{
+  const resultTotat = countScore(gameData, gameData.lives);
+  return `<div class="result">
 <table class="result__table">
     <tr>
     <td class="result__number">${index + 1}</td>
@@ -87,9 +89,10 @@ const historyTemplate = (gameData, index) =>
     ${stats(gameData.questionStats)}
     </td>
     <td class="result__total"></td>
-    <td class="result__total  result__total--final">${countScore(gameData, gameData.lives) ? countScore(gameData, gameData.lives) : `FAIL` }</td>
+    <td class="result__total  result__total--final">${resultTotat ? resultTotat : `FAIL` }</td>
     </tr>
     </table>
 </div>`;
+};
 
 export {failTemplate, winTemplate, historyTemplate};

@@ -1,5 +1,7 @@
 import adaptServerData from './data-adapter.js';
 import {onLoadError} from '../utils.js';
+import {AnswerDurations} from '../data/game-logic';
+import {TimerValues} from '../dispatcher';
 
 const INITIAL_LIVES = 3;
 const ScreenTypes = {
@@ -109,9 +111,9 @@ class GameModel {
   }
 
   static _getQuestionStats(time) {
-    if (time >= 20) {
+    if (time >= AnswerDurations.FAST) {
       return AnswerTypes.FAST;
-    } else if (time <= 10) {
+    } else if (time <= AnswerDurations.SLOW) {
       return AnswerTypes.SLOW;
     }
     return AnswerTypes.SUCCESS;
@@ -155,7 +157,7 @@ class GameModel {
   }
 
   setTimeOut() {
-    this._state.time.push(30);
+    this._state.time.push(TimerValues.MAX);
     this._state.questionStats.push(AnswerTypes.FAIL);
     this._state.currentLevel++;
     this._state.lives--;

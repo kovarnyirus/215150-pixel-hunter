@@ -53,9 +53,9 @@ class StatsView extends AbstractView {
   _onLoad(data) {
     const serverData = data;
     const historyContainer = document.createDocumentFragment();
-    const scoreLastGame = this._countScore(this._stats, this._stats.lives);
+    const lastGameScore = this._countScore(this._stats, this._stats.lives);
     const historyTitle = document.createElement(`h2`);
-    let positionLastGame = 1;
+    let lastGamePosition = 1;
     historyTitle.textContent = `Предыдущие результаты`;
     historyContainer.appendChild(historyTitle);
 
@@ -67,25 +67,19 @@ class StatsView extends AbstractView {
     countingUserStatistics.sort(compareTotalPoints);
 
     countingUserStatistics.forEach((item, index) => {
-      if (item.totalPoints > scoreLastGame) {
-        positionLastGame = index + 2;
+      if (item.totalPoints > lastGameScore) {
+      lastGamePosition = index + 2;
       }
       const templateElement = this._createTemplate(item.status, item, index);
       historyContainer.appendChild(createElement(templateElement));
     });
 
-    this.resultNumber.textContent = `${positionLastGame}`;
+    this.resultNumber.textContent = `${lastGamePosition}`;
     this.resultContainer.appendChild(historyContainer);
   }
 
   _getCheckData(data) {
-    const onLoad = this._onLoad;
-    let serverData;
-    if (data) {
-      serverData = data;
-      return onLoad(serverData);
-    }
-    return false;
+    return this._onLoad(data);
   }
 
 
@@ -110,10 +104,10 @@ class StatsView extends AbstractView {
         });
   }
 
-  _createTemplate(statusGame, stats, index) {
-    if (statusGame === GameStatuses.FAIL) {
+  _createTemplate(gameStatus, stats, index) {
+    if (gameStatus === GameStatuses.FAIL) {
       this._html = failTemplate(stats);
-    } else if (statusGame === GameStatuses.HISTORY) {
+    } else if (gameStatus === GameStatuses.HISTORY) {
       this._html = historyTemplate(stats, index);
     } else {
       this._html = winTemplate(stats);

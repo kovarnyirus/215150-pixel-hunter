@@ -9,8 +9,10 @@ import GameOneView from './templates/game-one-view.js';
 import GameThreeView from './templates/game-three-view.js';
 import StatsView from './templates/stats-view.js';
 
-const REMAINING_SECONDS = 5;
-const MAX_TIMER = 30;
+const TimerValues = {
+  MAX: 30,
+  BLINK: 5
+};
 const LevelScreens = {
   'INTRO': IntroView,
   'GREETING': GreetingView,
@@ -20,7 +22,6 @@ const LevelScreens = {
   'GAME-3': GameThreeView,
   'STATS': StatsView
 };
-
 const GameStatuses = {
   SUCCES: `succes`,
   FAIL: `fail`,
@@ -71,7 +72,7 @@ class GameDispatcher {
       const levelScreen = new LevelScreens[levelData.type](this._handlerDispatcher, levelData, gameData);
       const element = levelScreen.timer;
       renderScreen(levelScreen.element);
-      this._initTimer(element, MAX_TIMER);
+      this._initTimer(element, TimerValues.MAX);
     }
   }
 
@@ -98,7 +99,7 @@ class GameDispatcher {
 
   static _renderTimer(element, value) {
     element.textContent = value;
-    if (value === REMAINING_SECONDS) {
+    if (value === TimerValues.BLINK) {
       element.classList.add(`blink`);
     }
   }
@@ -108,4 +109,4 @@ class GameDispatcher {
   }
 }
 
-export {GameDispatcher, GameStatuses};
+export {GameDispatcher, GameStatuses, TimerValues};

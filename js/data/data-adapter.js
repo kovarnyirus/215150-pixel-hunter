@@ -4,7 +4,7 @@ const GameScreenTypes = {
   'TWO-OF-TWO': `GAME-1`
 };
 
-const TypeImages = {
+const ImageTypes = {
   'PAINTING': `paint`,
   'PHOTO': `photo`
 };
@@ -15,14 +15,22 @@ const adaptServerData = (data) => {
     return {
       type: GameScreenTypes[item.type.toUpperCase()],
       question: item.question,
-      images: item.answers.map((answer) => {
+      images: item.answers.map(({url, width, height, type}) => {
         return {
-          src: answer.image.url,
-          width: answer.image.width,
-          height: answer.image.height,
-          type: TypeImages[answer.type.toUpperCase()]
+          src: url,
+          width: width,
+          height: height,
+          type: ImageTypes[type.toUpperCase()]
         };
       }),
+      // images: item.answers.map((answer) => {
+      //   return {
+      //     src: answer.image.url,
+      //     width: answer.image.width,
+      //     height: answer.image.height,
+      //     type: ImageTypes[answer.type.toUpperCase()]
+      //   };
+      // }),
     };
   });
 };
