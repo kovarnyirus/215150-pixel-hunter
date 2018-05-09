@@ -46,7 +46,10 @@ class StatsView extends AbstractView {
           }
         })
         .catch((err) => {
-          this._onLoadError(`ошибка при отправлении данных: ${err}`);
+          if (err.stack === `TypeError: Failed to fetch`) {
+            return this._onLoadError(`Ошибка при отправлении данных: Сервер недоступен`);
+          }
+          return this._onLoadError(`Ошибка при отправлении данных: ${err}`);
         });
   }
 

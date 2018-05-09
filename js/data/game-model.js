@@ -90,7 +90,7 @@ class GameModel {
           if (response.ok) {
             return response.json();
           } else if (response.status === 404) {
-            return Promise.reject(`Файлы на сервере не найдены`);;
+            return Promise.reject(`Файлы на сервере не найдены`);
           }
           return Promise.reject(`Неизвестный статус: ${response.status} ${response.statusText}`);
         })
