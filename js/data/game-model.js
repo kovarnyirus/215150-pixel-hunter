@@ -1,5 +1,7 @@
 import adaptServerData from './data-adapter.js';
 import {onLoadError} from '../utils.js';
+import {AnswerDurations} from '../data/game-logic';
+import {TimerValues} from '../dispatcher';
 
 const INITIAL_LIVES = 3;
 const ScreenTypes = {
@@ -88,9 +90,9 @@ class GameModel {
           if (response.ok) {
             return response.json();
           } else if (response.status === 404) {
-            return this._onLoadError(`Файлы на сервере не найдены`);
+            return Promise.reject(`Файлы на сервере не найдены`);
           }
-          return this._onLoadError(`Неизвестный статус: ${response.status} ${response.statusText}`);
+          return Promise.reject(`Неизвестный статус: ${response.status} ${response.statusText}`);
         })
         .then((data) => {
           formatData = adaptServerData(data);
@@ -100,7 +102,7 @@ class GameModel {
           if (err.stack === `TypeError: Failed to fetch`) {
             return this._onLoadError(`Сервер недоступен`);
           }
-          return this._onLoadError(`Неизвестная ошибка: ${err} свяжитесь с администратором`);
+          return this._onLoadError(`Ошибка: ${err}`);
         });
   }
 
@@ -109,9 +111,9 @@ class GameModel {
   }
 
   static _getQuestionStats(time) {
-    if (time >= 20) {
+    if (time >= AnswerDurations.FAST) {
       return AnswerTypes.FAST;
-    } else if (time <= 10) {
+    } else if (time <= AnswerDurations.SLOW) {
       return AnswerTypes.SLOW;
     }
     return AnswerTypes.SUCCESS;
@@ -134,7 +136,7 @@ class GameModel {
     }
   }
 
-  setSuccesAnswer(time) {
+  setSuccessAnswer(time) {
     this._state.answers.push(true);
     this._state.questionStats.push(GameModel._getQuestionStats(time));
     this._state.time.push(time);
@@ -155,7 +157,7 @@ class GameModel {
   }
 
   setTimeOut() {
-    this._state.time.push(30);
+    this._state.time.push(TimerValues.MAX);
     this._state.questionStats.push(AnswerTypes.FAIL);
     this._state.currentLevel++;
     this._state.lives--;

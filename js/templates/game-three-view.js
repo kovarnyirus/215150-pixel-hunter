@@ -21,7 +21,6 @@ class GameThreeView extends AbstractView {
     this.onMouseDownButtonBack = this.onMouseDownButtonBack.bind(this);
     this.onMouseDownModal = this.onMouseDownModal.bind(this);
     this.onMouseDownGameCard = this.onMouseDownGameCard.bind(this);
-
   }
 
   get template() {
@@ -66,29 +65,25 @@ class GameThreeView extends AbstractView {
 
   onMouseDownGameCard(evt) {
     this.removeListeners();
-    let correctAnswer;
-    const getImageTypes = () => {
+    const correctAnswer = () => {
       let counterPaint = 0;
       let counterPhoto = 0;
 
       for (let gameCard of this.gameCards) {
-        if (gameCard.children[0].attributes[2].value === AnswerTypes) {
+        if (gameCard.children[0].attributes[2].value === AnswerTypes.PAINT) {
           counterPaint++;
         } else {
           counterPhoto++;
         }
       }
-      correctAnswer = counterPhoto > counterPaint ? AnswerTypes.PAINT : AnswerTypes.PHOTO;
+      return counterPhoto > counterPaint ? AnswerTypes.PAINT : AnswerTypes.PHOTO;
     };
-    getImageTypes();
-    if (evt.target.attributes[2].value === correctAnswer) {
+    if (evt.target.attributes[2].value === correctAnswer()) {
       this.dispatch({status: GameStatuses.SUCCES, time: this._timeAnswer.innerText, isGame: true});
     } else {
       this.dispatch({status: GameStatuses.FAIL, isGame: true});
     }
-
   }
-
 }
 
 export default GameThreeView;

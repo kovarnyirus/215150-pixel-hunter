@@ -36,7 +36,6 @@ class RulesView extends AbstractView {
     this.buttonGo = this.element.querySelector(`.rules__button`);
     this.buttonBack = this.element.querySelector(`.header__back`);
     this.inputName = this.element.querySelector(`.rules__input`);
-
     this.buttonGo.addEventListener(`mousedown`, this.onMouseDownButtonGo);
     this.buttonBack.addEventListener(`mousedown`, this.onMouseDownButtonBack);
     this.inputName.addEventListener(`keyup`, this.onKeyUpInputName);
@@ -66,7 +65,6 @@ class RulesView extends AbstractView {
     this.removeListeners();
     this.dispatch({status: GameStatuses.GO_BACK});
   }
-
 }
 
 export default RulesView;

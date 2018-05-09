@@ -5,9 +5,8 @@ class IntroView extends AbstractView {
   constructor(dispatch, levelData) {
     super(dispatch);
     this._levelData = levelData;
-    this.onMousedownAsterisk = this.onMousedownAsterisk.bind(this);
+    this.onMouseDownAsterisk = this.onMouseDownAsterisk.bind(this);
   }
-
 
   get template() {
     return `<div id="main" class="central__content"> 
@@ -22,11 +21,11 @@ class IntroView extends AbstractView {
 
   bind() {
     this._ASTERISK = this.element.querySelector(`.intro__asterisk`);
-    this._ASTERISK.addEventListener(`mousedown`, this.onMousedownAsterisk);
+    this._ASTERISK.addEventListener(`mousedown`, this.onMouseDownAsterisk);
   }
 
-  onMousedownAsterisk() {
-    this._ASTERISK.removeEventListener(`mousedown`, this.onMousedownAsterisk);
+  onMouseDownAsterisk() {
+    this._ASTERISK.removeEventListener(`mousedown`, this.onMouseDownAsterisk);
     this.dispatch({status: GameStatuses.SUCCES, isGame: false});
   }
 }

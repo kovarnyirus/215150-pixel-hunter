@@ -2,7 +2,7 @@ import AbstractView from '../abstract-view.js';
 import createElement from '../create-element.js';
 import {HEADER} from './header.js';
 import {countScore} from '../data/game-logic.js';
-import {timeOutTemplate, failTemplate, winTemplate, historyTemplate} from './stats-templates.js';
+import {failTemplate, winTemplate, historyTemplate} from './stats-templates.js';
 import {onLoadError} from '../utils.js';
 import {GameStatuses} from '../dispatcher.js';
 
@@ -22,7 +22,7 @@ class StatsView extends AbstractView {
     this._onLoadError = onLoadError;
     this._onLoad = this._onLoad.bind(this);
     this.onMouseDownButtonBack = this.onMouseDownButtonBack.bind(this);
-    this.getDataUser();
+    this.getUserData();
     this.postData();
   }
 
@@ -40,64 +40,61 @@ class StatsView extends AbstractView {
         'Content-Type': `application/json`
       }
     })
+        .then((response) => {
+          if (!response.ok) {
+            Promise.reject(`Произошла ошибка, при отправлении данных.`);
+          }
+        })
         .catch((err) => {
-          throw new Error(`${err}`);
+          if (err.stack === `TypeError: Failed to fetch`) {
+            return this._onLoadError(`Ошибка при отправлении данных: Сервер недоступен`);
+          }
+          return this._onLoadError(`Ошибка при отправлении данных: ${err}`);
         });
   }
 
   _onLoad(data) {
     const serverData = data;
     const historyContainer = document.createDocumentFragment();
-    const scoreLastGame = this._countScore(this._stats, this._stats.lives);
+    const lastGameScore = this._countScore(this._stats, this._stats.lives);
     const historyTitle = document.createElement(`h2`);
-    let positionLastGame = 1;
-    let countingUserStatistics = [];
+    let lastGamePosition = 1;
     historyTitle.textContent = `Предыдущие результаты`;
     historyContainer.appendChild(historyTitle);
 
-    countingUserStatistics = serverData.map((item) => {
-      let score = this._countScore(item, item.lives);
-      item.totalPoints = score;
+    const countingUserStatistics = serverData.map((item) => {
+      item.totalPoints = this._countScore(item, item.lives);
       return item;
     });
 
     countingUserStatistics.sort(compareTotalPoints);
 
     countingUserStatistics.forEach((item, index) => {
-      let element;
-      if (item.totalPoints > scoreLastGame) {
-        positionLastGame = index + 2;
+      if (item.totalPoints > lastGameScore) {
+        lastGamePosition = index + 2;
       }
-      element = this._createTemplate(item.status, item, index);
-      historyContainer.appendChild(createElement(element));
+      const templateElement = this._createTemplate(item.status, item, index);
+      historyContainer.appendChild(createElement(templateElement));
     });
 
-    this.resultNumber.textContent = `${positionLastGame}`;
+    this.resultNumber.textContent = `${lastGamePosition}`;
     this.resultContainer.appendChild(historyContainer);
   }
 
-  static _getCheckResponse(response) {
-    if (response.ok) {
-      return response.json();
-    }
-    return false;
-  }
-
   _getCheckData(data) {
-    const onLoad = this._onLoad;
-    let serverData;
-    if (data) {
-      serverData = data;
-      return onLoad(serverData);
-    }
-    return false;
+    return this._onLoad(data);
   }
 
 
-  getDataUser() {
+  getUserData() {
     window.fetch(`https://es.dump.academy/pixel-hunter/stats/:${this.applicationId}-:${this._stats.userName}`)
         .then((response) => {
-          return StatsView._getCheckResponse(response);
+          if (response.ok) {
+            return response.json();
+          } else if (response.status === 404) {
+            return Promise.reject(`Cтатистики прошлых игр нет`);
+          }
+          throw new Error(`Неизвестный статус: ${response.status} ${response.statusText}`);
         })
         .then((data) => {
           return this._getCheckData(data);
@@ -105,17 +102,17 @@ class StatsView extends AbstractView {
         .catch((err) => {
           if (err.stack === `TypeError: Failed to fetch`) {
             return this._onLoadError(`Сервер со статистикой недоступен`);
+          } else if (err === `Cтатистики прошлых игр нет`) {
+            return this._onLoadError(err);
           }
           return this._onLoadError(`Неизвестная ошибка: ${err} свяжитесь с администратором`);
         });
   }
 
-  _createTemplate(statusGame, stats, index) {
-    if (statusGame === `fail`) {
+  _createTemplate(gameStatus, stats, index) {
+    if (gameStatus === GameStatuses.FAIL) {
       this._html = failTemplate(stats);
-    } else if (statusGame === `timeOut`) {
-      this._html = timeOutTemplate(stats);
-    } else if (statusGame === `historyGame`) {
+    } else if (gameStatus === GameStatuses.HISTORY) {
       this._html = historyTemplate(stats, index);
     } else {
       this._html = winTemplate(stats);

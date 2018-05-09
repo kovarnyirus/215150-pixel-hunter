@@ -4,7 +4,7 @@ const GameScreenTypes = {
   'TWO-OF-TWO': `GAME-1`
 };
 
-const TypeImage = {
+const ImageTypes = {
   'PAINTING': `paint`,
   'PHOTO': `photo`
 };
@@ -15,16 +15,13 @@ const adaptServerData = (data) => {
     return {
       type: GameScreenTypes[item.type.toUpperCase()],
       question: item.question,
-      images: item.answers.map((answer) => {
-        return {
-          src: answer.image.url,
-          width: answer.image.width,
-          height: answer.image.height,
-          type: TypeImage[answer.type.toUpperCase()]
-        };
-      }),
+      images: item.answers.map(({type, image: {url, width, height}}) => ({
+        src: url,
+        width,
+        height,
+        type: ImageTypes[type.toUpperCase()]
+      }))
     };
   });
 };
-
 export default adaptServerData;
